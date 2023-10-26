@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
+
+:root {
+  &,
+  &.light-mode {
+    --color-green: #1c988c;
+    --color-green-dark: #13665e;
+    --color-gold: #e8d39d;
+    --color-gold-dark: #e8d39d;
+    --color-white: #fff;
+    --color-black: #031210;
+    --color-fail: #d91914;
+    --color-green-radiant: radial-gradient(
+      50% 50% at 50% 50%,
+      #21b2a4 0%,
+      #1c988c 100%
+    );
+    --color-transparent-black: rgba(3, 18, 16, 0.19);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Syne', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  line-height: 1.5;
+  font-size: 1.6rem;
+  transition: color 0.2s, background-color 0.3s;
+}
+
+::selection {
+  background-color: var(--color-green-dark);
+  color: var(--color-white);
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 6rem;
+  line-height: 1.2;
+}

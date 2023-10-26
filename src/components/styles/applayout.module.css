@@ -1,0 +1,14 @@
+.main {
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+}
+
+@media only screen and (max-width: 75em) {
+  .main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+}

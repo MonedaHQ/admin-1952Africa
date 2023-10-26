@@ -1,0 +1,94 @@
+.main {
+  background: var(--color-green-radiant);
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 100%;
+  text-align: center;
+}
+
+.logo img {
+  width: 12%;
+}
+
+.login {
+  background-color: var(--color-white);
+  padding: 4rem 0;
+  border-radius: 0.8rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+  max-width: 60rem;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  row-gap: 3rem;
+}
+
+.login h4 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.form {
+  max-width: 80%;
+  margin: auto;
+
+  display: grid;
+  grid-template-rows: repeat(3, max-content);
+  row-gap: 3rem;
+  justify-items: center;
+}
+
+.fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldset label {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.fieldset input {
+  font: inherit;
+  outline: none;
+  border: 1px solid var(--color-black);
+  min-width: 30rem;
+
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+
+  transition: all 0.3s;
+}
+
+.fieldset input:focus {
+  border: 1px solid var(--color-green);
+}
+
+.fieldset p {
+  color: var(--color-fail);
+}
+
+@media only screen and (max-width: 39.6875em) {
+  .login {
+    max-width: 80%;
+  }
+}
+
+@media only screen and (max-width: 29.0625em) {
+  .form {
+    max-width: 100%;
+  }
+  .fieldset input {
+    min-width: auto;
+    max-width: 100%;
+  }
+}

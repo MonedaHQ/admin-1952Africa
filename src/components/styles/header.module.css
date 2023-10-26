@@ -1,0 +1,39 @@
+.header {
+  background: url('/images/bgScrib.jpg');
+  background-position: center;
+  background-size: cover;
+
+  padding: 1rem 6rem;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menuIcon {
+  display: none;
+
+  border: none;
+  outline: none;
+}
+
+.avatar img {
+  width: 80%;
+}
+
+@media only screen and (max-width: 75em) {
+  .header {
+    gap: 3rem;
+  }
+  .menuIcon {
+    display: block;
+    background-color: transparent;
+  }
+}
+
+@media only screen and (max-width: 28.25em) {
+  .header {
+    padding: 1rem 2rem;
+    gap: 1rem;
+  }
+}
