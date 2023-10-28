@@ -1,19 +1,25 @@
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
 
-import styles from '../styles/header.module.css';
 import { useMenuToggle } from '../../context/MenuToggleContext';
 
+import styles from '../styles/header.module.css';
+import { useNavigate } from 'react-router-dom';
+
 function Header() {
+  const navigate = useNavigate();
   const { isSidebarOpen, toggleSidebar } = useMenuToggle();
-  console.log(isSidebarOpen);
   return (
     <header className={styles.header}>
-      <div className={styles.avatar}>
-        <img src="/images/defaultAvatar.png" alt="User image" />
-      </div>
       <button className={styles.menuIcon} onClick={() => toggleSidebar()}>
         {isSidebarOpen ? <RxCross1 /> : <AiOutlineMenu />}
+      </button>
+      <button className={styles.avatar} onClick={() => navigate('/profile')}>
+        <img
+          src="/images/defaultAvatar.jpg"
+          alt="User image"
+          draggable="false"
+        />
       </button>
     </header>
   );

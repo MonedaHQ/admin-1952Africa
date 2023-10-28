@@ -1,0 +1,29 @@
+.section {
+  padding: 6rem 6rem;
+  display: grid;
+  grid-auto-rows: max-content;
+  row-gap: 3rem;
+}
+
+.section h2 {
+  font-size: 3.8rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  row-gap: 3rem;
+}
+
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.program {
+  display: grid;
+  grid-auto-rows: max-content;
+  row-gap: 1rem;
+}

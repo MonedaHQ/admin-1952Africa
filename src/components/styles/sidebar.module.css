@@ -1,0 +1,146 @@
+.sidebar {
+  height: 100%;
+  background-color: var(--color-green);
+  color: var(--color-white);
+
+  padding: 8rem 0rem;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+
+  row-gap: 4rem;
+}
+
+.logo {
+  max-width: 100%;
+  text-align: center;
+}
+
+.logo img {
+  width: 25%;
+}
+
+.menuLinks {
+  display: grid;
+  grid-template-rows: repeat(4, max-content);
+  grid-auto-rows: max-content;
+  row-gap: 1rem;
+}
+
+.links {
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  position: relative;
+  padding: 2rem 4rem;
+
+  z-index: 1;
+
+  transition: all 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0.2s;
+}
+
+.links:hover {
+  color: var(--color-black);
+}
+.links:not(.active)::after {
+  content: '';
+  background-color: transparent;
+  position: absolute;
+  width: 1%;
+  height: 0%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    width 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0.2s;
+}
+
+.links:hover:not(.active)::after {
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+
+  background-color: var(--color-gold);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.active {
+  background-color: var(--color-gold);
+  border-top: 1px solid var(--color-black);
+  border-bottom: 1px solid var(--color-black);
+
+  color: var(--color-black);
+}
+
+svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.active svg {
+  fill: var(--color-green);
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  --webkit-backdrop-filter: blur(4px);
+
+  display: none;
+  z-index: 1000;
+}
+
+@media only screen and (max-width: 75em) {
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    max-width: 32%;
+    transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    z-index: 5000;
+
+    padding: 6rem 0;
+  }
+
+  .open {
+    top: 0;
+    left: 0;
+  }
+
+  .close {
+    left: -80rem;
+  }
+
+  .overlay {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 49.375em) {
+  .sidebar {
+    max-width: 40%;
+    padding: 4rem 0;
+  }
+}
+
+@media only screen and (max-width: 36.875em) {
+  .sidebar {
+    width: 70%;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 28.25em) {
+  .links {
+    padding: 1rem 2rem;
+  }
+}

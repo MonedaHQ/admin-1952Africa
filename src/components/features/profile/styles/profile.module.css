@@ -1,0 +1,51 @@
+.section {
+  padding: 4rem 8rem;
+
+  display: grid;
+  grid-template-rows: max-content;
+  grid-auto-rows: max-content;
+
+  row-gap: 6rem;
+}
+
+.main {
+  display: grid;
+  grid-auto-rows: max-content;
+  row-gap: 5rem;
+}
+
+.avatar {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+}
+
+.avatar img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50rem;
+}
+
+.btnWrapper {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+@media only screen and (max-width: 75em) {
+  .section {
+    padding: 4rem 6rem;
+  }
+}
+
+@media only screen and (max-width: 56.25em) {
+  .section {
+    padding: 2rem 4rem;
+  }
+}
+
+@media only screen and (max-width: 38.75em) {
+  .section {
+    padding: 2rem 2rem;
+  }
+}

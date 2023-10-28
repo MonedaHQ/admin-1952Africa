@@ -1,0 +1,77 @@
+.section {
+  text-align: center;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  row-gap: 8rem;
+}
+
+.filter {
+  font: inherit;
+  padding: 1rem 2rem;
+  border-radius: 5rem;
+  background-color: var(--color-gold);
+
+  justify-self: center;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 3rem;
+  justify-items: center;
+}
+
+.metric {
+  padding: 8rem 4rem;
+  border-radius: 0.8rem;
+  width: 100%;
+
+  background-color: var(--color-gold);
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.metric:hover {
+  border: 1px solid var(--color-black);
+  box-shadow: none;
+}
+
+.metric h3 {
+  font-size: 5rem;
+}
+
+.metric p {
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 51.875em) {
+  .metric {
+    padding: 4rem 2rem;
+  }
+}
+
+@media only screen and (max-width: 40.625em) {
+  .metrics {
+    column-gap: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 31.25em) {
+  .metric h3 {
+    font-size: 2.8rem;
+  }
+}
+
+@media only screen and (max-width: 24.6875em) {
+  .metrics {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 3rem;
+  }
+}

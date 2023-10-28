@@ -7,6 +7,9 @@ import Home from './components/features/dashboard/Home';
 import Prograns from './components/features/programs/Programs';
 import Artists from './components/features/artists/Artists';
 import Events from './components/features/events/Events';
+import Gallery from './components/features/gallery/Gallery';
+import Profile from './components/features/profile/Profile';
+import Program from './components/features/programs/Program';
 
 function App() {
   return (
@@ -17,8 +20,11 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/programs" element={<Prograns />} />
+            <Route path="/programs/:id" element={<Program />} />
             <Route path="/artist" element={<Artists />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from '../styles/Button.module.css';
 
 function Button({
@@ -7,13 +8,10 @@ function Button({
   href = null,
   type = 'button',
 }) {
-  if (variant === 'link-white' || variant === 'link-dark') {
+  if (variant.includes('link') || variant.startsWith('link')) {
+    const classname = variant.split('-').at(1);
     return (
-      <div
-        className={`${styles.box} ${
-          variant === 'link-white' ? styles.boxWhite : styles.boxDark
-        }`}
-      >
+      <div className={`${styles.box} ${styles[classname]}`}>
         {onClick ? (
           <button
             className={`${styles.button} ${styles[variant]}`}
@@ -24,7 +22,7 @@ function Button({
           </button>
         ) : (
           <button className={`${styles.button} ${styles[variant]}`} type={type}>
-            <a href={href}>{children}</a>
+            <Link href={href}>{children}</Link>
           </button>
         )}
       </div>
