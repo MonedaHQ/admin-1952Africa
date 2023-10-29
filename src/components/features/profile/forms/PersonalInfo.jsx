@@ -27,7 +27,7 @@ function PersonalInfo() {
         </div>
         <div className={styles.btnWrapper}>
           <Button variant="primary">Save changes</Button>
-          <Button variant="link-white">Cancel</Button>
+          <Button variant="link-warn">Cancel</Button>
         </div>
       </form>
     </section>

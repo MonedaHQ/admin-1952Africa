@@ -5,8 +5,7 @@ import { motion } from 'framer-motion';
 
 import styles from '../styles/Modal.module.css';
 
-import { useOutsideClick } from '@/hooks/useOutsideClick';
-
+import { useOutsideClick } from '../../hooks/useOutsideClick';
 const ModalContext = createContext();
 
 function Modal({ children }) {
@@ -33,18 +32,32 @@ function Window({ children, name }) {
 
   if (name !== openName) return null;
 
+  const animationVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.1 } },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { delay: 0.3, duration: 0.1 },
+    },
+  };
+
   return createPortal(
     <motion.div
       className={styles.overlay}
-      transition={{ delay: 0.1 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      variants={animationVariants}
+      initial="hidden"
+      animate="visible"
     >
-      <motion.div>
-        <div className={styles.modal} ref={ref}>
+      <div>
+        <motion.div className={styles.modal} ref={ref} variants={modalVariants}>
           <div>{cloneElement(children, { onCloseModal: close })}</div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </motion.div>,
     document.body
   );

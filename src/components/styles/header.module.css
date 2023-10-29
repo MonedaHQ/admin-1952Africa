@@ -58,4 +58,7 @@
 }
 
 @media only screen and (max-width: 28.25em) {
+  .avatar img {
+    width: 34%;
+  }
 }

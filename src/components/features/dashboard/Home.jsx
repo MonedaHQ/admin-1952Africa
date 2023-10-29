@@ -1,18 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-import { IoMdAddCircle } from 'react-icons/io';
-
 import { motion } from 'framer-motion';
 
+import { headerVariant } from '../../../data/animationVariants';
+
 import Metrics from './Metrics';
+import QuickActions from '../../ui/QuickActions';
 
 import styles from './styles/home.module.css';
-import { headerVariant } from '../../../data/animationVariants';
 
 function Home() {
   const quickActions = [
     { label: 'Add Event', path: '/events' },
     { label: 'Add Artist', path: '/artist' },
-    { label: 'Add Program', path: '/programs' },
+    { label: 'Add Program', path: '/programs/add' },
     { label: 'Add Exhibition', path: '/gallery' },
   ];
 
@@ -30,17 +29,6 @@ function Home() {
         <Metrics />
       </div>
     </motion.section>
-  );
-}
-
-function QuickActions({ action }) {
-  const navigate = useNavigate();
-  return (
-    <button onClick={() => navigate(action.path)} className={styles.action}>
-      <IoMdAddCircle />
-
-      <span>{action.label}</span>
-    </button>
   );
 }
 

@@ -1,0 +1,46 @@
+.action {
+  font: inherit;
+  padding: 2rem 4rem;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.8rem;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  justify-items: center;
+  row-gap: 1rem;
+
+  transition: all 0.35s;
+}
+
+.action:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.action svg {
+  width: 3rem;
+  height: 3rem;
+  fill: var(--color-green);
+}
+
+.action span {
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 34.375em) {
+  .action {
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 22.6875em) {
+  .action svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .action span {
+    font-size: 1.4rem;
+  }
+}

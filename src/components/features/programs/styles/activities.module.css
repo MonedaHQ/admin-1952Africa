@@ -1,0 +1,24 @@
+.headerPanel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.btn p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  font-weight: 600;
+}
+
+.btn span {
+  color: var(--color-green);
+}

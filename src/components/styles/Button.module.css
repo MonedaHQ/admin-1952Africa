@@ -35,6 +35,24 @@
   box-shadow: 0px 0px 0px var(--color-black);
 }
 
+.delete {
+  color: var(--color-white);
+  background-color: var(--color-fail);
+  border: 1px solid var(--color-black);
+  box-shadow: 0px 0px 0px var(--color-black);
+  padding: 1rem 2rem;
+}
+
+.delete:hover {
+  box-shadow: 0px 5px 0px var(--color-black);
+  transform: translateY(-2px);
+}
+
+.delete:active {
+  transform: translate(0);
+  box-shadow: 0px 0px 0px var(--color-black);
+}
+
 .link-white {
   color: var(--color-white);
   background-color: transparent;
@@ -56,7 +74,7 @@
 }
 
 .link-warn {
-  color: var(--color-fail);
+  color: var(--color-black);
   background-color: transparent;
   opacity: 0.8;
 }

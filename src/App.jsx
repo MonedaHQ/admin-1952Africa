@@ -10,6 +10,7 @@ import Events from './components/features/events/Events';
 import Gallery from './components/features/gallery/Gallery';
 import Profile from './components/features/profile/Profile';
 import Program from './components/features/programs/Program';
+import AddPrograms from './components/features/programs/AddPrograms';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/programs" element={<Prograns />} />
-            <Route path="/programs/:id" element={<Program />} />
+            <Route path="/programs/:slug" element={<Program />} />
+            <Route path="/programs/add" element={<AddPrograms />} />
             <Route path="/artist" element={<Artists />} />
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<Gallery />} />

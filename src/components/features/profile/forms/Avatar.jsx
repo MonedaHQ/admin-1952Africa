@@ -12,7 +12,7 @@ function Avatar() {
         {!isChanged && <Button variant="primary">Replace</Button>}
         {isChanged && <Button variant="primary">Save</Button>}
         {isChanged && <Button variant="link-dark">Replace</Button>}
-        <Button variant="link-dark">Cancel</Button>
+        <Button variant="link-warn">Cancel</Button>
       </div>
     </div>
   );

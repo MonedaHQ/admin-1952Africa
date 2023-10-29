@@ -65,7 +65,11 @@ function Sidebar() {
         }`}
       >
         <div className={styles.logo}>
-          <img src="/images/1952-logo-dark.png" alt="1952 Logo" />
+          <img
+            src="/images/1952-logo-dark.png"
+            alt="1952 Logo"
+            draggable="false"
+          />
         </div>
         <nav className={styles.menuLinks} ref={ref}>
           {menuLinks.map((link) => (
@@ -74,10 +78,12 @@ function Sidebar() {
               key={link.label}
               onClick={() => closeSidebar()}
               className={`${styles.links} ${
-                currentPath === link.path && styles.active
+                currentPath.startsWith(link.path) && styles.active
               }`}
             >
-              {currentPath === link.path ? link.iconActive : link.iconInactive}{' '}
+              {currentPath.startsWith(link.path)
+                ? link.iconActive
+                : link.iconInactive}{' '}
               {link.label}
             </NavLink>
           ))}
