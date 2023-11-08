@@ -39,7 +39,7 @@ function Sidebar() {
     },
     {
       label: 'Artists',
-      path: '/artist',
+      path: '/artists',
       iconActive: <PiPaletteFill />,
       iconInactive: <PiPaletteBold />,
     },

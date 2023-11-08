@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  font: inherit;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn svg {
+  fill: var(--color-green);
+}
+
+.btn:disabled svg {
+  fill: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+}
+
+.results span {
+  font-weight: 600;
+}

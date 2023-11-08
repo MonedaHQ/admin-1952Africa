@@ -9,8 +9,14 @@ import Artists from './components/features/artists/Artists';
 import Events from './components/features/events/Events';
 import Gallery from './components/features/gallery/Gallery';
 import Profile from './components/features/profile/Profile';
+
 import Program from './components/features/programs/Program';
 import AddPrograms from './components/features/programs/AddPrograms';
+import Activity from './components/features/activities/Activity';
+import AddActivity from './components/features/activities/AddActivity';
+import EditProgram from './components/features/programs/EditProgram';
+import Artist from './components/features/artists/Artist';
+import AddArtist from './components/features/artists/AddArtist';
 
 function App() {
   return (
@@ -22,8 +28,13 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/programs" element={<Prograns />} />
             <Route path="/programs/:slug" element={<Program />} />
+            <Route path="/programs/:slug/edit" element={<EditProgram />} />
             <Route path="/programs/add" element={<AddPrograms />} />
-            <Route path="/artist" element={<Artists />} />
+            <Route path="/activities/:id" element={<Activity />} />
+            <Route path="/activities/add" element={<AddActivity />} />
+            <Route path="/artists" element={<Artists />} />
+            <Route path="/artists/:slug" element={<Artist />} />
+            <Route path="/artists/add" element={<AddArtist />} />
             <Route path="/events" element={<Events />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/profile" element={<Profile />} />

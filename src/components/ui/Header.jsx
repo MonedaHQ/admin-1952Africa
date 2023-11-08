@@ -1,10 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { RxCross1 } from 'react-icons/rx';
 
 import { useMenuToggle } from '../../context/MenuToggleContext';
 
 import styles from '../styles/header.module.css';
-import { useNavigate } from 'react-router-dom';
 
 function Header() {
   const navigate = useNavigate();

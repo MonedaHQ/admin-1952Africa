@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 
-import Avatar from './forms/Avatar';
+import Avatar from '../../ui/Avatar';
 import ChangePassword from './forms/ChangePassword';
 import PersonalInfo from './forms/PersonalInfo';
 import styles from './styles/profile.module.css';
 import { headerVariant } from '../../../data/animationVariants';
+import SignOut from './SignOut';
 
 function Profile() {
   return (
@@ -16,6 +17,7 @@ function Profile() {
         <Avatar />
         <PersonalInfo />
         <ChangePassword />
+        <SignOut />
       </div>
     </section>
   );

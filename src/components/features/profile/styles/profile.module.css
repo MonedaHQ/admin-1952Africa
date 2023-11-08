@@ -14,18 +14,6 @@
   row-gap: 5rem;
 }
 
-.avatar {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  justify-items: center;
-}
-
-.avatar img {
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50rem;
-}
-
 .btnWrapper {
   display: flex;
   align-items: center;

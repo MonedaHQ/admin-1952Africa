@@ -9,7 +9,7 @@ function Login() {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { delay: 0.3, duration: 0.5 },
+      transition: { delay: 0.3, duration: 0.1 },
     },
   };
 

@@ -1,0 +1,22 @@
+.formField {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3rem;
+}
+
+.notFull {
+  align-items: center;
+  justify-content: center;
+}
+
+.full {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@media only screen and (max-width: 47.5625em) {
+  .formField {
+    align-items: stretch;
+  }
+}

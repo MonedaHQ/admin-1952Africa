@@ -1,30 +1,55 @@
+import { useForm } from 'react-hook-form';
 import Button from '../../../ui/Button';
+import FormWrapper from '../../../ui/FormWrapper';
 import styles from '../styles/form.module.css';
+import TripleInputFields from '../../../ui/TripleInputFields';
+import TripleInput from '../../../ui/TripleInput';
+import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
 
 function ChangePassword() {
+  const { register, formState, handleSubmit, reset } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    const newData = { ...data, email: null };
+    console.log(newData);
+  }
   return (
     <section className={styles.section}>
       <h3>Change password</h3>
-      <form className={styles.form}>
-        <div className={styles.formFields}>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="current_password">Current password</label>
-            <input type="password" id="current_password" />
-          </fieldset>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="new_password">New password</label>
-            <input type="password" id="new_password" />
-          </fieldset>
-          <fieldset className={styles.fieldset}>
-            <label htmlFor="new_passwordConfirm">Confirm password</label>
-            <input type="password" id="new_passwordConfirm" />
-          </fieldset>
-        </div>
-        <div className={styles.btnWrapper}>
-          <Button variant="primary">Save changes</Button>
-          <Button variant="link-warn">Cancel</Button>
-        </div>
-      </form>
+      <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+        <TripleInputFields>
+          <TripleInput
+            type="password"
+            id="current_password"
+            label="Current password"
+            defaultValue=""
+            formActions={{ register, errors }}
+          />
+          <TripleInput
+            type="password"
+            id="new_password"
+            label="New password"
+            defaultValue=""
+            formActions={{ register, errors }}
+          />
+          <TripleInput
+            type="password"
+            id="new_passwordConfirm"
+            label="Confirm password"
+            defaultValue=""
+            formActions={{ register, errors }}
+          />
+        </TripleInputFields>
+        <TwoButtonWrapper>
+          <Button variant="primary" type="submit">
+            Save
+          </Button>
+          <Button variant="link-warn" onClick={() => reset()}>
+            Cancel
+          </Button>
+        </TwoButtonWrapper>
+      </FormWrapper>
     </section>
   );
 }

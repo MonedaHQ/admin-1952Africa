@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 
+import { headerVariant } from '../../../data/animationVariants';
+
 import AddCoverImg from './AddCoverImg';
 import ProgramData from './ProgramData';
 
 import styles from './styles/addprograms.module.css';
-import { headerVariant } from '../../../data/animationVariants';
 
 function AddPrograms() {
   return (

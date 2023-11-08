@@ -10,8 +10,9 @@ import styles from './styles/home.module.css';
 function Home() {
   const quickActions = [
     { label: 'Add Event', path: '/events' },
-    { label: 'Add Artist', path: '/artist' },
-    { label: 'Add Program', path: '/programs/add' },
+    { label: 'Add Artist', path: '/artists/add' },
+    // { label: 'Add Program', path: '/programs/add' },
+    { label: 'Add Activity', path: '/activities/add' },
     { label: 'Add Exhibition', path: '/gallery' },
   ];
 

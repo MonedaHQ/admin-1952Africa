@@ -10,8 +10,10 @@ import QuickActions from '../../ui/QuickActions';
 import styles from './styles/programs.module.css';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import { useScrollToTop } from '../../../hooks/useScrollToTop';
 
 function Programs() {
+  useScrollToTop();
   const programs = programData;
 
   return (

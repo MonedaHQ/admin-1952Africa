@@ -59,7 +59,7 @@
 
 .fieldset input {
   font: inherit;
-  outline: none;
+  outline: 1px solid transparent;
   border: 1px solid var(--color-black);
   min-width: 30rem;
 
@@ -71,6 +71,7 @@
 
 .fieldset input:focus {
   border: 1px solid var(--color-green);
+  outline: 1px solid var(--color-green);
 }
 
 .fieldset p {

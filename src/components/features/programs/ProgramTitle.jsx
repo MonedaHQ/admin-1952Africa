@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Button from '../../ui/Button';
 
@@ -7,6 +7,7 @@ import { headerVariant } from '../../../data/animationVariants';
 
 function ProgramTitle({ program }) {
   const navigate = useNavigate();
+  const { slug } = useParams();
   return (
     <div className={styles.titleContainer}>
       <img src={program.cover_img} alt={program.title} draggable="false" />
@@ -15,7 +16,12 @@ function ProgramTitle({ program }) {
       </motion.h2>
       <p>{program.description}</p>
       <div className={styles.btnWrapper}>
-        <Button variant="primary">Edit</Button>
+        <Button
+          variant="primary"
+          onClick={() => navigate(`/programs/${slug}/edit`)}
+        >
+          Edit
+        </Button>
         <Button variant="link-dark" onClick={() => navigate(-1)}>
           Go back
         </Button>

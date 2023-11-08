@@ -11,6 +11,7 @@ function LoginForm() {
   const navigate = useNavigate();
 
   async function onSubmit(data) {
+    console.log(data);
     navigate('/home');
   }
 

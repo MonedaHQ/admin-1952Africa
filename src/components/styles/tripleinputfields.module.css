@@ -1,0 +1,21 @@
+.formFields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  column-gap: 3rem;
+  row-gap: 3rem;
+
+  align-items: start;
+}
+
+@media only screen and (max-width: 47.5em) {
+  .formFields {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 32.5em) {
+  .formFields {
+    grid-template-columns: 1fr;
+  }
+}

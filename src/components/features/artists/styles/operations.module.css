@@ -1,0 +1,88 @@
+.panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.panel div {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 2rem;
+}
+
+.button {
+  font: inherit;
+  border: 1px solid var(--color-green);
+  outline: 2px solid transparent;
+  outline-offset: 0.2rem;
+  cursor: pointer;
+
+  background-color: transparent;
+  color: var(--color-green);
+  padding: 1rem 2rem;
+  border-radius: 5rem;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.button:focus {
+  outline: 2px solid var(--color-green);
+}
+
+.active {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.inactive {
+  background-color: transparent;
+  color: var(--color-green);
+}
+
+.panel select {
+  font: inherit;
+  border: 1px solid var(--color-black);
+  outline: 1px solid transparent;
+
+  border-radius: 5rem;
+
+  padding: 1rem 2rem;
+
+  justify-self: self-end;
+  transition: all 0.3s;
+}
+
+.panel select:focus {
+  border: 1px solid var(--color-green);
+  outline: 1px solid var(--color-green);
+}
+
+@media only screen and (max-width: 56.25em) {
+  .panel {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    row-gap: 3rem;
+  }
+
+  .panel select {
+    justify-self: self-start;
+  }
+}
+
+@media only screen and (max-width: 31.25em) {
+  .panel {
+    grid-auto-rows: max-content;
+  }
+  .panel div {
+    display: none;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, max-content);
+  }
+}
+
+@media only screen and (max-width: 17.5em) {
+}
