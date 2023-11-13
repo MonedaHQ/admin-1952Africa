@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
-import Button from '../../ui/Button';
-import FormFields from '../../ui/FormFields';
-import FormWrapper from '../../ui/FormWrapper';
-import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
-import TextInput from '../../ui/formChunks/TextInput';
-import { activitesData, programData } from '../../../data/programsData';
 import { useNavigate } from 'react-router-dom';
+
+import { activitesData, programData } from '../../../data/programsData';
+
+import FormWrapper from '../../ui/FormWrapper';
+import FormFields from '../../ui/FormFields';
+import TextInput from '../../ui/formChunks/TextInput';
+import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
+import Button from '../../ui/Button';
 
 function ArtistForm({ artist }) {
   const navigate = useNavigate();

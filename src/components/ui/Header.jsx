@@ -5,21 +5,23 @@ import { RxCross1 } from 'react-icons/rx';
 import { useMenuToggle } from '../../context/MenuToggleContext';
 
 import styles from '../styles/header.module.css';
+import { usersData } from '../../data/programsData';
 
 function Header() {
   const navigate = useNavigate();
   const { isSidebarOpen, toggleSidebar } = useMenuToggle();
+
+  const currentUser = usersData.find((user) => user.authenticated);
+  const imageSrc = currentUser
+    ? currentUser.profile_img
+    : '/images/defaultAvatar.jpg';
   return (
     <header className={styles.header}>
       <button className={styles.menuIcon} onClick={() => toggleSidebar()}>
         {isSidebarOpen ? <RxCross1 /> : <AiOutlineMenu />}
       </button>
       <button className={styles.avatar} onClick={() => navigate('/profile')}>
-        <img
-          src="/images/defaultAvatar.jpg"
-          alt="User image"
-          draggable="false"
-        />
+        <img src={imageSrc} alt="User image" draggable="false" />
       </button>
     </header>
   );

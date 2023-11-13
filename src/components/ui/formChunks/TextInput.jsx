@@ -8,7 +8,9 @@ function TextInput({
   placeholder,
   defaultValue,
   formActions,
+  onChange = null,
   required = true,
+  disabled = false,
 }) {
   const { register, errors } = formActions;
 
@@ -20,9 +22,11 @@ function TextInput({
           id={id}
           placeholder={placeholder}
           defaultValue={defaultValue}
+          onChange={onChange}
           {...register(id, {
             required: required ? 'This field is required' : false,
           })}
+          disabled={disabled}
         />
         {errors[id] && <p>{errors[id].message}</p>}
       </fieldset>
@@ -34,9 +38,11 @@ function TextInput({
         <label htmlFor={id}>{label}</label>
         <select
           defaultValue={defaultValue}
+          onChange={onChange}
           {...register(id, {
             required: required ? 'This field is required' : false,
           })}
+          disabled={disabled}
         >
           {children}
         </select>
@@ -52,9 +58,11 @@ function TextInput({
           id={id}
           type={type}
           defaultValue={defaultValue}
+          onChange={onChange}
           {...register(id, {
             required: required ? 'This field is required' : false,
           })}
+          disabled={disabled}
         />
         {errors[id] && <p>{errors[id].message}</p>}
       </fieldset>
@@ -68,9 +76,11 @@ function TextInput({
         type={type}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        onChange={onChange}
         {...register(id, {
           required: required ? 'This field is required' : false,
         })}
+        disabled={disabled}
       />
       {errors[id] && <p>{errors[id].message}</p>}
     </fieldset>

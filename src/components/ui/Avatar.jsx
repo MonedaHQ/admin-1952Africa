@@ -3,11 +3,11 @@ import { useState } from 'react';
 import styles from '../styles/avatar.module.css';
 import ImageInput from './formChunks/ImageInput';
 
-function Avatar({ artist }) {
+function Avatar({ imageData, editable = true }) {
+  const imageSrc = imageData?.data[imageData.key];
   const [imagePreview, setImagePreview] = useState(
-    artist ? artist.profile_img : '/images/defaultAvatar.jpg'
+    imageSrc ? imageSrc : '/images/defaultAvatar.jpg'
   );
-
   function handleImageChange(image) {
     const imageURL = URL.createObjectURL(image);
     if (imageURL) {
@@ -19,9 +19,11 @@ function Avatar({ artist }) {
   return (
     <div className={styles.avatar}>
       <img src={imagePreview} alt="User photo" draggable="false" />
-      <ImageInput variant="primary" onChange={handleImageChange}>
-        Replace
-      </ImageInput>
+      {editable && (
+        <ImageInput variant="primary" onChange={handleImageChange}>
+          Replace
+        </ImageInput>
+      )}
     </div>
   );
 }

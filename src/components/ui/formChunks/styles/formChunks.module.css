@@ -40,11 +40,9 @@
 }
 
 @media only screen and (max-width: 47.5625em) {
-  .fieldset input {
-    width: 100%;
-  }
-
-  .fieldset textarea {
+  .fieldset input,
+  .fieldset textarea,
+  .fieldset select {
     width: 100%;
   }
 }

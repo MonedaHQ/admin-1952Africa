@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import styles from './styles/metrics.module.css';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+
+import styles from './styles/metrics.module.css';
 
 function Metrics() {
   const [searchParams, setSearchParams] = useSearchParams();

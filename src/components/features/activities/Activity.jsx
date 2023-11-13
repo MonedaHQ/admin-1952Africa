@@ -1,30 +1,36 @@
-import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 
-import { headerVariant } from '../../../data/animationVariants';
 import { activitesData } from '../../../data/programsData';
 
 import EditActivity from './EditActivity';
-import Button from '../../ui/Button';
 
-import styles from './styles/activity.module.css';
+import Section from '../../ui/Section';
+import AddCoverImg from '../../ui/formChunks/AddCoverImg';
+import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 
 function Activity() {
   const { id } = useParams();
 
   const activity = activitesData.find((activity) => activity.id === id);
 
+  const imageData = { data: [activity], key: 'image_url' };
+
   return (
-    <section className={styles.section}>
-      <div className={styles.titleContainer}>
-        <img src={activity.image_url} alt={activity.title} draggable="false" />
-        <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
-          {activity.title}
-        </motion.h2>
-        <Button variant="primary">Replace image</Button>
-      </div>
+    <Section>
+      <HeaderAndButton
+        header={`Edit Activity`}
+        navigateTo={{
+          path: '',
+          label: 'Delete activity',
+          resourceName: activity.title,
+        }}
+        as="delete"
+        type="lg"
+      />
+
+      <AddCoverImg imageData={imageData} />
       <EditActivity activity={activity} />
-    </section>
+    </Section>
   );
 }
 

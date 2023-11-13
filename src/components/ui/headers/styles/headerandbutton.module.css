@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.xl {
+  padding: 2rem 0;
+  font-size: 3.8rem;
+}
+
+.lg {
+  padding: 1rem;
+  font-size: 2.8rem;
+}
+
+.btn {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.btn p {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn span {
+  color: var(--color-green);
+}
+
+.delete:hover > p {
+  color: var(--color-fail);
+}
+
+.delete span {
+  color: var(--color-fail);
+}
+
+@media only screen and (max-width: 75em) {
+  .xl {
+    padding: 2rem 0;
+    font-size: 4rem;
+  }
+
+  .lg {
+    padding: 1rem;
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 34.375em) {
+  .xl {
+    font-size: 2.8rem;
+    padding: 1rem 0;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

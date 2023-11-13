@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
-import Button from '../../../ui/Button';
+
+import Section from '../../../ui/Section';
 import FormWrapper from '../../../ui/FormWrapper';
-import styles from '../styles/form.module.css';
 import TripleInputFields from '../../../ui/TripleInputFields';
 import TripleInput from '../../../ui/TripleInput';
 import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
+import Button from '../../../ui/Button';
 
 function ChangePassword() {
   const { register, formState, handleSubmit, reset } = useForm();
@@ -15,7 +16,7 @@ function ChangePassword() {
     console.log(newData);
   }
   return (
-    <section className={styles.section}>
+    <Section>
       <h3>Change password</h3>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <TripleInputFields>
@@ -50,7 +51,7 @@ function ChangePassword() {
           </Button>
         </TwoButtonWrapper>
       </FormWrapper>
-    </section>
+    </Section>
   );
 }
 

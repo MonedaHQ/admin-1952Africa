@@ -1,23 +1,21 @@
-import { motion } from 'framer-motion';
+import { programData } from '../../../data/programsData';
 
-import { headerVariant } from '../../../data/animationVariants';
-
-import AddCoverImg from './AddCoverImg';
+import MainForm from '../../ui/MainForm';
+import Section from '../../ui/Section';
+import BigHeader from '../../ui/headers/BigHeader';
+import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import ProgramData from './ProgramData';
 
-import styles from './styles/addprograms.module.css';
-
 function AddPrograms() {
+  const imageData = { data: programData, key: 'cover_img' };
   return (
-    <section className={styles.section}>
-      <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
-        Add Program
-      </motion.h2>
-      <div className={styles.main}>
-        <AddCoverImg />
+    <Section>
+      <BigHeader title="Add Program" variant="lg" />
+      <MainForm>
+        <AddCoverImg imageData={imageData} />
         <ProgramData />
-      </div>
-    </section>
+      </MainForm>
+    </Section>
   );
 }
 

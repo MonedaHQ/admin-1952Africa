@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
+import { usersData } from '../../../data/programsData';
+
 import Button from '../../ui/Button';
 
 import styles from './styles/login.module.css';
@@ -11,7 +13,15 @@ function LoginForm() {
   const navigate = useNavigate();
 
   async function onSubmit(data) {
-    console.log(data);
+    const { email, password } = data;
+    const currentUser = usersData.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (!currentUser) {
+      alert('Email or password incorrect');
+      return;
+    }
     navigate('/home');
   }
 

@@ -1,17 +1,19 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import Button from '../../ui/Button';
+import { useForm } from 'react-hook-form';
+
 import { programData } from '../../../data/programsData';
+
+import FormWrapper from '../../ui/FormWrapper';
+import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
-import FormFields from '../../ui/FormFields';
-import FormWrapper from '../../ui/FormWrapper';
-import { useForm } from 'react-hook-form';
+import Button from '../../ui/Button';
 
 function ProgramData() {
   const navigate = useNavigate();
   const { slug } = useParams();
 
-  const { register, formState, reset, handleSubmit } = useForm();
+  const { register, formState, handleSubmit } = useForm();
 
   const { errors } = formState;
 

@@ -1,0 +1,29 @@
+.eventDate {
+  padding: 3rem;
+
+  width: max-content;
+  margin: auto;
+
+  border-radius: 0.8rem;
+  text-align: center;
+}
+
+.expired {
+  background: rgba(217, 25, 20, 0.29);
+}
+
+.running {
+  background: rgba(28, 152, 140, 0.25);
+}
+
+@media only screen and (max-width: 28.125em) {
+  .eventDate {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 21.875em) {
+  .eventDate {
+    width: 100%;
+  }
+}

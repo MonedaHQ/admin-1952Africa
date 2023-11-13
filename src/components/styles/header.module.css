@@ -8,6 +8,9 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
 .menuIcon {
@@ -20,6 +23,11 @@
 .avatar {
   display: flex;
   justify-content: flex-end;
+  width: 80px;
+  height: 80px;
+
+  overflow: hidden;
+  border-radius: 5rem;
 
   background-color: transparent;
   border: none;
@@ -28,8 +36,8 @@
 }
 
 .avatar img {
-  border-radius: 5rem;
-  width: 50%;
+  width: 100%;
+  height: auto;
   object-fit: cover;
   object-position: center;
 }
@@ -55,10 +63,12 @@
   .header {
     padding: 1rem 2rem;
   }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 @media only screen and (max-width: 28.25em) {
-  .avatar img {
-    width: 34%;
-  }
 }

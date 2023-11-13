@@ -1,27 +1,35 @@
 import { useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+
 import { programData } from '../../../data/programsData';
 
-import { headerVariant } from '../../../data/animationVariants';
-
-import AddCoverImg from './AddCoverImg';
+import Section from '../../ui/Section';
+import HeaderAndButton from '../../ui/headers/HeaderAndButton';
+import AddCoverImg from '../../ui/formChunks/AddCoverImg';
+import MainForm from '../../ui/MainForm';
 import ProgramData from './ProgramData';
-
-import styles from './styles/editprogram.module.css';
 
 function EditProgram() {
   const { slug } = useParams();
   const program = programData.find((program) => program.slug === slug);
+
+  const imageData = { data: [program], key: 'cover_img' };
   return (
-    <section className={styles.section}>
-      <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
-        Edit {program.title}
-      </motion.h2>
-      <div className={styles.main}>
-        <AddCoverImg />
+    <Section>
+      <HeaderAndButton
+        header={`Edit ${program.title}`}
+        navigateTo={{
+          path: '',
+          label: 'Delete Program',
+          resourceName: program.title,
+        }}
+        as="delete"
+        type="lg"
+      />
+      <MainForm>
+        <AddCoverImg imageData={imageData} />
         <ProgramData />
-      </div>
-    </section>
+      </MainForm>
+    </Section>
   );
 }
 

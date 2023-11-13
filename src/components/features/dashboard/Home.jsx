@@ -1,26 +1,26 @@
-import { motion } from 'framer-motion';
-
-import { headerVariant } from '../../../data/animationVariants';
+import { usersData } from '../../../data/programsData';
 
 import Metrics from './Metrics';
 import QuickActions from '../../ui/QuickActions';
 
+import Section from '../../ui/Section';
+
+import BigHeader from '../../ui/headers/BigHeader';
 import styles from './styles/home.module.css';
 
 function Home() {
   const quickActions = [
-    { label: 'Add Event', path: '/events' },
+    { label: 'Add Event', path: '/events/add' },
     { label: 'Add Artist', path: '/artists/add' },
-    // { label: 'Add Program', path: '/programs/add' },
     { label: 'Add Activity', path: '/activities/add' },
-    { label: 'Add Exhibition', path: '/gallery' },
+    { label: 'Add Exhibition', path: '/gallery/add' },
   ];
 
+  const currentUser = usersData.find((user) => user.authenticated);
+
   return (
-    <motion.section className={styles.section}>
-      <motion.h1 variants={headerVariant} initial="hidden" animate="visible">
-        Hello Toyin,
-      </motion.h1>
+    <Section>
+      <BigHeader title={`Hello ${currentUser.first_name},`} variant="xl" />
       <div className={styles.dashboard}>
         <div className={styles.quickActions}>
           {quickActions.map((action) => (
@@ -29,7 +29,7 @@ function Home() {
         </div>
         <Metrics />
       </div>
-    </motion.section>
+    </Section>
   );
 }
 

@@ -1,21 +1,18 @@
-import { motion } from 'framer-motion';
-
-import styles from './styles/addartist.module.css';
-import { headerVariant } from '../../../data/animationVariants';
+import BigHeader from '../../ui/headers/BigHeader';
 import Avatar from '../../ui/Avatar';
 import ArtistForm from './ArtistForm';
+import Section from '../../ui/Section';
+import MainForm from '../../ui/MainForm';
 
 function AddArtist() {
   return (
-    <section className={styles.section}>
-      <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
-        Add Artist
-      </motion.h2>
-      <div className={styles.main}>
+    <Section>
+      <BigHeader title="Add artist" variant="lg" />
+      <MainForm>
         <Avatar />
         <ArtistForm />
-      </div>
-    </section>
+      </MainForm>
+    </Section>
   );
 }
 

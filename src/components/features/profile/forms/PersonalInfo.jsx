@@ -1,14 +1,17 @@
 import { useForm } from 'react-hook-form';
-import Button from '../../../ui/Button';
-import TripleInputFields from '../../../ui/TripleInputFields';
-import styles from '../styles/form.module.css';
-import TripleInput from '../../../ui/TripleInput';
-import FormWrapper from '../../../ui/FormWrapper';
-import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
 
-function PersonalInfo() {
+import Section from '../../../ui/Section';
+import FormWrapper from '../../../ui/FormWrapper';
+import TripleInput from '../../../ui/TripleInput';
+import TripleInputFields from '../../../ui/TripleInputFields';
+import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
+import Button from '../../../ui/Button';
+
+function PersonalInfo({ user }) {
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
+
+  const { first_name, last_name, email } = user;
 
   function onSubmit(data) {
     const newData = { ...data, email: null };
@@ -16,7 +19,7 @@ function PersonalInfo() {
   }
 
   return (
-    <section className={styles.section}>
+    <Section>
       <h3>Personal information</h3>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <TripleInputFields>
@@ -24,21 +27,21 @@ function PersonalInfo() {
             type="text"
             id="first_name"
             label="First name"
-            defaultValue="Toyin"
+            defaultValue={user ? first_name : ''}
             formActions={{ register, errors }}
           />
           <TripleInput
             type="text"
             id="last_name"
             label="Last name"
-            defaultValue="Oke"
+            defaultValue={user ? last_name : ''}
             formActions={{ register, errors }}
           />
           <TripleInput
             type="email"
             id="email"
             label="E-mail"
-            defaultValue="o.oluwatoyin@1952africa.art"
+            defaultValue={user ? email : ''}
             formActions={{ register, errors }}
             disabled={true}
           />
@@ -52,7 +55,7 @@ function PersonalInfo() {
           </Button>
         </TwoButtonWrapper>
       </FormWrapper>
-    </section>
+    </Section>
   );
 }
 

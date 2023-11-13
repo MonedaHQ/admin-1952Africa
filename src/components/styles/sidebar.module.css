@@ -4,6 +4,7 @@
   color: var(--color-white);
 
   padding: 8rem 0rem;
+  overflow: auto;
 
   display: grid;
   grid-template-rows: max-content 1fr;

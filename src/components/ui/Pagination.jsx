@@ -1,7 +1,7 @@
 import { PiCaretCircleLeftFill, PiCaretCircleRightFill } from 'react-icons/pi';
 import styles from '../styles/pagination.module.css';
 import { useSearchParams } from 'react-router-dom';
-import { PAGE_SIZE } from '../../config';
+import { PAGE_SIZE } from '../../utilities/config';
 
 function Pagination({ count }) {
   const [searchParams, setSearchParams] = useSearchParams();
