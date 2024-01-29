@@ -16,7 +16,7 @@
 }
 
 .btn svg {
-  fill: var(--color-green);
+  fill: var(--color-black);
 }
 
 .btn:disabled svg {

@@ -6,16 +6,40 @@ import TripleInput from '../../../ui/TripleInput';
 import TripleInputFields from '../../../ui/TripleInputFields';
 import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
 import Button from '../../../ui/Button';
+import { useUpdateUser } from '../useUpdateUser';
+import { getCurrentUser } from '../../../../services/apiUser';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PersonalInfo({ user }) {
+  const navigate = useNavigate();
+  const [isUpdating, setIsUpdating] = useState(false);
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
-  const { first_name, last_name, email } = user;
+  const { updateUser } = useUpdateUser();
+
+  const { first_name, last_name, email, token, id } = user;
 
   function onSubmit(data) {
-    const newData = { ...data, email: null };
-    console.log(newData);
+    setIsUpdating(true);
+    const newData = { first_name: data.first_name, last_name: data.last_name };
+    updateUser(
+      { data: newData, token },
+      {
+        onSettled: async () => {
+          const currentUser = await getCurrentUser(id, token);
+
+          localStorage.setItem(
+            '1952adminUser',
+            JSON.stringify({ ...user, ...currentUser })
+          );
+
+          setIsUpdating(false);
+          navigate('/home');
+        },
+      }
+    );
   }
 
   return (
@@ -47,8 +71,8 @@ function PersonalInfo({ user }) {
           />
         </TripleInputFields>
         <TwoButtonWrapper>
-          <Button variant="primary" type="submit">
-            Save
+          <Button variant="primary" type="submit" disabled={isUpdating}>
+            {isUpdating ? 'Updating..' : 'Save'}
           </Button>
           <Button variant="link-warn" onClick={() => reset()}>
             Cancel

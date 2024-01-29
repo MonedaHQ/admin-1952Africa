@@ -14,17 +14,18 @@ function SignOut() {
   );
 
   function handleSignout() {
+    localStorage.removeItem('1952adminUser');
     navigate('/');
   }
   return (
     <TwoButtonWrapper>
       <Modal>
         <Modal.Open opens="signout">
-          <Button variant={isAdmin ? 'link-warn' : 'delete'}>Sign out</Button>
+          <Button variant="delete">Sign out</Button>
         </Modal.Open>
         {isAdmin && (
           <Modal.Open opens="deleteAccount">
-            <Button variant="delete">Delete account</Button>
+            <Button variant="link-warn">Delete account</Button>
           </Modal.Open>
         )}
         <Modal.Window name="signout">

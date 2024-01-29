@@ -34,49 +34,80 @@ import AddWork from './components/features/gallery/AddWork';
 import Users from './components/features/users/Users';
 import User from './components/features/users/User';
 import AddUser from './components/features/users/AddUser';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 function App() {
   return (
     <MenuToggleProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route
-            element={
-              <ProtectedRoutes>
-                <AppLayout />
-              </ProtectedRoutes>
-            }
-          >
-            <Route path="/home" element={<Home />} />
-            <Route path="/programs" element={<Programs />} />
-            <Route path="/programs/:slug" element={<Program />} />
-            <Route path="/programs/:slug/edit" element={<EditProgram />} />
-            <Route path="/programs/add" element={<AddPrograms />} />
-            <Route path="/activities/:id" element={<Activity />} />
-            <Route path="/activities/add" element={<AddActivity />} />
-            <Route path="/artists" element={<Artists />} />
-            <Route path="/artists/:slug" element={<Artist />} />
-            <Route path="/artists/add" element={<AddArtist />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/add" element={<AddEvents />} />
-            <Route path="/events/:id" element={<Event />} />
-            <Route path="/events/:id/edit" element={<EditEvent />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/gallery/add" element={<AddExhibition />} />
-            <Route path="/gallery/:id" element={<Exhibition />} />
-            <Route path="/gallery/:id/edit" element={<EditExhibition />} />
-            <Route path="/works/add" element={<AddWork />} />
-            <Route path="/works/:slug" element={<Work />} />
+      <QueryClientProvider client={queryClient}>
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
 
-            <Route path="/profile" element={<Profile />} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route
+              element={
+                <ProtectedRoutes>
+                  <AppLayout />
+                </ProtectedRoutes>
+              }
+            >
+              <Route path="/home" element={<Home />} />
+              <Route path="/programs" element={<Programs />} />
+              <Route path="/programs/:slug" element={<Program />} />
+              <Route path="/programs/:slug/edit" element={<EditProgram />} />
+              <Route path="/programs/add" element={<AddPrograms />} />
+              <Route path="/activities/:id" element={<Activity />} />
+              <Route path="/activities/add" element={<AddActivity />} />
+              <Route path="/artists" element={<Artists />} />
+              <Route path="/artists/:slug" element={<Artist />} />
+              <Route path="/artists/add" element={<AddArtist />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/add" element={<AddEvents />} />
+              <Route path="/events/:id" element={<Event />} />
+              <Route path="/events/:id/edit" element={<EditEvent />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/gallery/add" element={<AddExhibition />} />
+              <Route path="/gallery/:id" element={<Exhibition />} />
+              <Route path="/gallery/:id/edit" element={<EditExhibition />} />
+              <Route path="/works/add" element={<AddWork />} />
+              <Route path="/works/:slug" element={<Work />} />
 
-            <Route path="/users" element={<Users />} />
-            <Route path="/users/:id" element={<User />} />
-            <Route path="/users/add" element={<AddUser />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+              <Route path="/profile" element={<Profile />} />
+
+              <Route path="/users" element={<Users />} />
+              <Route path="/users/:id" element={<User />} />
+              <Route path="/users/add" element={<AddUser />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <Toaster
+          position="top-right"
+          gutter={12}
+          containerStyle={{ margin: '8px' }}
+          toastOptions={{
+            success: { duration: 3000 },
+            error: { duration: 5000 },
+            style: {
+              fontSize: '14px',
+              maxWidth: '500px',
+              padding: '14px 22px',
+              backgroundColor: 'var(--color-white)',
+              color: 'var(--color-black)',
+            },
+          }}
+        />
+      </QueryClientProvider>
     </MenuToggleProvider>
   );
 }

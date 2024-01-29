@@ -2,8 +2,21 @@ import { motion } from 'framer-motion';
 
 import LoginForm from './LoginForm';
 import styles from './styles/login.module.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  useEffect(
+    function () {
+      if (user) navigate('/home');
+    },
+    [user, navigate]
+  );
+
   const containerVariants = {
     hidden: { scale: 0, opacity: 0 },
     visible: {

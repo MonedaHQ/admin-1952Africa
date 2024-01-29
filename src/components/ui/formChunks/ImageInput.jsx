@@ -1,8 +1,7 @@
 import { useRef } from 'react';
-import styles from './styles/imageinput.module.css';
 import Button from '../Button';
 
-function ImageInput({ onChange, children }) {
+function ImageInput({ onChange, children, disabled }) {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -17,7 +16,7 @@ function ImageInput({ onChange, children }) {
   };
   return (
     <div>
-      <Button variant="primary" onClick={handleButtonClick}>
+      <Button variant="primary" onClick={handleButtonClick} disabled={disabled}>
         {children}
       </Button>
       <input

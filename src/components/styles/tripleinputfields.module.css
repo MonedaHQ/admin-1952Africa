@@ -8,13 +8,13 @@
   align-items: start;
 }
 
-@media only screen and (max-width: 47.5em) {
+@media only screen and (max-width: 87.5em) {
   .formFields {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media only screen and (max-width: 32.5em) {
+@media only screen and (max-width: 42.5em) {
   .formFields {
     grid-template-columns: 1fr;
   }

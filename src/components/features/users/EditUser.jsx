@@ -6,17 +6,27 @@ import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import Button from '../../ui/Button';
+import { useCreateUser } from './useCreateUser';
+import { useState } from 'react';
 
 function EditUser({ user = null }) {
   const navigate = useNavigate();
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  const [isWorking, setIsWorking] = useState(false);
+
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const { createUser } = useCreateUser();
+
   const isAdmin = user?.role === 'admin' || false;
 
   const formActions = { register, errors };
 
   function onSubmit(data) {
+    setIsWorking(true);
+
     let update;
     if (data.first_name === undefined) {
       update = { role: data.role };
@@ -24,7 +34,14 @@ function EditUser({ user = null }) {
       update = data;
     }
 
-    console.log(update);
+    // console.log(update);
+
+    if (!user) {
+      createUser(
+        { data: update, token: currentUser.token },
+        { onSettled: () => setIsWorking(false) }
+      );
+    }
   }
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
@@ -70,8 +87,8 @@ function EditUser({ user = null }) {
         )}
       </FormFields>
       <TwoButtonWrapper>
-        <Button variant="primary" type="submit">
-          Save
+        <Button variant="primary" type="submit" disabled={isWorking}>
+          {isWorking ? 'Updating..' : 'Save'}
         </Button>
         <Button variant="link-dark" onClick={() => navigate(-1)}>
           Go back

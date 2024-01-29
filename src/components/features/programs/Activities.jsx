@@ -31,7 +31,7 @@ function Activities({ programId }) {
         type="lg"
       />
 
-      <SearchBar placeholder="search activity" />
+      <SearchBar placeholder="Search activity" />
       <OperationsPanel title="All activites" />
       <Table
         headers={headers}

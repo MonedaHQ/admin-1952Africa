@@ -8,6 +8,7 @@ function TripleInput({
   formActions,
   required = true,
   disabled = false,
+  getValues,
 }) {
   const { register, errors } = formActions;
 
@@ -25,6 +26,22 @@ function TripleInput({
             value: type === 'email' ? /\S+@\S+\.\S+/ : null,
             message: type === 'email' ? 'Please specify a valid email' : null,
           },
+          validate: (value) => {
+            if (id === 'password_confirmation') {
+              return (
+                value === getValues().password || 'Passwords need to match'
+              );
+            } else {
+              return value !== '' || 'This field is required';
+            }
+          },
+          minLength:
+            id === 'password'
+              ? {
+                  value: 8,
+                  message: 'Password needs a minimum of 8 characters',
+                }
+              : null,
         })}
       />
       {errors[id] && <p>{errors[id].message}</p>}

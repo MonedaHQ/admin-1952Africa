@@ -6,6 +6,8 @@ import {
   parse,
 } from 'date-fns';
 
+import imageCompression from 'browser-image-compression';
+
 export function formatDateDistance(endDate) {
   const currentDate = new Date();
   const end = endDate ? new Date(endDate) : new Date();
@@ -56,4 +58,27 @@ export function capitalizeFirstLetter(str) {
     return newArray.join(' ');
   }
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export async function handleImageCompression(image, filename) {
+  console.log(`originalFile size ${image.size / 1024 / 1024} MB`);
+
+  const options = {
+    maxSizeMB: 0.3,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
+  try {
+    const compressedBlob = await imageCompression(image, options);
+
+    const compressedFile = new File([compressedBlob], filename, {
+      type: compressedBlob.type,
+      lastModified: Date.now(),
+    });
+    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+
+    return compressedFile;
+  } catch (error) {
+    console.log(error);
+  }
 }

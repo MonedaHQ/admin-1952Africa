@@ -7,7 +7,7 @@ function QuickActions({ action }) {
   const navigate = useNavigate();
   return (
     <button onClick={() => navigate(action.path)} className={styles.action}>
-      <IoMdAddCircle />
+      <IoMdAddCircle className={styles.icon} />
 
       <span>{action.label}</span>
     </button>

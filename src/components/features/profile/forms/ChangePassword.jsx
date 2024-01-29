@@ -6,14 +6,28 @@ import TripleInputFields from '../../../ui/TripleInputFields';
 import TripleInput from '../../../ui/TripleInput';
 import TwoButtonWrapper from '../../../ui/TwoButtonWrapper';
 import Button from '../../../ui/Button';
+import { useChangePassword } from '../useChangePassword';
+import { useState } from 'react';
 
 function ChangePassword() {
-  const { register, formState, handleSubmit, reset } = useForm();
+  const [isPasswordUpdating, setIsPasswordUpdating] = useState(false);
+  const user = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const { register, formState, handleSubmit, reset, getValues } = useForm();
   const { errors } = formState;
 
+  const { changePassword } = useChangePassword();
+
   function onSubmit(data) {
-    const newData = { ...data, email: null };
-    console.log(newData);
+    setIsPasswordUpdating(true);
+    const newData = { ...data };
+
+    changePassword(
+      { data: newData, token: user.token },
+      {
+        onSettled: () => setIsPasswordUpdating(false),
+      }
+    );
   }
   return (
     <Section>
@@ -22,29 +36,30 @@ function ChangePassword() {
         <TripleInputFields>
           <TripleInput
             type="password"
-            id="current_password"
+            id="old_password"
             label="Current password"
             defaultValue=""
             formActions={{ register, errors }}
           />
           <TripleInput
             type="password"
-            id="new_password"
+            id="password"
             label="New password"
             defaultValue=""
             formActions={{ register, errors }}
           />
           <TripleInput
             type="password"
-            id="new_passwordConfirm"
+            id="password_confirmation"
             label="Confirm password"
             defaultValue=""
             formActions={{ register, errors }}
+            getValues={getValues}
           />
         </TripleInputFields>
         <TwoButtonWrapper>
-          <Button variant="primary" type="submit">
-            Save
+          <Button variant="primary" type="submit" disabled={isPasswordUpdating}>
+            {isPasswordUpdating ? 'Updating...' : 'Save'}
           </Button>
           <Button variant="link-warn" onClick={() => reset()}>
             Cancel

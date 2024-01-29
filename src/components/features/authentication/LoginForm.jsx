@@ -1,28 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-
-import { usersData } from '../../../data/programsData';
-
 import Button from '../../ui/Button';
 
 import styles from './styles/login.module.css';
+import { useLogIn } from './useLogIn';
 
 function LoginForm() {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
-  const navigate = useNavigate();
+
+  const { login, isLoading } = useLogIn();
 
   async function onSubmit(data) {
-    const { email, password } = data;
-    const currentUser = usersData.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (!currentUser) {
-      alert('Email or password incorrect');
-      return;
-    }
-    navigate('/home');
+    login(data);
   }
 
   return (

@@ -1,5 +1,3 @@
-import { usersData } from '../../../data/programsData';
-
 import Metrics from './Metrics';
 import QuickActions from '../../ui/QuickActions';
 
@@ -16,11 +14,11 @@ function Home() {
     { label: 'Add Exhibition', path: '/gallery/add' },
   ];
 
-  const currentUser = usersData.find((user) => user.authenticated);
+  const user = JSON.parse(localStorage.getItem('1952adminUser'));
 
   return (
     <Section>
-      <BigHeader title={`Hello ${currentUser.first_name},`} variant="xl" />
+      <BigHeader title={`Hello ${user.first_name},`} variant="xl" />
       <div className={styles.dashboard}>
         <div className={styles.quickActions}>
           {quickActions.map((action) => (

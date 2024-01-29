@@ -7,6 +7,7 @@ function Button({
   onClick = null,
   href = null,
   type = 'button',
+  disabled,
 }) {
   if (variant.includes('link') || variant.startsWith('link')) {
     const classname = variant.split('-').at(1);
@@ -17,11 +18,16 @@ function Button({
             className={`${styles.button} ${styles[variant]}`}
             onClick={onClick}
             type={type}
+            disabled={disabled}
           >
             {children}
           </button>
         ) : (
-          <button className={`${styles.button} ${styles[variant]}`} type={type}>
+          <button
+            className={`${styles.button} ${styles[variant]}`}
+            type={type}
+            disabled={disabled}
+          >
             <Link href={href}>{children}</Link>
           </button>
         )}
@@ -31,7 +37,11 @@ function Button({
 
   if (href)
     return (
-      <button className={`${styles.button} ${styles[variant]}`} type={type}>
+      <button
+        className={`${styles.button} ${styles[variant]}`}
+        type={type}
+        disabled={disabled}
+      >
         <a href={href}>{children}</a>
       </button>
     );
@@ -41,6 +51,7 @@ function Button({
       className={`${styles.button} ${styles[variant]}`}
       type={type}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

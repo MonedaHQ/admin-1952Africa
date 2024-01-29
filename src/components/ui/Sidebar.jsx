@@ -3,7 +3,6 @@ import {
   PiHouseSimpleBold,
   PiHouseSimpleFill,
   PiChartPieFill,
-  PiChartPieSliceFill,
   PiPaletteFill,
   PiPaletteBold,
   PiCalendarBlankFill,

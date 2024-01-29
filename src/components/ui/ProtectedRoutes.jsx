@@ -1,19 +1,23 @@
 import { useNavigate } from 'react-router-dom';
-import { usersData } from '../../data/programsData';
 import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 function ProtectedRoutes({ children }) {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const currentUser =
-    usersData?.find((user) => user?.authenticated === true) || null;
+  let user = null;
+
+  user =
+    JSON.parse(localStorage.getItem('1952adminUser')) ||
+    queryClient.getQueriesData('user').length;
 
   useEffect(() => {
-    if (!currentUser && !currentUser?.authenticated) {
+    if (!user) {
       return navigate('/');
     }
-  }, [currentUser, navigate]);
+  }, [user, navigate]);
 
-  if (currentUser?.authenticated) return children;
+  if (user) return children;
 }
 
 export default ProtectedRoutes;

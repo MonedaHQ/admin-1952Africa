@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  background-color: var(--color-green);
+  background-color: var(--color-black);
   color: var(--color-white);
 
   padding: 8rem 0rem;
@@ -26,12 +26,13 @@
   grid-template-rows: repeat(4, max-content);
   grid-auto-rows: max-content;
   row-gap: 1rem;
+  font-weight: 500;
 }
 
 .links {
   text-decoration: none;
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-white);
   display: flex;
   align-items: center;

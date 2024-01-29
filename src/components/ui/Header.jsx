@@ -10,11 +10,12 @@ import { usersData } from '../../data/programsData';
 function Header() {
   const navigate = useNavigate();
   const { isSidebarOpen, toggleSidebar } = useMenuToggle();
+  const user = JSON.parse(localStorage.getItem('1952adminUser'));
 
-  const currentUser = usersData.find((user) => user.authenticated);
-  const imageSrc = currentUser
-    ? currentUser.profile_img
+  const imageSrc = user?.image_url
+    ? user.image_url
     : '/images/defaultAvatar.jpg';
+
   return (
     <header className={styles.header}>
       <button className={styles.menuIcon} onClick={() => toggleSidebar()}>
