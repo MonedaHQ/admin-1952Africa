@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  padding: 4rem;
+  justify-items: center;
+  row-gap: 1.8rem;
+}
+
+.container svg {
+  color: var(--color-fail);
+}

@@ -22,14 +22,14 @@ import ConfirmDelete from '../ConfirmDelete';
 function HeaderAndButton({ header, navigateTo, type = 'xl', as = 'button' }) {
   return (
     <div className={styles.header}>
-      <motion.h1
+      <motion.h2
         variants={headerVariant}
         initial="hidden"
         animate="visible"
         className={styles[type]}
       >
         {header}
-      </motion.h1>
+      </motion.h2>
       <AddButton navigateTo={navigateTo} as={as} />
     </div>
   );

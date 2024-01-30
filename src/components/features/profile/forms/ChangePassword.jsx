@@ -25,7 +25,10 @@ function ChangePassword() {
     changePassword(
       { data: newData, token: user.token },
       {
-        onSettled: () => setIsPasswordUpdating(false),
+        onSettled: () => {
+          reset();
+          setIsPasswordUpdating(false);
+        },
       }
     );
   }

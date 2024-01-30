@@ -1,0 +1,39 @@
+.coverImgContainer {
+  display: grid;
+  grid-auto-rows: max-content;
+  row-gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.coverImgContainer img {
+  width: 260px;
+  height: 260px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fullImage {
+  text-align: center;
+}
+
+.imageContainer {
+  align-items: center;
+}
+
+.imageContainer img {
+  width: 50%;
+  height: auto;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 34.375em) {
+  .imageContainer img {
+    width: 80%;
+  }
+}

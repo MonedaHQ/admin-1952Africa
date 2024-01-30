@@ -37,6 +37,8 @@ import AddUser from './components/features/users/AddUser';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import ForgotPassword from './components/features/authentication/ForgotPassword';
+import ResetPassword from './components/features/authentication/ResetPassword';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +57,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/reset-password" element={<ForgotPassword />} />
+            <Route path="/auth/reset-password" element={<ResetPassword />} />
             <Route
               element={
                 <ProtectedRoutes>
@@ -64,8 +68,8 @@ function App() {
             >
               <Route path="/home" element={<Home />} />
               <Route path="/programs" element={<Programs />} />
-              <Route path="/programs/:slug" element={<Program />} />
-              <Route path="/programs/:slug/edit" element={<EditProgram />} />
+              <Route path="/programs/:id" element={<Program />} />
+              <Route path="/programs/:id/edit" element={<EditProgram />} />
               <Route path="/programs/add" element={<AddPrograms />} />
               <Route path="/activities/:id" element={<Activity />} />
               <Route path="/activities/add" element={<AddActivity />} />

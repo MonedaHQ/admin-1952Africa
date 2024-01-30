@@ -36,6 +36,11 @@ export function formatDateDistance(endDate) {
   return formattedDistance;
 }
 
+export function reformatDateString(dateString) {
+  const date = new Date(dateString);
+  return date.toISOString().split('T')[0];
+}
+
 export function formatDateToRelative(dateString) {
   const date = parse(dateString, 'yyyy-MM-dd', new Date());
 

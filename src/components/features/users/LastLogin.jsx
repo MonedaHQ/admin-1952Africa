@@ -1,17 +1,20 @@
 import {
   capitalizeFirstLetter,
   formatDateToRelative,
+  reformatDateString,
 } from '../../../utilities/helpers';
 
 import styles from './styles/lastlogin.module.css';
 
 function LastLogin({ user }) {
+  const lastUpdate = reformatDateString(user.updated_at);
+
   return (
     <div className={styles.container}>
       <p>
         Last Log in:{' '}
         <strong>
-          {capitalizeFirstLetter(formatDateToRelative(user.last_log_in))}
+          {capitalizeFirstLetter(formatDateToRelative(lastUpdate))}
         </strong>
       </p>
     </div>

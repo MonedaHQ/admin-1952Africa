@@ -6,11 +6,31 @@ import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
 
 import styles from './styles/activities.module.css';
+import { useActivities } from '../activities/useActivities';
+import { usePrograms } from './usePrograms';
 
 function Activities({ programId }) {
-  const activities = activitesData.filter(
-    (activity) => activity.program === programId
-  );
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const token = currentUser.token;
+
+  const { programs, isLoading: isLoadingPrograms } = usePrograms(token);
+
+  const { activities, isLoading } = useActivities({
+    token,
+    program_id: programId,
+  });
+
+  if (isLoading || isLoadingPrograms) return;
+
+  const formattedActivities = activities.map((activity) => {
+    return {
+      ...activity,
+      date: new Date(activity.date).toDateString(),
+      program:
+        programs.find((program) => program.id === activity.program_id).title ||
+        null,
+    };
+  });
 
   const activityIds = activities.map(
     (activity) => `/activities/${activity.id}`
@@ -18,7 +38,7 @@ function Activities({ programId }) {
 
   const headers = ['Title', 'Program', 'Date', 'Description'];
   const operationsData = {
-    data: activities,
+    data: formattedActivities,
     keys: ['title', 'program', 'date', 'description'],
     navigation: activityIds,
   };
@@ -36,7 +56,7 @@ function Activities({ programId }) {
       <Table
         headers={headers}
         operationData={operationsData}
-        paginationCount={15}
+        paginationCount={0}
       />
     </div>
   );

@@ -18,6 +18,10 @@
   transition: all 0.25s cubic-bezier(0.99, -0.01, 0.16, 1);
 }
 
+.md {
+  font-size: 1.4rem;
+}
+
 .primary:not(:disabled) {
   color: var(--color-white);
   background-color: var(--color-green);

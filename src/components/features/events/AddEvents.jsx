@@ -10,7 +10,7 @@ function AddEvents() {
   const imageData = { data: eventsData, key: 'image_url' };
   return (
     <Section>
-      <BigHeader title="Add Event" variant="lg" />
+      <BigHeader title="Add Event" variant="lg" useRole={false} />
       <MainForm>
         <AddCoverImg imageData={imageData} />
         <EventForm />

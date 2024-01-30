@@ -18,7 +18,12 @@ import styles from './styles/addcoverimg.module.css';
  * @returns {JSX.Element} - The rendered AddCoverImg component.
  */
 
-function AddCoverImg({ imageData, fullImage = false }) {
+function AddCoverImg({
+  imageData,
+  fullImage = false,
+  replacementFunction,
+  isUpdating = false,
+}) {
   const { slug } = useParams();
   const { id } = useParams();
   const [imagePreview, setImagePreview] = useState('/images/empty-img.jpg');
@@ -48,7 +53,13 @@ function AddCoverImg({ imageData, fullImage = false }) {
 
   function handleImageChange(image) {
     const imageURL = URL.createObjectURL(image);
-    setImagePreview(imageURL);
+
+    if (imageURL) {
+      setImagePreview(imageURL);
+    }
+
+    replacementFunction(image);
+    return;
   }
 
   if (fullImage) {
@@ -67,7 +78,9 @@ function AddCoverImg({ imageData, fullImage = false }) {
   return (
     <div className={styles.coverImgContainer}>
       <img src={imagePreview} alt="Cover Image" draggable="false" />
-      <ImageInput onChange={handleImageChange}>Replace</ImageInput>
+      <ImageInput onChange={handleImageChange} disabled={isUpdating}>{`Replac${
+        isUpdating ? 'ing...' : 'e'
+      }`}</ImageInput>
     </div>
   );
 }

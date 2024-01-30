@@ -6,7 +6,7 @@ import ExhibitionForm from './ExhibitionForm';
 function AddExhibition() {
   return (
     <Section>
-      <BigHeader title="Add Exhibition" variant="lg" />
+      <BigHeader title="Add Exhibition" variant="lg" useRole={false} />
       <AddCoverImg />
       <ExhibitionForm />
     </Section>

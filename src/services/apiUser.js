@@ -9,7 +9,6 @@ export async function updateProfileImage(imageFile, token) {
 
   const formData = new FormData();
   formData.append('file', imageFile);
-  console.log(imageFile);
 
   try {
     const response = await fetch(url, {
@@ -53,8 +52,49 @@ export async function getCurrentUser(id, token) {
   }
 }
 
-export async function getUsers(token) {
-  const url = `${BASE_URL}/user`;
+export async function getUsers({
+  token,
+  rangeStatus,
+  searchQuery,
+  sortMethod,
+}) {
+  let url = `${BASE_URL}/user`;
+
+  if (rangeStatus) {
+    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
+  }
+
+  if (searchQuery) {
+    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
+  }
+
+  if (sortMethod) {
+    sortMethod.field === 'sortOrder'
+      ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
+      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
+    console.log(url);
+  }
+
+  try {
+    const response = await fetch(`${url}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch users');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error('Could not fetch data');
+  }
+}
+
+export async function getUser(id, token) {
+  const url = `${BASE_URL}/user/${id}`;
 
   try {
     const response = await fetch(`${url}`, {
@@ -110,9 +150,7 @@ export async function createUser(data, token) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        data,
-      }),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -124,5 +162,31 @@ export async function createUser(data, token) {
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
+  }
+}
+
+export async function upgradeUserRole(data, id, token) {
+  const url = `${BASE_URL}/user/${id}/role`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to update');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error('Failed to update');
   }
 }

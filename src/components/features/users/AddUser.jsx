@@ -5,7 +5,7 @@ import EditUser from './EditUser';
 function AddUser() {
   return (
     <Section>
-      <BigHeader title="Add User" variant="lg" />
+      <BigHeader title="Add User" variant="lg" useRole={false} />
       <EditUser />
     </Section>
   );

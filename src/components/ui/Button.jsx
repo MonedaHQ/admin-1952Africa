@@ -8,6 +8,7 @@ function Button({
   href = null,
   type = 'button',
   disabled,
+  size = 'lg',
 }) {
   if (variant.includes('link') || variant.startsWith('link')) {
     const classname = variant.split('-').at(1);
@@ -15,7 +16,7 @@ function Button({
       <div className={`${styles.box} ${styles[classname]}`}>
         {onClick ? (
           <button
-            className={`${styles.button} ${styles[variant]}`}
+            className={`${styles.button} ${styles[size]} ${styles[variant]}`}
             onClick={onClick}
             type={type}
             disabled={disabled}
@@ -24,7 +25,7 @@ function Button({
           </button>
         ) : (
           <button
-            className={`${styles.button} ${styles[variant]}`}
+            className={`${styles.button} ${styles[size]} ${styles[variant]}`}
             type={type}
             disabled={disabled}
           >
@@ -38,7 +39,7 @@ function Button({
   if (href)
     return (
       <button
-        className={`${styles.button} ${styles[variant]}`}
+        className={`${styles.button} ${styles[size]} ${styles[variant]}`}
         type={type}
         disabled={disabled}
       >
@@ -48,7 +49,7 @@ function Button({
 
   return (
     <button
-      className={`${styles.button} ${styles[variant]}`}
+      className={`${styles.button} ${styles[size]} ${styles[variant]}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

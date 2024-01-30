@@ -8,27 +8,65 @@ import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import Button from '../../ui/Button';
+import { useState } from 'react';
+import { useCreateProgram } from './useCreateProgram';
+import { usePrograms } from './usePrograms';
+import { useUpdateProgram } from './useUpdateProgram';
+import CoverImageInput from '../../ui/CoverImageInput';
 
-function ProgramData() {
+function ProgramData({ add = true }) {
   const navigate = useNavigate();
-  const { slug } = useParams();
+  const { id } = useParams();
 
-  const { register, formState, handleSubmit } = useForm();
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const [file, setFile] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const { createProgram } = useCreateProgram();
+  const { updateProgram } = useUpdateProgram();
+
+  const { register, formState, handleSubmit, setValue } = useForm();
 
   const { errors } = formState;
 
+  const { token } = currentUser;
+
+  const { programs, isLoading } = usePrograms(token);
+
+  if (isLoading) return;
+
   let program = null;
 
-  if (slug) {
-    program = programData.find((program) => program.slug === slug);
+  if (id) {
+    program = programs.find((program) => program.id === id);
   }
 
   function onSubmit(data) {
-    console.log(data);
+    setIsCreating(true);
+    if (!id) {
+      const form = { ...data, file };
+      createProgram({ form, token }, { onSettled: () => setIsCreating(false) });
+    } else if (id && file === null) {
+      updateProgram(
+        { payload: data, id, token },
+        { onSettled: () => setIsCreating(false) }
+      );
+    }
   }
 
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      {add && (
+        <CoverImageInput
+          register={register}
+          id="file"
+          setValue={setValue}
+          handleImage={setFile}
+        >
+          Replace
+        </CoverImageInput>
+      )}
       <FormFields>
         <TextInput
           id="title"
@@ -48,8 +86,8 @@ function ProgramData() {
         />
       </FormFields>
       <TwoButtonWrapper>
-        <Button variant="primary" type="submit">
-          {program ? 'Save' : 'Add'}
+        <Button variant="primary" type="submit" disabled={isCreating}>
+          {`${program ? 'Save' : 'Add'}${isCreating ? '...' : ''}`}
         </Button>
         <Button variant="link-warn" type="button" onClick={() => navigate(-1)}>
           Cancel

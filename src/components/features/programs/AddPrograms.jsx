@@ -10,9 +10,8 @@ function AddPrograms() {
   const imageData = { data: programData, key: 'cover_img' };
   return (
     <Section>
-      <BigHeader title="Add Program" variant="lg" />
+      <BigHeader title="Add Program" variant="lg" useRole={false} />
       <MainForm>
-        <AddCoverImg imageData={imageData} />
         <ProgramData />
       </MainForm>
     </Section>

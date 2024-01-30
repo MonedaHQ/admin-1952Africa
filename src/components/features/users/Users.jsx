@@ -7,27 +7,41 @@ import OperationsPanel from '../../ui/OperationsPanel';
 import SearchBar from '../../ui/SearchBar';
 import Table from '../../ui/Table';
 import { useUsers } from './useUsers';
+import {
+  capitalizeFirstLetter,
+  formatDateToRelative,
+  reformatDateString,
+} from '../../../utilities/helpers';
+import EmptyData from '../../ui/EmptyData';
 
 function Users() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('1952adminUser'));
 
-  const userRole = user.user_type.toLowerCase();
+  const userRole = user.role.toLowerCase();
   useEffect(() => {
-    if (userRole !== 'admin') return navigate('/home');
+    if (userRole === 'user' || userRole === 'admin') return navigate('/home');
   }, [userRole, navigate]);
 
   const { users, isLoading } = useUsers(user.token);
-  if (isLoading) return;
 
-  const headers = ['First Name', 'Last Name', 'Role'];
-  const navigationIds = users.map((currentUser) =>
+  const headers = ['First Name', 'Last Name', 'Role', 'Last log in'];
+  const navigationIds = users?.map((currentUser) =>
     currentUser.id === user?.id ? '/profile' : `/users/${currentUser?.id}`
   );
 
+  const modifiedUsers = users?.map((user) => {
+    return {
+      ...user,
+      updated_at: capitalizeFirstLetter(
+        formatDateToRelative(reformatDateString(user.updated_at))
+      ),
+    };
+  });
+
   const operationData = {
-    data: users,
-    keys: ['first_name', 'last_name', 'role'],
+    data: modifiedUsers,
+    keys: ['first_name', 'last_name', 'role', 'updated_at'],
     navigation: navigationIds,
   };
 
@@ -37,14 +51,23 @@ function Users() {
         header="Users"
         navigateTo={{ path: '/users/add', label: 'Add user' }}
       />
-      <SearchBar placeholder={'Search users'} />
-      <OperationsPanel title="All users" />
-      <Table
-        headers={headers}
-        operationData={operationData}
-        paginationCount={users.length}
-        gridNo={3}
-      />
+      <SearchBar placeholder={'Search users'} param="name" />
+      {!isLoading && (
+        <>
+          {' '}
+          <OperationsPanel title="All users" />
+          {users.length ? (
+            <Table
+              headers={headers}
+              operationData={operationData}
+              paginationCount={users.length}
+              // gridNo={3}
+            />
+          ) : (
+            <EmptyData />
+          )}
+        </>
+      )}
     </Section>
   );
 }

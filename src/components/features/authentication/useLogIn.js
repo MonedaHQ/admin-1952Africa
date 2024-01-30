@@ -19,7 +19,7 @@ export function useLogIn() {
       navigate('/home', { replace: true });
     },
     onError: (err) => {
-      toast.error(`${err.message}: Email/Password Incorrect`);
+      toast.error(`${err.message}`);
     },
   });
 

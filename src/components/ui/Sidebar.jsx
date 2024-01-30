@@ -26,7 +26,9 @@ function Sidebar() {
   const ref = useOutsideClick(closeSidebar);
   const currentPath = location.pathname;
 
-  const currentUser = usersData.find((user) => user.authenticated);
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const isAdmin = currentUser.role.toLowerCase() === 'superadmin';
 
   const menuLinks = [
     {
@@ -71,20 +73,19 @@ function Sidebar() {
     },
   ];
 
-  const menuList =
-    currentUser.role === 'admin'
-      ? [
-          ...menuLinks,
-          {
-            label: 'Users',
-            path: '/users',
-            alternatePath: '',
-            permission: ['admin'],
-            iconActive: <PiUserCircleFill />,
-            iconInactive: <PiUserCircleBold />,
-          },
-        ]
-      : menuLinks;
+  const menuList = isAdmin
+    ? [
+        ...menuLinks,
+        {
+          label: 'Users',
+          path: '/users',
+          alternatePath: '',
+          permission: ['admin'],
+          iconActive: <PiUserCircleFill />,
+          iconInactive: <PiUserCircleBold />,
+        },
+      ]
+    : menuLinks;
 
   return (
     <>

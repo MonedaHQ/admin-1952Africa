@@ -18,7 +18,12 @@ function Home() {
 
   return (
     <Section>
-      <BigHeader title={`Hello ${user.first_name},`} variant="xl" />
+      <BigHeader
+        title={`Hello ${user.first_name},`}
+        userRole={user.role}
+        variant="xl"
+        useRole={true}
+      />
       <div className={styles.dashboard}>
         <div className={styles.quickActions}>
           {quickActions.map((action) => (

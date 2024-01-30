@@ -5,7 +5,7 @@ import { PiMagnifyingGlassBold } from 'react-icons/pi';
 
 import styles from '../styles/searchbar.module.css';
 
-function SearchBar({ placeholder }) {
+function SearchBar({ placeholder, param = 'name' }) {
   const [search, setSearch] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -17,11 +17,15 @@ function SearchBar({ placeholder }) {
     if (searchParams.has('range')) {
       searchParams.set('range', '');
     }
-    searchParams.set('name', search);
+    if (searchParams.has('sortBy')) {
+      searchParams.set('sortBy', '');
+    }
+
+    searchParams.set(param, search);
     setSearchParams(searchParams);
   }
   return (
-    <form className={styles.searchBar} onSubmit={onSubmit}>
+    <form className={styles.searchBar} onSubmit={(e) => onSubmit(e)}>
       <PiMagnifyingGlassBold />
       <input
         type="text"

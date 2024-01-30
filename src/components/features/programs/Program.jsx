@@ -4,22 +4,31 @@ import { programData } from '../../../data/programsData';
 import Section from '../../ui/Section';
 import BigTitle from '../../ui/BigTitle';
 import Activities from './Activities';
+import { usePrograms } from './usePrograms';
 
 function Program() {
-  const { slug } = useParams();
-  const programs = programData;
-  const program = programs.find((program) => program.slug === slug);
+  const { id } = useParams();
+
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const token = currentUser.token;
+
+  const { programs, isLoading } = usePrograms(token);
+
+  if (isLoading) return;
+
+  const program = programs.find((program) => program.id === id);
+
   const titleData = {
     title: program.title,
     description: program.description,
-    image: program.cover_img,
-    navigation: `/programs/${slug}/edit`,
+    image: program.image_url,
+    navigation: `/programs/${id}/edit`,
   };
 
   return (
     <Section>
       <BigTitle titleData={titleData} />
-      <Activities programId={program.id} />
+      <Activities programId={id} />
     </Section>
   );
 }

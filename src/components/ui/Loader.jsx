@@ -1,8 +1,8 @@
-import styles from './styles/loader.module.css';
+import styles from '../styles/loader.module.css';
 
 function Loader({ fullScreen = true }) {
   return (
-    <div>
+    <div className={fullScreen ? styles.full : ''}>
       <span className="loader"></span>
     </div>
   );

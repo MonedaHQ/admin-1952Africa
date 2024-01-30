@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import FormWrapper from '../../ui/FormWrapper';
@@ -8,11 +8,18 @@ import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import Button from '../../ui/Button';
 import { useCreateUser } from './useCreateUser';
 import { useState } from 'react';
+import { useUpgradeUserRole } from './useUserRoleUpgrade';
 
-function EditUser({ user = null }) {
+function EditUser({ user = null, isSuperAdmin = false }) {
+  const params = useParams();
+  const { id } = params;
+
   const navigate = useNavigate();
+
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
+
+  const { upgradeUser } = useUpgradeUserRole();
 
   const [isWorking, setIsWorking] = useState(false);
 
@@ -20,7 +27,9 @@ function EditUser({ user = null }) {
 
   const { createUser } = useCreateUser();
 
-  const isAdmin = user?.role === 'admin' || false;
+  const isAdmin =
+    currentUser.role.toLowerCase() === 'admin' ||
+    currentUser.role.toLowerCase() === 'superadmin';
 
   const formActions = { register, errors };
 
@@ -28,17 +37,16 @@ function EditUser({ user = null }) {
     setIsWorking(true);
 
     let update;
-    if (data.first_name === undefined) {
-      update = { role: data.role };
+    if (id) {
+      update = {
+        role: data.role,
+        user_type: data.role === 'SuperAdmin' ? 'Admin' : null,
+      };
+      upgradeUser({ payload: update, id, token: currentUser.token });
     } else {
       update = data;
-    }
-
-    // console.log(update);
-
-    if (!user) {
       createUser(
-        { data: update, token: currentUser.token },
+        { update, token: currentUser.token },
         { onSettled: () => setIsWorking(false) }
       );
     }
@@ -73,7 +81,7 @@ function EditUser({ user = null }) {
           disabled={user ? true : false}
           required={user ? false : true}
         />
-        {!isAdmin && (
+        {(isSuperAdmin || !isAdmin) && (
           <TextInput
             type="select"
             id="role"
@@ -81,8 +89,9 @@ function EditUser({ user = null }) {
             defaultValue={user ? user.role : ''}
             formActions={formActions}
           >
-            <option value="editor">Editor</option>
-            <option value="admin">Admin</option>
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+            {isSuperAdmin && <option value="SuperAdmin">Super Admin</option>}
           </TextInput>
         )}
       </FormFields>
@@ -90,7 +99,7 @@ function EditUser({ user = null }) {
         <Button variant="primary" type="submit" disabled={isWorking}>
           {isWorking ? 'Updating..' : 'Save'}
         </Button>
-        <Button variant="link-dark" onClick={() => navigate(-1)}>
+        <Button variant="link-warn" onClick={() => navigate(-1)}>
           Go back
         </Button>
       </TwoButtonWrapper>

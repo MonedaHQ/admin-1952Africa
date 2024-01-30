@@ -9,9 +9,11 @@ import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 
 function SignOut() {
   const navigate = useNavigate();
-  const isAdmin = usersData.find(
-    (user) => user.authenticated && user.role === 'admin'
-  );
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const isAdmin =
+    currentUser.role.toLowerCase() === 'admin' ||
+    currentUser.role.toLowerCase() === 'superadmin';
 
   function handleSignout() {
     localStorage.removeItem('1952adminUser');

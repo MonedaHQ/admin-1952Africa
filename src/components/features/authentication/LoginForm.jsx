@@ -1,53 +1,60 @@
 import { useForm } from 'react-hook-form';
 import Button from '../../ui/Button';
 
-import styles from './styles/login.module.css';
+import styles from './styles/loginform.module.css';
 import { useLogIn } from './useLogIn';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthFormContainer from './authFormComponents/AuthFormContainer';
+import Fields from './authFormComponents/Fields';
 
 function LoginForm() {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
-  const { login, isLoading } = useLogIn();
+  const formActions = { register };
+
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useLogIn();
 
   async function onSubmit(data) {
-    login(data);
+    setIsLoading(true);
+    login(data, { onSettled: () => setIsLoading(false) });
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <fieldset className={styles.fieldset}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="janedoe@example.com"
-          {...register('email', {
-            required: 'This field is required',
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: 'Please specify a valid email',
-            },
-          })}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-      </fieldset>
-      <fieldset className={styles.fieldset}>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="*****"
-          {...register('password', {
-            required: 'This field is required',
-          })}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
-      </fieldset>
-      <Button variant="primary" type="submit">
-        Log in
+    <AuthFormContainer onSubmit={onSubmit} handleSubmit={handleSubmit}>
+      <Fields
+        id="email"
+        type="email"
+        label="Email"
+        placeholder="j.doe@1952africa.art"
+        errorMessage={errors?.email?.message || null}
+        formActions={formActions}
+      />
+      <Fields
+        id="password"
+        type="password"
+        label="Password"
+        placeholder="********"
+        errorMessage={errors?.password?.message || null}
+        formActions={formActions}
+      />
+
+      <Button variant="primary" type="submit" disabled={isLoading}>
+        {isLoading ? 'Logging in..' : ' Log in'}
       </Button>
-    </form>
+      <Button
+        variant="link-dark"
+        size="md"
+        onClick={() => navigate('/reset-password')}
+      >
+        Forgot password?
+      </Button>
+    </AuthFormContainer>
   );
 }
 

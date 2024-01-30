@@ -5,15 +5,21 @@ import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
+import { usePrograms } from './usePrograms';
 
 function Programs() {
   const headers = ['Name', 'Description'];
-  const slugs = programData.map((program) => `/programs/${program.slug}`);
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+
+  const { programs, isLoading } = usePrograms(currentUser.token);
+
+  if (isLoading) return;
+  const ids = programs.map((program) => `/programs/${program.id}`);
 
   const operationData = {
-    data: programData,
+    data: programs,
     keys: ['title', 'description'],
-    navigation: slugs,
+    navigation: ids,
   };
 
   return (
@@ -23,7 +29,7 @@ function Programs() {
         navigateTo={{ label: 'Add program', path: '/programs/add' }}
       />
       <SearchBar placeholder="Search program" />
-      <OperationsPanel title={`All programs (${programData.length})`} />
+      <OperationsPanel title={`All programs (${programs.length})`} />
       <Table
         headers={headers}
         operationData={operationData}

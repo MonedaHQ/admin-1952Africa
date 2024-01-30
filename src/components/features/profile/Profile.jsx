@@ -17,6 +17,7 @@ function Profile() {
   const navigate = useNavigate();
 
   const imageData = { data: user, key: 'image_url' };
+  const userRole = user.role;
 
   const { updateProfileImg } = useProfileImg();
 
@@ -43,7 +44,12 @@ function Profile() {
   }
   return (
     <Section>
-      <BigHeader title="Account Preferences" variant="md" />
+      <BigHeader
+        title="Account Preferences"
+        variant="md"
+        userRole={userRole}
+        useRole={true}
+      />
       <MainForm>
         <Avatar
           imageData={imageData}

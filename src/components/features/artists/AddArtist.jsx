@@ -7,7 +7,7 @@ import MainForm from '../../ui/MainForm';
 function AddArtist() {
   return (
     <Section>
-      <BigHeader title="Add artist" variant="lg" />
+      <BigHeader title="Add artist" variant="lg" useRole={false} />
       <MainForm>
         <Avatar />
         <ArtistForm />

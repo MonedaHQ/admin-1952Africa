@@ -7,11 +7,25 @@ import EditActivity from './EditActivity';
 import Section from '../../ui/Section';
 import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
+import { useActivity } from './useActivity';
+import { reformatDateString } from '../../../utilities/helpers';
 
 function Activity() {
   const { id } = useParams();
 
-  const activity = activitesData.find((activity) => activity.id === id);
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const token = currentUser.token;
+
+  const { isLoadingActivity, activity } = useActivity({ id, token });
+
+  if (isLoadingActivity) return;
+
+  if (!activity) return;
+
+  const formattedActivity = {
+    ...activity,
+    date: reformatDateString(activity.date),
+  };
 
   const imageData = { data: [activity], key: 'image_url' };
 
@@ -29,7 +43,7 @@ function Activity() {
       />
 
       <AddCoverImg imageData={imageData} />
-      <EditActivity activity={activity} />
+      <EditActivity activity={formattedActivity} />
     </Section>
   );
 }
