@@ -8,6 +8,7 @@ import Table from '../../ui/Table';
 import styles from './styles/activities.module.css';
 import { useActivities } from '../activities/useActivities';
 import { usePrograms } from './usePrograms';
+import EmptyData from '../../ui/EmptyData';
 
 function Activities({ programId }) {
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
@@ -22,17 +23,17 @@ function Activities({ programId }) {
 
   if (isLoading || isLoadingPrograms) return;
 
-  const formattedActivities = activities.map((activity) => {
+  const formattedActivities = activities.data.map((activity) => {
     return {
       ...activity,
-      date: new Date(activity.date).toDateString(),
+      date: new Date(activity.date).getFullYear(),
       program:
-        programs.find((program) => program.id === activity.program_id).title ||
-        null,
+        programs.data.find((program) => program.id === activity.program_id)
+          .title || null,
     };
   });
 
-  const activityIds = activities.map(
+  const activityIds = activities.data.map(
     (activity) => `/activities/${activity.id}`
   );
 
@@ -52,12 +53,17 @@ function Activities({ programId }) {
       />
 
       <SearchBar placeholder="Search activity" />
-      <OperationsPanel title="All activites" />
-      <Table
-        headers={headers}
-        operationData={operationsData}
-        paginationCount={0}
+      <OperationsPanel
+        title={`All activities (${activities.meta.itemCount})`}
       />
+      {activities.data.length > 0 && (
+        <Table
+          headers={headers}
+          operationData={operationsData}
+          paginationCount={activities.meta.itemCount}
+        />
+      )}
+      {!activities.data.length && <EmptyData />}
     </div>
   );
 }

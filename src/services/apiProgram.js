@@ -36,26 +36,26 @@ export async function createProgram(form, token) {
 
 export async function getPrograms({
   token,
-  // rangeStatus,
-  // searchQuery,
-  // sortMethod,
+  rangeStatus,
+  searchQuery,
+  sortMethod,
 }) {
   let url = `${BASE_URL}/program`;
 
-  // if (rangeStatus) {
-  //   url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  // }
+  if (rangeStatus) {
+    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
+  }
 
-  // if (searchQuery) {
-  //   url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  // }
+  if (searchQuery) {
+    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
+  }
 
-  // if (sortMethod) {
-  //   sortMethod.field === 'sortOrder'
-  //     ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
-  //     : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
-  //   console.log(url);
-  // }
+  if (sortMethod) {
+    sortMethod.field === 'sortOrder'
+      ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
+      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
+    console.log(url);
+  }
 
   try {
     const response = await fetch(`${url}`, {
@@ -169,26 +169,25 @@ export async function createActivity(form, token) {
 export async function getActivities({
   token,
   program_id,
-  // rangeStatus,
-  // searchQuery,
-  // sortMethod,
+  rangeStatus,
+  searchQuery,
+  sortMethod,
 }) {
   let url = `${BASE_URL}/activity?program_id=${program_id}`;
 
-  // if (rangeStatus) {
-  //   url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  // }
+  if (rangeStatus) {
+    url = `${url}&${rangeStatus.field}=${rangeStatus.value}`;
+  }
 
-  // if (searchQuery) {
-  //   url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  // }
+  if (searchQuery) {
+    url = `${url}&${searchQuery.field}=${searchQuery.value}`;
+  }
 
-  // if (sortMethod) {
-  //   sortMethod.field === 'sortOrder'
-  //     ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
-  //     : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
-  //   console.log(url);
-  // }
+  if (sortMethod) {
+    sortMethod.field === 'sortOrder'
+      ? (url = `${url}&sort=title&${sortMethod.field}=${sortMethod.value}`)
+      : (url = `${url}&${sortMethod.field}=${sortMethod.value}`);
+  }
 
   try {
     const response = await fetch(`${url}`, {
@@ -222,6 +221,60 @@ export async function getActivity(id, token) {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to fetch data');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function updateActivity(data, id, token) {
+  const url = `${BASE_URL}/activity/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to update');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function updateActivityImage(imageFile, id, token) {
+  const url = `${BASE_URL}/activity/${id}/image`;
+
+  const formData = new FormData();
+  formData.append('file', imageFile);
+
+  try {
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to update');
     }
 
     const responseData = await response.json();

@@ -48,7 +48,7 @@ function BigTitle({ titleData }) {
         <Button variant="primary" onClick={() => navigate(navigation)}>
           Edit
         </Button>
-        <Button variant="link-dark" onClick={() => navigate(-1)}>
+        <Button variant="link-warn" onClick={() => navigate(-1)}>
           Go back
         </Button>
       </div>

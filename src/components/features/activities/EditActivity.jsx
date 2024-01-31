@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { programData } from '../../../data/programsData';
@@ -12,9 +12,12 @@ import CoverImageInput from '../../ui/CoverImageInput';
 import { useState } from 'react';
 import { usePrograms } from '../programs/usePrograms';
 import { useCreateActivity } from './useCreateActivity';
+import { useUpdateActivity } from './useUpdateActivity';
 
 function EditActivity({ activity, add = false }) {
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const { register, formState, handleSubmit, setValue } = useForm();
   const { errors } = formState;
 
@@ -24,33 +27,43 @@ function EditActivity({ activity, add = false }) {
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
 
   const token = currentUser.token;
+
   const { programs, isLoading } = usePrograms(token);
+
   const { createActivity } = useCreateActivity();
+  const { updateActivity } = useUpdateActivity();
 
   if (isLoading) return;
 
   const currentProgram = activity
-    ? programs.find((curProgram) => curProgram.id === activity.program)
+    ? programs.data.find((curProgram) => curProgram.id === activity.program)
     : null;
 
   function onSubmit(data) {
     setIsCreating(true);
-    const formattedData = {
-      ...data,
-      program_id:
-        programs.find(
-          (program) =>
-            program.title.trim().toLowerCase() ===
-            data.program.trim().toLowerCase()
-        )?.id || null,
-      date: new Date(data.date).toISOString(),
-      file,
-    };
+    if (add) {
+      const formattedData = {
+        ...data,
+        program_id:
+          programs.data.find(
+            (program) =>
+              program.title.trim().toLowerCase() ===
+              data.program.trim().toLowerCase()
+          )?.id || null,
+        date: new Date(data.date).toISOString(),
+        file,
+      };
 
-    createActivity(
-      { form: formattedData, token },
-      { onSettled: () => setIsCreating(false) }
-    );
+      createActivity(
+        { form: formattedData, token },
+        { onSettled: () => setIsCreating(false) }
+      );
+    } else {
+      updateActivity(
+        { data, id, token },
+        { onSettled: () => setIsCreating(false) }
+      );
+    }
   }
 
   return (
@@ -85,21 +98,23 @@ function EditActivity({ activity, add = false }) {
           formActions={{ register, errors }}
           required={true}
         />
-        <TextInput
-          type="select"
-          id="program"
-          label="Program"
-          placeholder=""
-          defaultValue={currentProgram ? currentProgram.title : null}
-          formActions={{ register, errors }}
-          required={true}
-        >
-          {programs.map((program) => (
-            <option value={program.title} key={program.id}>
-              {program.title}
-            </option>
-          ))}
-        </TextInput>
+        {add && (
+          <TextInput
+            type="select"
+            id="program"
+            label="Program"
+            placeholder=""
+            defaultValue={currentProgram ? currentProgram.title : null}
+            formActions={{ register, errors }}
+            required={true}
+          >
+            {programs.data.map((program) => (
+              <option value={program.title} key={program.id}>
+                {program.title}
+              </option>
+            ))}
+          </TextInput>
+        )}
         <TextInput
           type="date"
           id="date"

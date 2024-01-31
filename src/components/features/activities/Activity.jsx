@@ -1,7 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-import { activitesData } from '../../../data/programsData';
-
 import EditActivity from './EditActivity';
 
 import Section from '../../ui/Section';
@@ -9,14 +7,27 @@ import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import { useActivity } from './useActivity';
 import { reformatDateString } from '../../../utilities/helpers';
+import { useEffect, useState } from 'react';
+import { useUpdateActivityImage } from './useUpdateActivityImage';
 
 function Activity() {
   const { id } = useParams();
+
+  const [isReloading, setIsReloading] = useState(true);
 
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
   const token = currentUser.token;
 
   const { isLoadingActivity, activity } = useActivity({ id, token });
+  const { updateActivityImage } = useUpdateActivityImage();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsReloading(false);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [setIsReloading]);
 
   if (isLoadingActivity) return;
 
@@ -28,6 +39,14 @@ function Activity() {
   };
 
   const imageData = { data: [activity], key: 'image_url' };
+
+  async function imageReplacementFunction(image) {
+    setIsReloading(true);
+    updateActivityImage(
+      { imageFile: image, id, token },
+      { onSettled: () => setIsReloading(false) }
+    );
+  }
 
   return (
     <Section>
@@ -42,8 +61,12 @@ function Activity() {
         type="lg"
       />
 
-      <AddCoverImg imageData={imageData} />
-      <EditActivity activity={formattedActivity} />
+      <AddCoverImg
+        imageData={imageData}
+        replacementFunction={imageReplacementFunction}
+        isUpdating={isReloading}
+      />
+      {!isReloading && <EditActivity activity={formattedActivity} />}
     </Section>
   );
 }

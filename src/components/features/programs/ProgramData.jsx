@@ -39,7 +39,7 @@ function ProgramData({ add = true }) {
   let program = null;
 
   if (id) {
-    program = programs.find((program) => program.id === id);
+    program = programs.data.find((program) => program.id === id);
   }
 
   function onSubmit(data) {
@@ -63,8 +63,9 @@ function ProgramData({ add = true }) {
           id="file"
           setValue={setValue}
           handleImage={setFile}
+          disabled={isCreating}
         >
-          Replace
+          {`Replac${isCreating ? 'ing...' : 'e'}`}
         </CoverImageInput>
       )}
       <FormFields>

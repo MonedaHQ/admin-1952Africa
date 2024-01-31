@@ -8,15 +8,19 @@ function CoverImageInput({ handleImage, children, disabled }) {
   const [imagePreview, setImagePreview] = useState('/images/empty-img.jpg');
   const fileInputRef = useRef(null);
 
+  const [isCreating, setIsCreating] = useState(false);
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
   async function handleImageChange(image) {
+    setIsCreating(true);
     const imageURL = URL.createObjectURL(image);
     const compressedImage = await handleImageCompression(image, image.name);
     handleImage(compressedImage);
     setImagePreview(imageURL);
+    setIsCreating(false);
   }
 
   const handleFileChange = (e) => {
@@ -33,7 +37,7 @@ function CoverImageInput({ handleImage, children, disabled }) {
         <Button
           variant="primary"
           onClick={handleButtonClick}
-          disabled={disabled}
+          disabled={isCreating || disabled}
         >
           {children}
         </Button>

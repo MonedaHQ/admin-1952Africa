@@ -16,7 +16,7 @@ function Program() {
 
   if (isLoading) return;
 
-  const program = programs.find((program) => program.id === id);
+  const program = programs.data.find((program) => program.id === id);
 
   const titleData = {
     title: program.title,

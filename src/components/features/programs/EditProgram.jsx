@@ -23,7 +23,7 @@ function EditProgram() {
 
   if (isLoading) return;
 
-  const program = programs.find((program) => program.id === id);
+  const program = programs.data.find((program) => program.id === id);
 
   const imageData = { data: [program], key: 'image_url' };
 

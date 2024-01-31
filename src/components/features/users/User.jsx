@@ -17,7 +17,7 @@ function User() {
   const token = currentUser.token;
 
   const { id } = useParams();
-  const { user } = useUser(id, token);
+  const { user, isLoading: isLoadingUser } = useUser(id, token);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -27,7 +27,7 @@ function User() {
     return () => clearTimeout(timeoutId);
   }, [setIsReloading]);
 
-  if (isReloading) return <Loader fullScreen={true} />;
+  if (isReloading || isLoadingUser) return <Loader fullScreen={true} />;
 
   const userRole = user.role.toLowerCase();
 

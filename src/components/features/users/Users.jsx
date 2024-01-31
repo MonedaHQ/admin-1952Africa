@@ -13,6 +13,7 @@ import {
   reformatDateString,
 } from '../../../utilities/helpers';
 import EmptyData from '../../ui/EmptyData';
+import Loader from '../../ui/Loader';
 
 function Users() {
   const navigate = useNavigate();
@@ -25,12 +26,14 @@ function Users() {
 
   const { users, isLoading } = useUsers(user.token);
 
+  if (isLoading) return <Loader fullScreen={true} />;
+
   const headers = ['First Name', 'Last Name', 'Role', 'Last log in'];
-  const navigationIds = users?.map((currentUser) =>
+  const navigationIds = users.data.map((currentUser) =>
     currentUser.id === user?.id ? '/profile' : `/users/${currentUser?.id}`
   );
 
-  const modifiedUsers = users?.map((user) => {
+  const modifiedUsers = users.data.map((user) => {
     return {
       ...user,
       updated_at: capitalizeFirstLetter(
@@ -55,13 +58,12 @@ function Users() {
       {!isLoading && (
         <>
           {' '}
-          <OperationsPanel title="All users" />
-          {users.length ? (
+          <OperationsPanel title={`All users (${users.meta.itemCount})`} />
+          {users.data.length ? (
             <Table
               headers={headers}
               operationData={operationData}
-              paginationCount={users.length}
-              // gridNo={3}
+              paginationCount={users.meta.itemCount}
             />
           ) : (
             <EmptyData />
