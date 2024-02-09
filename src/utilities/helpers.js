@@ -66,7 +66,7 @@ export function capitalizeFirstLetter(str) {
 }
 
 export async function handleImageCompression(image, filename) {
-  console.log(`originalFile size ${image.size / 1024 / 1024} MB`);
+  // console.log(`originalFile size ${image.size / 1024 / 1024} MB`);
 
   const options = {
     maxSizeMB: 0.3,
@@ -80,7 +80,7 @@ export async function handleImageCompression(image, filename) {
       type: compressedBlob.type,
       lastModified: Date.now(),
     });
-    console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+    // console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
 
     return compressedFile;
   } catch (error) {

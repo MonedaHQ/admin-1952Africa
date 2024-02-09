@@ -34,12 +34,7 @@ export async function createProgram(form, token) {
   }
 }
 
-export async function getPrograms({
-  token,
-  rangeStatus,
-  searchQuery,
-  sortMethod,
-}) {
+export async function getPrograms({ rangeStatus, searchQuery, sortMethod }) {
   let url = `${BASE_URL}/program`;
 
   if (rangeStatus) {
@@ -54,17 +49,36 @@ export async function getPrograms({
     sortMethod.field === 'sortOrder'
       ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
       : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
-    console.log(url);
   }
 
   try {
     const response = await fetch(`${url}`, {
       method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
     });
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to fetch programs');
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function getProgram(id) {
+  const url = `${BASE_URL}/program/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch data');
     }
 
     const responseData = await response.json();
@@ -129,6 +143,30 @@ export async function updateProgramImage(imageFile, id, token) {
   }
 }
 
+export async function deleteProgram(id, token) {
+  const url = `${BASE_URL}/program/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to delete');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
 export async function createActivity(form, token) {
   const url = `${BASE_URL}/activity`;
 
@@ -167,7 +205,6 @@ export async function createActivity(form, token) {
 }
 
 export async function getActivities({
-  token,
   program_id,
   rangeStatus,
   searchQuery,
@@ -192,7 +229,6 @@ export async function getActivities({
   try {
     const response = await fetch(`${url}`, {
       method: 'GET',
-      headers: { Authorization: `Bearer ${token}` },
     });
     if (!response.ok) {
       const errorData = await response.json();
@@ -200,22 +236,19 @@ export async function getActivities({
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return responseData;
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
   }
 }
 
-export async function getActivity(id, token) {
+export async function getActivity(id) {
   const url = `${BASE_URL}/activity/${id}`;
 
   try {
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
 
     if (!response.ok) {
@@ -275,6 +308,80 @@ export async function updateActivityImage(imageFile, id, token) {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to update');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function deleteActivity(id, token) {
+  const url = `${BASE_URL}/activity/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to delete');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+///////////////////
+
+export async function getProgramData(token) {
+  const url = `${BASE_URL}/program/all/meta`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch data');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+export async function getActivityData(program_id, token) {
+  const url = `${BASE_URL}/activity/all/meta?program_id=${program_id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch data');
     }
 
     const responseData = await response.json();

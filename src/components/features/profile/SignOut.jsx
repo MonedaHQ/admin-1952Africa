@@ -6,19 +6,37 @@ import Modal from '../../ui/Modal';
 import Button from '../../ui/Button';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
+import { useDeleteUser } from '../users/useDeleteUser';
 
 function SignOut() {
   const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
 
+  const { id, token } = currentUser;
+
   const isAdmin =
     currentUser.role.toLowerCase() === 'admin' ||
     currentUser.role.toLowerCase() === 'superadmin';
+
+  const { deleteUser, isDeleting } = useDeleteUser();
 
   function handleSignout() {
     localStorage.removeItem('1952adminUser');
     navigate('/');
   }
+
+  function handleDeleteAccount() {
+    deleteUser(
+      { id, token },
+      {
+        onSuccess: () => {
+          localStorage.removeItem('1952adminUser');
+          navigate('/');
+        },
+      }
+    );
+  }
+
   return (
     <TwoButtonWrapper>
       <Modal>
@@ -36,7 +54,7 @@ function SignOut() {
         <Modal.Window name="deleteAccount">
           <ConfirmDelete
             action="delete"
-            onConfirm={handleSignout}
+            onConfirm={handleDeleteAccount}
             resourceName="your account"
           />
         </Modal.Window>

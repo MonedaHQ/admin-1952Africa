@@ -7,8 +7,7 @@ function AddExhibition() {
   return (
     <Section>
       <BigHeader title="Add Exhibition" variant="lg" useRole={false} />
-      <AddCoverImg />
-      <ExhibitionForm />
+      <ExhibitionForm add={true} />
     </Section>
   );
 }

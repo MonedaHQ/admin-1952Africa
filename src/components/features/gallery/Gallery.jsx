@@ -1,27 +1,28 @@
-import { exhibitionData } from '../../../data/programsData';
-
 import Section from '../../ui/Section';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import OperationsPanel from '../../ui/OperationsPanel';
 import SearchBar from '../../ui/SearchBar';
 import Table from '../../ui/Table';
+import { useExhibitions } from './useExhibitions';
+import EmptyData from '../../ui/EmptyData';
 
 function Gallery() {
-  const tableHeaders = ['Name', 'Description', 'Artists', 'Year'];
-  const dataKeys = ['title', 'description', 'artists', 'year'];
+  const tableHeaders = ['Name', 'Description', 'Year'];
+  const dataKeys = ['title', 'description', 'year'];
 
-  const newExhibitionData = exhibitionData.map((exhibition) => {
-    return {
-      ...exhibition,
-      sponsored: exhibition.sponsored ? 'Sponsored' : 'Not Sponsored',
-      artists: exhibition.artists.length,
-    };
-  });
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const { token } = currentUser;
 
-  const navigationIDs = exhibitionData.map((event) => `/gallery/${event.id}`);
+  const { exhibitions, isLoading } = useExhibitions(token);
+
+  if (isLoading) return;
+
+  const navigationIDs = exhibitions.data.map(
+    (exhibition) => `/gallery/${exhibition.id}`
+  );
 
   const operations = {
-    data: newExhibitionData,
+    data: exhibitions.data,
     keys: dataKeys,
     navigation: navigationIDs,
   };
@@ -34,11 +35,15 @@ function Gallery() {
       />
       <SearchBar placeholder="Search gallery" />
       <OperationsPanel title="All exhibitions" />
-      <Table
-        headers={tableHeaders}
-        operationData={operations}
-        paginationCount={newExhibitionData.length}
-      />
+      {exhibitions.data.length > 0 && (
+        <Table
+          headers={tableHeaders}
+          operationData={operations}
+          paginationCount={exhibitions.meta.itemCount}
+          gridNo={3}
+        />
+      )}
+      {!exhibitions.data.length && <EmptyData />}
     </Section>
   );
 }

@@ -1,27 +1,22 @@
 import { useParams } from 'react-router-dom';
-import { programData } from '../../../data/programsData';
 
 import Section from '../../ui/Section';
 import BigTitle from '../../ui/BigTitle';
 import Activities from './Activities';
-import { usePrograms } from './usePrograms';
+
+import { useProgram } from './useProgram';
 
 function Program() {
   const { id } = useParams();
 
-  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
-  const token = currentUser.token;
-
-  const { programs, isLoading } = usePrograms(token);
+  const { program, isLoading } = useProgram({ id });
 
   if (isLoading) return;
 
-  const program = programs.data.find((program) => program.id === id);
-
   const titleData = {
-    title: program.title,
-    description: program.description,
-    image: program.image_url,
+    title: program?.title,
+    description: program?.description,
+    image: program?.image_url,
     navigation: `/programs/${id}/edit`,
   };
 

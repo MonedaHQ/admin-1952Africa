@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { getPrograms } from '../../../services/apiProgram';
 
-export function usePrograms(token) {
+export function usePrograms() {
   const [searchParams] = useSearchParams();
 
   //search
@@ -16,7 +16,7 @@ export function usePrograms(token) {
   const range = searchParams.get('range');
   const rangeStatus = !range
     ? null
-    : { field: 'name', value: range.toLowerCase() };
+    : { field: 'title', value: range.toLowerCase() };
 
   //sort
   const sortBy = searchParams.get('sortBy');
@@ -25,16 +25,12 @@ export function usePrograms(token) {
     : {
         field: sortBy === 'name' ? 'sort' : 'sortOrder',
         value:
-          sortBy === 'name'
-            ? 'first_name'
-            : sortBy === 'earliest'
-            ? 'ASC'
-            : 'DESC',
+          sortBy === 'name' ? 'title' : sortBy === 'earliest' ? 'ASC' : 'DESC',
       };
 
   const { isLoading, data: programs } = useQuery({
     queryKey: ['programs', rangeStatus, searchQuery, sortMethod],
-    queryFn: () => getPrograms({ token, rangeStatus, searchQuery, sortMethod }),
+    queryFn: () => getPrograms({  rangeStatus, searchQuery, sortMethod }),
   });
 
   return { isLoading, programs };

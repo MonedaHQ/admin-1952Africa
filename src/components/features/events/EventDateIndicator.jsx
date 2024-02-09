@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 
-import { formatDateToRelative } from '../../../utilities/helpers';
+import {
+  formatDateToRelative,
+  reformatDateString,
+} from '../../../utilities/helpers';
 
 import styles from './styles/eventdateindicator.module.css';
 
@@ -16,8 +19,13 @@ function EventDateIndicator({ event }) {
   };
 
   const { start_date, end_date } = event;
-  const isEnded = formatDateToRelative(end_date).includes('ago');
-  const isStarted = formatDateToRelative(start_date).includes('in');
+
+  const isEnded = formatDateToRelative(reformatDateString(end_date)).includes(
+    'ago'
+  );
+  const isStarted = formatDateToRelative(
+    reformatDateString(start_date)
+  ).includes('in');
   return (
     <motion.div
       className={`${styles.eventDate} ${
@@ -29,9 +37,9 @@ function EventDateIndicator({ event }) {
     >
       <p>
         {`Start${isStarted ? 'ing' : 'ed'}`}{' '}
-        <strong>{formatDateToRelative(start_date)}</strong>{' '}
+        <strong>{formatDateToRelative(reformatDateString(start_date))}</strong>{' '}
         {`${isStarted ? 'and ending ' : `end${isEnded ? 'ed ' : 'ing '}`}`}
-        <strong>{formatDateToRelative(end_date)}</strong>
+        <strong>{formatDateToRelative(reformatDateString(end_date))}</strong>
       </p>
     </motion.div>
   );

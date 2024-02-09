@@ -1,19 +1,16 @@
-import { programData } from '../../../data/programsData';
-
 import Section from '../../ui/Section';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
-import { usePrograms } from './usePrograms';
 import EmptyData from '../../ui/EmptyData';
 import Loader from '../../ui/Loader';
+import { usePrograms } from './usePrograms';
 
 function Programs() {
   const headers = ['Name', 'Description'];
-  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
 
-  const { programs, isLoading } = usePrograms(currentUser.token);
+  const { programs, isLoading } = usePrograms();
 
   if (isLoading) return <Loader fullScreen={true} />;
 

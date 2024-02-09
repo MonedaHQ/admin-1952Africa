@@ -1,17 +1,23 @@
 import { useParams } from 'react-router-dom';
-import { exhibitionData } from '../../../data/programsData';
 
 import Section from '../../ui/Section';
 import BigTitle from '../../ui/BigTitle';
 import Works from './Works';
+import { useExhibition } from './useExhibition';
 
 function Exhibition() {
   const { id } = useParams();
-  const event = exhibitionData.find((event) => event.id === id);
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const { token } = currentUser;
+
+  const { exhibition, isLoading } = useExhibition({ id, token });
+
+  if (isLoading) return;
+
   const titleData = {
-    title: event.title,
-    description: event.description,
-    image: event.cover_img,
+    title: exhibition.title,
+    description: exhibition.description,
+    image: exhibition.image_url,
     navigation: `/gallery/${id}/edit`,
   };
   return (

@@ -8,15 +8,26 @@ import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import Button from '../../ui/Button';
+import { useCreateWork } from './useCreateWork';
+import CoverImageInput from '../../ui/CoverImageInput';
+import { useState } from 'react';
 
-function EditWorkForm() {
+function EditWorkForm({ add = false, fullImage = false }) {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { register, formState, handleSubmit } = useForm();
+  const { register, formState, handleSubmit, setValue } = useForm();
   const { errors } = formState;
+
+  const [file, setFile] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
+  const { id, token } = currentUser;
 
   let work = null;
   let currentExhibition = null;
+
+  const { createWork } = useCreateWork();
 
   if (slug) {
     const currentWork = works?.find((work) => work.slug === slug);
@@ -44,30 +55,46 @@ function EditWorkForm() {
   const formActions = { register, errors };
 
   function onSubmit(data) {
-    const { exhibition } = data;
-    const { exhibitionId } =
-      allExhibitions
-        .filter((exhibit) => exhibit.exhibitionTitle === exhibition)
-        .at(0) || null;
-
-    const newData = { ...data, exhibition: exhibitionId };
-    console.log(newData);
+    setIsCreating(true);
+    if (!id) {
+      console.log(data);
+      // const form = { ...data, file };
+      // createWork({ form, token }, { onSettled: () => setIsCreating(false) });
+    } else if (id && file === null) {
+      // createWork(
+      //   { payload: data, id, token },
+      //   { onSettled: () => setIsCreating(false) }
+      // );
+    }
   }
+
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+      {add && (
+        <CoverImageInput
+          register={register}
+          id="file"
+          setValue={setValue}
+          handleImage={setFile}
+          disabled={isCreating}
+          fullImage={fullImage}
+        >
+          {`Replac${isCreating ? 'ing...' : 'e'}`}
+        </CoverImageInput>
+      )}
       <FormFields onSubmit={handleSubmit(onSubmit)}>
         <TextInput
           type="text"
-          id="art_title"
+          id="title"
           label="Title"
-          placeholder="Art title"
+          placeholder="Work title"
           defaultValue={work ? work.art_title : ''}
           formActions={formActions}
         />
         <TextInput
           type="text"
           id="artist_name"
-          label="Artist Name"
+          label="Artist"
           placeholder="Artist Name"
           defaultValue={work ? work.artist_name : ''}
           formActions={formActions}
@@ -114,7 +141,7 @@ function EditWorkForm() {
         </TextInput>
         <TextInput
           type="select"
-          id="isAvailable"
+          id="is_available"
           label="Is this piece available?"
           defaultValue={work ? work.isAvailable : ''}
           formActions={formActions}
@@ -122,6 +149,14 @@ function EditWorkForm() {
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </TextInput>
+        <TextInput
+          type="number"
+          id="value"
+          label="Value (in USD)"
+          placeholder="8000"
+          defaultValue={work ? work.video_url : ''}
+          formActions={formActions}
+        />
       </FormFields>
       <TwoButtonWrapper>
         <Button variant="primary" type="submit">

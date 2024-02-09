@@ -74,7 +74,7 @@ function App() {
               <Route path="/activities/:id" element={<Activity />} />
               <Route path="/activities/add" element={<AddActivity />} />
               <Route path="/artists" element={<Artists />} />
-              <Route path="/artists/:slug" element={<Artist />} />
+              <Route path="/artists/:id" element={<Artist />} />
               <Route path="/artists/add" element={<AddArtist />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/add" element={<AddEvents />} />

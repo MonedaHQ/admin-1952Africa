@@ -31,6 +31,20 @@
   display: flex;
   justify-content: center;
 }
+.avatar {
+  display: grid;
+  grid-template-rows: max-content;
+  row-gap: 1rem;
+  justify-items: center;
+}
+
+.avatar img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50rem;
+}
 
 @media only screen and (max-width: 34.375em) {
   .imageContainer img {

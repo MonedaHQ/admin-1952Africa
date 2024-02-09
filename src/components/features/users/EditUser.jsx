@@ -27,9 +27,7 @@ function EditUser({ user = null, isSuperAdmin = false }) {
 
   const { createUser } = useCreateUser();
 
-  const isAdmin =
-    currentUser.role.toLowerCase() === 'admin' ||
-    currentUser.role.toLowerCase() === 'superadmin';
+  isSuperAdmin = currentUser.role.toLowerCase() === 'superadmin';
 
   const formActions = { register, errors };
 
@@ -37,14 +35,19 @@ function EditUser({ user = null, isSuperAdmin = false }) {
     setIsWorking(true);
 
     let update;
+
     if (id) {
       update = {
         role: data.role,
-        user_type: data.role === 'SuperAdmin' ? 'Admin' : null,
+        // user_type: data.role.toLowerCase() === 'superadmin' ? 'Admin' : null,
       };
       upgradeUser({ payload: update, id, token: currentUser.token });
     } else {
-      update = data;
+      update = {
+        ...data,
+        // user_type: data.role.toLowerCase() === 'superadmin' ? 'Admin' : null,
+      };
+
       createUser(
         { update, token: currentUser.token },
         { onSettled: () => setIsWorking(false) }
@@ -81,19 +84,18 @@ function EditUser({ user = null, isSuperAdmin = false }) {
           disabled={user ? true : false}
           required={user ? false : true}
         />
-        {(isSuperAdmin || !isAdmin) && (
-          <TextInput
-            type="select"
-            id="role"
-            label="Role"
-            defaultValue={user ? user.role : ''}
-            formActions={formActions}
-          >
-            <option value="User">User</option>
-            <option value="Admin">Admin</option>
-            {isSuperAdmin && <option value="SuperAdmin">Super Admin</option>}
-          </TextInput>
-        )}
+
+        <TextInput
+          type="select"
+          id="role"
+          label="Role"
+          defaultValue={user ? user.role : ''}
+          formActions={formActions}
+        >
+          <option value="User">User</option>
+          <option value="Editor">Editor</option>
+          {isSuperAdmin && <option value="SuperAdmin">Super Admin</option>}
+        </TextInput>
       </FormFields>
       <TwoButtonWrapper>
         <Button variant="primary" type="submit" disabled={isWorking}>

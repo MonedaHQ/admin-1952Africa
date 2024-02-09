@@ -32,23 +32,44 @@ function TextInput({
       </fieldset>
     );
 
-  if (type === 'select')
+  if (type === 'select') {
+    let selectProps;
+    if (onChange) {
+      selectProps = {
+        defaultValue,
+        onChange,
+        disabled,
+        className: styles.select,
+      };
+    } else {
+      selectProps = {
+        defaultValue,
+
+        disabled,
+        className: styles.select,
+      };
+    }
+
     return (
       <fieldset className={styles.fieldset}>
-        <label htmlFor={id}>{label}</label>
-        <select
-          defaultValue={defaultValue}
-          onChange={onChange}
-          {...register(id, {
-            required: required ? 'This field is required' : false,
-          })}
-          disabled={disabled}
-        >
-          {children}
-        </select>
-        {errors[id] && <p>{errors[id].message}</p>}
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
+        {onChange && <select {...selectProps}>{children}</select>}
+        {!onChange && (
+          <select
+            {...selectProps}
+            {...register(id, {
+              required: required ? 'This field is required' : false,
+            })}
+          >
+            {children}
+          </select>
+        )}
+        {errors[id] && <p className={styles.warning}>{errors[id].message}</p>}
       </fieldset>
     );
+  }
 
   if (type === 'date')
     return (

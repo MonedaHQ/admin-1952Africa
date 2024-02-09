@@ -9,6 +9,7 @@ import Table from '../../ui/Table';
 
 function Works() {
   const { id } = useParams();
+
   const tableHeaders = ['Title', 'Medium', 'Artist', 'Availability'];
   const selectedWorks = works.filter((work) => work.exhibition === id);
 

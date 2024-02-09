@@ -19,7 +19,13 @@ import ConfirmDelete from '../ConfirmDelete';
  * @returns {JSX.Element} - React component for rendering the header and add button.
  */
 
-function HeaderAndButton({ header, navigateTo, type = 'xl', as = 'button' }) {
+function HeaderAndButton({
+  header,
+  navigateTo,
+  type = 'xl',
+  as = 'button',
+  onConfirm,
+}) {
   return (
     <div className={styles.header}>
       <motion.h2
@@ -30,21 +36,18 @@ function HeaderAndButton({ header, navigateTo, type = 'xl', as = 'button' }) {
       >
         {header}
       </motion.h2>
-      <AddButton navigateTo={navigateTo} as={as} />
+      <AddButton navigateTo={navigateTo} as={as} onConfirm={onConfirm} />
     </div>
   );
 }
 
-function AddButton({ navigateTo, as }) {
+function AddButton({ navigateTo, as, onConfirm }) {
   const navigate = useNavigate();
   if (as === 'delete') {
     return (
       <Modal>
         <Modal.Open opens="delete">
-          <button
-            className={`${styles.btn} ${styles.delete}`}
-            onClick={() => navigate(navigateTo.path)}
-          >
+          <button className={`${styles.btn} ${styles.delete}`}>
             <p>
               <span>
                 <IoIosTrash />
@@ -54,7 +57,10 @@ function AddButton({ navigateTo, as }) {
           </button>
         </Modal.Open>
         <Modal.Window name="delete">
-          <ConfirmDelete resourceName={navigateTo.resourceName} />
+          <ConfirmDelete
+            resourceName={navigateTo.resourceName}
+            onConfirm={onConfirm}
+          />
         </Modal.Window>
       </Modal>
     );

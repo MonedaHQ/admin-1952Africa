@@ -1,5 +1,3 @@
-import { activitesData } from '../../../data/programsData';
-
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
@@ -17,7 +15,6 @@ function Activities({ programId }) {
   const { programs, isLoading: isLoadingPrograms } = usePrograms(token);
 
   const { activities, isLoading } = useActivities({
-    token,
     program_id: programId,
   });
 

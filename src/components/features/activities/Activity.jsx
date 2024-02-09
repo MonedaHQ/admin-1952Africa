@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import EditActivity from './EditActivity';
 
@@ -9,17 +9,21 @@ import { useActivity } from './useActivity';
 import { reformatDateString } from '../../../utilities/helpers';
 import { useEffect, useState } from 'react';
 import { useUpdateActivityImage } from './useUpdateActivityImage';
+import { useDeleteActivity } from './useDeleteActivity';
 
 function Activity() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isReloading, setIsReloading] = useState(true);
 
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
   const token = currentUser.token;
 
-  const { isLoadingActivity, activity } = useActivity({ id, token });
+  const { isLoadingActivity, activity } = useActivity({ id });
   const { updateActivityImage } = useUpdateActivityImage();
+
+  const { deleteActivity } = useDeleteActivity();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -48,6 +52,10 @@ function Activity() {
     );
   }
 
+  function handleDeleteActivity() {
+    deleteActivity({ id, token }, { onSuccess: () => navigate(-1) });
+  }
+
   return (
     <Section>
       <HeaderAndButton
@@ -59,6 +67,7 @@ function Activity() {
         }}
         as="delete"
         type="lg"
+        onConfirm={handleDeleteActivity}
       />
 
       <AddCoverImg

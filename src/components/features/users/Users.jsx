@@ -20,8 +20,9 @@ function Users() {
   const user = JSON.parse(localStorage.getItem('1952adminUser'));
 
   const userRole = user.role.toLowerCase();
+
   useEffect(() => {
-    if (userRole === 'user' || userRole === 'admin') return navigate('/home');
+    if (userRole === 'user' || userRole === 'editor') return navigate('/home');
   }, [userRole, navigate]);
 
   const { users, isLoading } = useUsers(user.token);
@@ -29,6 +30,7 @@ function Users() {
   if (isLoading) return <Loader fullScreen={true} />;
 
   const headers = ['First Name', 'Last Name', 'Role', 'Last log in'];
+
   const navigationIds = users.data.map((currentUser) =>
     currentUser.id === user?.id ? '/profile' : `/users/${currentUser?.id}`
   );
@@ -57,7 +59,6 @@ function Users() {
       <SearchBar placeholder={'Search users'} param="name" />
       {!isLoading && (
         <>
-          {' '}
           <OperationsPanel title={`All users (${users.meta.itemCount})`} />
           {users.data.length ? (
             <Table

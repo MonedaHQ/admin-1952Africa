@@ -19,7 +19,7 @@
   border-radius: 25rem;
 }
 
-.admin {
+.editor {
   background-color: var(--color-wine);
   color: var(--color-white);
 }

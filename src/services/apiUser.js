@@ -86,7 +86,7 @@ export async function getUsers({
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return responseData;
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Could not fetch data');
@@ -188,5 +188,29 @@ export async function upgradeUserRole(data, id, token) {
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Failed to update');
+  }
+}
+
+export async function deleteUser(id, token) {
+  const url = `${BASE_URL}/user/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to delete');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
   }
 }

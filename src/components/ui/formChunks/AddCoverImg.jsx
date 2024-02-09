@@ -23,6 +23,7 @@ function AddCoverImg({
   fullImage = false,
   replacementFunction,
   isUpdating = false,
+  avatar = false,
 }) {
   const { slug } = useParams();
   const { id } = useParams();
@@ -76,7 +77,7 @@ function AddCoverImg({
   }
 
   return (
-    <div className={styles.coverImgContainer}>
+    <div className={avatar ? styles.avatar : styles.coverImgContainer}>
       <img src={imagePreview} alt="Cover Image" draggable="false" />
       <ImageInput onChange={handleImageChange} disabled={isUpdating}>{`Replac${
         isUpdating ? 'ing...' : 'e'

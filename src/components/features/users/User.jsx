@@ -1,5 +1,5 @@
 import { useUser } from './useUser';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Section from '../../ui/Section';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
@@ -9,15 +9,19 @@ import EditUser from './EditUser';
 import { useEffect, useState } from 'react';
 import Loader from '../../ui/Loader';
 import LastLogin from './LastLogin';
+import { useDeleteUser } from './useDeleteUser';
 
 function User() {
   const [isReloading, setIsReloading] = useState(true);
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
 
+  const navigate = useNavigate();
+
   const token = currentUser.token;
 
   const { id } = useParams();
   const { user, isLoading: isLoadingUser } = useUser(id, token);
+  const { deleteUser } = useDeleteUser();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -31,12 +35,25 @@ function User() {
 
   const userRole = user.role.toLowerCase();
 
-  const isAdmin = userRole === 'admin';
+  const isAdmin = userRole === 'editor';
+
   const isSuperAdmin = userRole === 'superadmin';
+
   const isCurrentUserSuperAdmin =
     currentUser.role.toLowerCase() === 'superadmin';
 
   const imageData = { data: user, key: 'image_url' };
+
+  function deleteUserProfile() {
+    deleteUser(
+      { id, token },
+      {
+        onSuccess: () => {
+          navigate(-1);
+        },
+      }
+    );
+  }
   return (
     <Section>
       {!isReloading &&
@@ -50,6 +67,7 @@ function User() {
             resourceName: 'this user',
           }}
           as="delete"
+          onConfirm={deleteUserProfile}
         />
       ) : (
         <BigHeader

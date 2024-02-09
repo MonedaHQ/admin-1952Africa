@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { getActivities as getActivitiesApi } from '../../../services/apiProgram';
 
-export function useActivities({ program_id, token }) {
+export function useActivities({ program_id }) {
   const [searchParams] = useSearchParams();
 
   //search;
@@ -32,7 +32,6 @@ export function useActivities({ program_id, token }) {
     queryKey: ['activities', searchQuery, rangeStatus, sortMethod],
     queryFn: () =>
       getActivitiesApi({
-        token,
         program_id,
         searchQuery,
         rangeStatus,

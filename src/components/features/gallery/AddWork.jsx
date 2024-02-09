@@ -7,8 +7,7 @@ function AddWork() {
   return (
     <Section>
       <BigHeader title="Add work" variant="lg" />
-      <AddCoverImg />
-      <EditWorkForm />
+      <EditWorkForm add={true} fullImage={true} />
     </Section>
   );
 }

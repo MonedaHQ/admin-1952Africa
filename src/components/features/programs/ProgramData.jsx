@@ -1,8 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { programData } from '../../../data/programsData';
-
 import FormWrapper from '../../ui/FormWrapper';
 import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';

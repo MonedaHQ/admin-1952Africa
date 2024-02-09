@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
 import Section from '../../ui/Section';
@@ -6,24 +6,26 @@ import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import MainForm from '../../ui/MainForm';
 import ProgramData from './ProgramData';
-import { usePrograms } from './usePrograms';
 import { handleImageCompression } from '../../../utilities/helpers';
 import { useUpdateProgramImage } from './useUpdateProgramImage';
+import { useProgram } from './useProgram';
+import { useDeleteProgram } from './useDeleteProgram';
 
 function EditProgram() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isUpdating, setIsUpdating] = useState(false);
 
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
   const token = currentUser.token;
 
-  const { programs, isLoading } = usePrograms(token);
+  const { program, isLoading: isLoadingProgram } = useProgram({ id, token });
   const { updateProgramImage } = useUpdateProgramImage();
 
-  if (isLoading) return;
+  const { deleteProgram, isDeleting } = useDeleteProgram();
 
-  const program = programs.data.find((program) => program.id === id);
+  if (isLoadingProgram) return;
 
   const imageData = { data: [program], key: 'image_url' };
 
@@ -39,6 +41,10 @@ function EditProgram() {
     );
   }
 
+  function handleDeleteProgram() {
+    deleteProgram({ id, token }, { onSuccess: () => navigate('/programs') });
+  }
+
   return (
     <Section>
       <HeaderAndButton
@@ -50,6 +56,7 @@ function EditProgram() {
         }}
         as="delete"
         type="lg"
+        onConfirm={handleDeleteProgram}
       />
       <MainForm>
         <AddCoverImg
