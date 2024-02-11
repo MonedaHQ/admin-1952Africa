@@ -85,7 +85,7 @@ function App() {
               <Route path="/gallery/:id" element={<Exhibition />} />
               <Route path="/gallery/:id/edit" element={<EditExhibition />} />
               <Route path="/works/add" element={<AddWork />} />
-              <Route path="/works/:slug" element={<Work />} />
+              <Route path="/works/:id" element={<Work />} />
 
               <Route path="/profile" element={<Profile />} />
 

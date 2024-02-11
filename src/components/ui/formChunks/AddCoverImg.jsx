@@ -70,7 +70,9 @@ function AddCoverImg({
           <img src={imagePreview} alt="Cover Image" draggable="false" />
         </div>
         <div className={styles.buttonWrapper}>
-          <ImageInput onChange={handleImageChange}>Replace</ImageInput>
+          <ImageInput onChange={handleImageChange} disabled={isUpdating}>
+            {`Replac${isUpdating ? 'ing...' : 'e'}`}
+          </ImageInput>
         </div>
       </div>
     );

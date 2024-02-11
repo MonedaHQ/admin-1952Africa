@@ -1,5 +1,5 @@
 import toast from 'react-hot-toast';
-import { createWork as createWorkApi } from '../../../services/apiGallery';
+import { createWork as createWorkApi } from '../../../services/apiWorks';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 

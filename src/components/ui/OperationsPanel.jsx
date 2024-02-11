@@ -18,6 +18,10 @@ function OperationsPanel({ title }) {
       searchParams.set('sortBy', '');
     }
 
+    if (searchParams.has('page')) {
+      searchParams.set('page', '');
+    }
+
     const setRange = range?.split(' - ').join('-').toLowerCase();
     searchParams.set('range', setRange);
     setSearchParams(searchParams);
@@ -26,6 +30,10 @@ function OperationsPanel({ title }) {
   function handleSortSearchParams(value) {
     if (searchParams.has('name')) {
       searchParams.set('name', '');
+    }
+
+    if (searchParams.has('page')) {
+      searchParams.set('page', '');
     }
 
     if (searchParams.has('range')) {

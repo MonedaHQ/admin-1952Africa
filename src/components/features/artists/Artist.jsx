@@ -9,6 +9,8 @@ import { useArtist } from './userArtist';
 import { useEffect, useState } from 'react';
 import { useUpdateArtistAvatar } from './useUpdateArtistImage';
 import { useDeleteArtist } from './useDeleteArtist';
+import { useRefreshData } from '../../../hooks/useRefreshData';
+import Loader from '../../ui/Loader';
 
 function Artist() {
   const { id } = useParams();
@@ -33,7 +35,9 @@ function Artist() {
     return () => clearTimeout(timeoutId);
   }, [setIsReloading]);
 
-  if (isLoading) return;
+  const isReloadingData = useRefreshData();
+
+  if (isLoading || isReloadingData) return <Loader />;
 
   const imageData = { data: artist, key: 'image_url' };
 

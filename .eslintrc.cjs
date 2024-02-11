@@ -19,5 +19,6 @@ module.exports = {
     'react/prop-types': 'off',
     'no-undef': 'warn',
     'no-unused-vars': 'warn',
+    'no-useless-escape': 'off',
   },
 };

@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_1952_API;
+import { BASE_URL } from '../utilities/config';
 
 export async function login(email, password) {
   const url = `${BASE_URL}/auth/sign-in`;

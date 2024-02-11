@@ -32,9 +32,12 @@ export function useArtists() {
             : 'DESC',
       };
 
+  //pagination
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
   const { isLoading, data: artists } = useQuery({
-    queryKey: ['artists', rangeStatus, searchQuery, sortMethod],
-    queryFn: () => getArtists({ rangeStatus, searchQuery, sortMethod }),
+    queryKey: ['artists', rangeStatus, searchQuery, sortMethod, page],
+    queryFn: () => getArtists({ rangeStatus, searchQuery, sortMethod, page }),
   });
 
   return { isLoading, artists };

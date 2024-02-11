@@ -1,4 +1,5 @@
-const BASE_URL = import.meta.env.VITE_1952_API;
+import { BASE_URL } from '../utilities/config';
+import { addQueryParam } from '../utilities/helpers';
 
 export async function createArtist(form, token) {
   const url = `${BASE_URL}/artist`;
@@ -46,31 +47,28 @@ export async function getArtists({
   rangeStatus,
   searchQuery,
   sortMethod,
+  page,
 }) {
   let url = `${BASE_URL}/artist`;
 
-  if (program_id) {
-    url = `${BASE_URL}?program_id=${program_id}`;
-  }
-
-  if (rangeStatus) {
-    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  }
-
-  if (searchQuery) {
-    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  }
+  url = addQueryParam(url, 'program_id', program_id);
+  url = addQueryParam(url, 'page', page);
+  url = addQueryParam(url, rangeStatus?.field, rangeStatus?.value);
+  url = addQueryParam(url, searchQuery?.field, searchQuery?.value);
 
   if (sortMethod) {
-    sortMethod.field === 'sortOrder'
-      ? (url = `${url}?sort=first_name&${sortMethod.field}=${sortMethod.value}`)
-      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
+    const sortParam =
+      sortMethod.field === 'sortOrder'
+        ? 'sort=first_name&sortOrder'
+        : sortMethod.field;
+    url = addQueryParam(url, sortParam, sortMethod.value);
   }
 
   try {
-    const response = await fetch(`${url}`, {
+    const response = await fetch(url, {
       method: 'GET',
     });
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to fetch artists');
@@ -173,6 +171,31 @@ export async function deleteArtist(id, token) {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to delete');
+    }
+
+    const responseData = await response.json();
+    return responseData.data;
+  } catch (error) {
+    console.error('Error:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+/////////////////////////////
+export async function getArtistData(token) {
+  const url = `${BASE_URL}/artist/all/meta`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch data');
     }
 
     const responseData = await response.json();

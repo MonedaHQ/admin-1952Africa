@@ -23,7 +23,7 @@ import styles from '../styles/bigtitle.module.css';
  * @returns {JSX.Element} - The rendered BigTitle component.
  */
 
-function BigTitle({ titleData }) {
+function BigTitle({ titleData, navigateTo = -1 }) {
   const navigate = useNavigate();
   let title = '';
   let description = '';
@@ -48,7 +48,7 @@ function BigTitle({ titleData }) {
         <Button variant="primary" onClick={() => navigate(navigation)}>
           Edit
         </Button>
-        <Button variant="link-warn" onClick={() => navigate(-1)}>
+        <Button variant="link-warn" onClick={() => navigate(navigateTo)}>
           Go back
         </Button>
       </div>

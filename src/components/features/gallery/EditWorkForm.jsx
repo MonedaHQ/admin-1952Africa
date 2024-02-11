@@ -1,8 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { exhibitionData, works } from '../../../data/programsData';
-
 import FormWrapper from '../../ui/FormWrapper';
 import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
@@ -11,9 +9,16 @@ import Button from '../../ui/Button';
 import { useCreateWork } from './useCreateWork';
 import CoverImageInput from '../../ui/CoverImageInput';
 import { useState } from 'react';
+import { useArtistData } from '../artists/useArtistData';
+import { useExhibitionData } from './useExhibitionData';
+import { useWork } from './useWork';
+import { useRefreshData } from '../../../hooks/useRefreshData';
+import Loader from '../../ui/Loader';
+import { useUpdateWork } from './useUpdateWork';
 
 function EditWorkForm({ add = false, fullImage = false }) {
-  const { slug } = useParams();
+  const { id } = useParams();
+
   const navigate = useNavigate();
   const { register, formState, handleSubmit, setValue } = useForm();
   const { errors } = formState;
@@ -22,49 +27,57 @@ function EditWorkForm({ add = false, fullImage = false }) {
   const [isCreating, setIsCreating] = useState(false);
 
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
-  const { id, token } = currentUser;
+  const { token } = currentUser;
 
-  let work = null;
   let currentExhibition = null;
 
   const { createWork } = useCreateWork();
 
-  if (slug) {
-    const currentWork = works?.find((work) => work.slug === slug);
-    work = {
-      ...currentWork,
-    };
-  }
+  const { work, isLoadingWork, refetchWork } = useWork(id);
+  const { updateWork } = useUpdateWork();
+
+  const { artistData, isLoading: isLoadingArtists } = useArtistData(token);
 
   //Get all exhibitions
-  const allExhibitions = exhibitionData?.map((exhibition) => {
-    return {
-      exhibitionId: exhibition.id,
-      exhibitionTitle: exhibition.title,
-    };
-  });
-  if (slug) {
-    //Get the current exhibition
-    currentExhibition = work?.exhibition
-      ? allExhibitions.find(
-          (exhibition) => exhibition.exhibitionId === work.exhibition
-        ).exhibitionTitle
-      : '';
-  }
+  const { exhibitionData, isLoading: isLoadingExhibition } =
+    useExhibitionData(token);
+
+  const isReloading = useRefreshData(2000);
+
+  if (
+    isReloading ||
+    isLoadingArtists ||
+    isLoadingExhibition ||
+    (id && isLoadingWork)
+  )
+    return <Loader />;
 
   const formActions = { register, errors };
 
   function onSubmit(data) {
     setIsCreating(true);
+    let form;
     if (!id) {
-      console.log(data);
-      // const form = { ...data, file };
-      // createWork({ form, token }, { onSettled: () => setIsCreating(false) });
+      form = {
+        ...data,
+        value: +data.value,
+        is_available: data.is_available === 'true' ? true : false,
+        value_currency: 'USD',
+        file,
+      };
+      createWork({ form, token }, { onSettled: () => setIsCreating(false) });
     } else if (id && file === null) {
-      // createWork(
-      //   { payload: data, id, token },
-      //   { onSettled: () => setIsCreating(false) }
-      // );
+      form = {
+        ...data,
+        value: +data.value,
+        is_available: data.is_available === 'true' ? true : false,
+        value_currency: 'USD',
+      };
+
+      updateWork(
+        { payload: data, id, token },
+        { onSettled: () => setIsCreating(false) }
+      );
     }
   }
 
@@ -88,15 +101,7 @@ function EditWorkForm({ add = false, fullImage = false }) {
           id="title"
           label="Title"
           placeholder="Work title"
-          defaultValue={work ? work.art_title : ''}
-          formActions={formActions}
-        />
-        <TextInput
-          type="text"
-          id="artist_name"
-          label="Artist"
-          placeholder="Artist Name"
-          defaultValue={work ? work.artist_name : ''}
+          defaultValue={!add ? work.title : ''}
           formActions={formActions}
         />
         <TextInput
@@ -104,7 +109,7 @@ function EditWorkForm({ add = false, fullImage = false }) {
           id="medium"
           label="Medium"
           placeholder="Medium"
-          defaultValue={work ? work.medium : ''}
+          defaultValue={!add ? work.medium : ''}
           formActions={formActions}
         />
         <TextInput
@@ -112,7 +117,7 @@ function EditWorkForm({ add = false, fullImage = false }) {
           id="canvas_size"
           label="Canvas Size"
           placeholder="Canvas Size"
-          defaultValue={work ? work.canvas_size : ''}
+          defaultValue={!add ? work.canvas_size : ''}
           formActions={formActions}
         />
         <TextInput
@@ -120,49 +125,61 @@ function EditWorkForm({ add = false, fullImage = false }) {
           id="video_url"
           label="Video Url"
           placeholder="www.youtube.com/video_url"
-          defaultValue={work ? work.video_url : ''}
+          defaultValue={!add ? work.video_url : ''}
           formActions={formActions}
         />
         <TextInput
           type="select"
-          id="exhibition"
+          id="exhibition_id"
           label="Exhibition"
-          defaultValue={currentExhibition}
+          defaultValue={!add ? work.exhibition_id : ''}
           formActions={formActions}
         >
-          {allExhibitions.map((exhibition) => (
-            <option
-              key={exhibition.exhibitionId}
-              value={exhibition.exhibitionTitle}
-            >
-              {exhibition.exhibitionTitle}
+          {exhibitionData?.map((exhibition) => (
+            <option key={exhibition.id} value={exhibition.id}>
+              {exhibition.title}
             </option>
           ))}
         </TextInput>
         <TextInput
           type="select"
+          id="artist_id"
+          label="Artist"
+          defaultValue={!add ? work.artist_id : ''}
+          formActions={formActions}
+        >
+          {artistData?.map((artist) => (
+            <option key={artist.id} value={artist.id}>
+              {artist.first_name} {artist.last_name}
+            </option>
+          ))}
+        </TextInput>
+
+        <TextInput
+          type="select"
           id="is_available"
           label="Is this piece available?"
-          defaultValue={work ? work.isAvailable : ''}
+          defaultValue={!add ? work.is_available : ''}
           formActions={formActions}
         >
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </TextInput>
+
         <TextInput
           type="number"
           id="value"
           label="Value (in USD)"
           placeholder="8000"
-          defaultValue={work ? work.video_url : ''}
+          defaultValue={!add ? work.value : ''}
           formActions={formActions}
         />
       </FormFields>
       <TwoButtonWrapper>
-        <Button variant="primary" type="submit">
-          Save
+        <Button variant="primary" type="submit" disabled={isCreating}>
+          {`Sav${isCreating ? 'ing...' : 'e'}`}
         </Button>
-        <Button variant="link-dark" onClick={() => navigate(-1)}>
+        <Button variant="link-warn" onClick={() => navigate(-1)}>
           Go back
         </Button>
       </TwoButtonWrapper>

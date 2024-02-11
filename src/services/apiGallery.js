@@ -177,47 +177,6 @@ export async function deleteExhibition(id, token) {
   }
 }
 
-export async function createWork(form, token) {
-  const url = `${BASE_URL}/exhibition`;
-
-  if (!form.file || !(form.file instanceof File)) {
-    throw new Error('Invalid image file. Must be a File object.');
-  }
-
-  const formData = new FormData();
-  formData.append('file', form.file);
-  formData.append('title', form.title);
-  formData.append('medium', form.medium);
-  formData.append('canvas_size', form.canvas_size);
-  formData.append('video_url', form.video_url);
-  formData.append('exhibition_id', form.exhibition_id);
-  formData.append('artist_id', form.artist_id);
-  formData.append('value', form.value);
-  formData.append('value_currency', form.value_currency);
-  formData.append('is_available', form.is_available);
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to create work');
-    }
-
-    const responseData = await response.json();
-    return responseData.data;
-  } catch (error) {
-    console.error('Error:', error.message);
-    throw new Error(error.message);
-  }
-}
-
 ////////////////////////////////////////////////////////
 export async function getExhibitionData(token) {
   const url = `${BASE_URL}/exhibition/all/meta`;

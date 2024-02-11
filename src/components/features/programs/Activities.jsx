@@ -26,7 +26,7 @@ function Activities({ programId }) {
       date: new Date(activity.date).getFullYear(),
       program:
         programs.data.find((program) => program.id === activity.program_id)
-          .title || null,
+          ?.title || null,
     };
   });
 
@@ -34,10 +34,10 @@ function Activities({ programId }) {
     (activity) => `/activities/${activity.id}`
   );
 
-  const headers = ['Title', 'Program', 'Date', 'Description'];
+  const headers = ['Title', 'Date', 'Description'];
   const operationsData = {
     data: formattedActivities,
-    keys: ['title', 'program', 'date', 'description'],
+    keys: ['title', 'date', 'description'],
     navigation: activityIds,
   };
 
@@ -58,6 +58,7 @@ function Activities({ programId }) {
           headers={headers}
           operationData={operationsData}
           paginationCount={activities.meta.itemCount}
+          gridNo={3}
         />
       )}
       {!activities.data.length && <EmptyData />}

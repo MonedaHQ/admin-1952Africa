@@ -87,3 +87,30 @@ export async function handleImageCompression(image, filename) {
     console.log(error);
   }
 }
+
+/* eslint-disable */
+function extractVideoId(url) {
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
+  );
+  return match ? match[1] : null;
+}
+/* eslint-enable */
+
+export function convertToEmbedLink(normalLink) {
+  const videoId = extractVideoId(normalLink);
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  return null;
+}
+
+export const addQueryParam = (url, paramName, paramValue) => {
+  if (paramValue) {
+    url += url.includes('?')
+      ? `&${paramName}=${paramValue}`
+      : `?${paramName}=${paramValue}`;
+  }
+
+  return url;
+};

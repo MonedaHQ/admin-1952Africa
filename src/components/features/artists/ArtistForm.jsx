@@ -13,6 +13,7 @@ import { useCreateArtist } from './useCreateArtist';
 import { useUpdateArtist } from './useUpdateArtist';
 import { useActivityData } from '../activities/useActivityData';
 import { getActivityData } from '../../../services/apiProgram';
+import Loader from '../../ui/Loader';
 
 function ArtistForm({ artist, add = false }) {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ function ArtistForm({ artist, add = false }) {
   const { isLoading: isLoadingProgramData, programData } =
     useProgramData(token);
 
-  if (isLoadingProgramData) return;
+  if (isLoadingProgramData) return <Loader />;
 
   function onSubmit(data) {
     setIsCreating(true);
@@ -76,8 +77,8 @@ function ArtistForm({ artist, add = false }) {
     } else if (id && file === null) {
       form = {
         ...data,
-        program_id: selectedProgram || null,
-        activity_id: selectedActivity || null,
+        program_id: selectedProgram,
+        activity_id: selectedActivity,
       };
 
       updateArtist(
@@ -194,8 +195,8 @@ function ArtistForm({ artist, add = false }) {
         )}
       </FormFields>
       <TwoButtonWrapper>
-        <Button variant="primary" type="submit">
-          Save
+        <Button variant="primary" type="submit" disabled={isCreating}>
+          {`Sav${isCreating ? 'ing...' : 'e'}`}
         </Button>
         <Button variant="link-warn" onClick={() => navigate(-1)}>
           Back

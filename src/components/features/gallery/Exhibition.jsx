@@ -4,6 +4,8 @@ import Section from '../../ui/Section';
 import BigTitle from '../../ui/BigTitle';
 import Works from './Works';
 import { useExhibition } from './useExhibition';
+import Loader from '../../ui/Loader';
+import { useRefreshData } from '../../../hooks/useRefreshData';
 
 function Exhibition() {
   const { id } = useParams();
@@ -12,7 +14,9 @@ function Exhibition() {
 
   const { exhibition, isLoading } = useExhibition({ id, token });
 
-  if (isLoading) return;
+  const isReloading = useRefreshData();
+
+  if (isLoading || isReloading) return <Loader />;
 
   const titleData = {
     title: exhibition.title,
@@ -22,7 +26,7 @@ function Exhibition() {
   };
   return (
     <Section>
-      <BigTitle titleData={titleData} />
+      <BigTitle titleData={titleData} navigateTo="/gallery" />
       <Works />
     </Section>
   );
