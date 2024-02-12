@@ -1,15 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
+import { useProgram } from './useProgram';
+import { useDeleteProgram } from './useDeleteProgram';
+import { useUpdateProgramImage } from './useUpdateProgramImage';
+import { handleImageCompression } from '../../../utilities/helpers';
+
 import Section from '../../ui/Section';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import MainForm from '../../ui/MainForm';
 import ProgramData from './ProgramData';
-import { handleImageCompression } from '../../../utilities/helpers';
-import { useUpdateProgramImage } from './useUpdateProgramImage';
-import { useProgram } from './useProgram';
-import { useDeleteProgram } from './useDeleteProgram';
 
 function EditProgram() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ function EditProgram() {
   const { program, isLoading: isLoadingProgram } = useProgram({ id, token });
   const { updateProgramImage } = useUpdateProgramImage();
 
-  const { deleteProgram, isDeleting } = useDeleteProgram();
+  const { deleteProgram } = useDeleteProgram();
 
   if (isLoadingProgram) return;
 

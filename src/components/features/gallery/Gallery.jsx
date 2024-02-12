@@ -5,6 +5,7 @@ import SearchBar from '../../ui/SearchBar';
 import Table from '../../ui/Table';
 import { useExhibitions } from './useExhibitions';
 import EmptyData from '../../ui/EmptyData';
+import Loader from '../../ui/Loader';
 
 function Gallery() {
   const tableHeaders = ['Name', 'Description', 'Year'];
@@ -15,7 +16,7 @@ function Gallery() {
 
   const { exhibitions, isLoading } = useExhibitions(token);
 
-  if (isLoading) return;
+  if (isLoading) return <Loader />;
 
   const navigationIDs = exhibitions.data.map(
     (exhibition) => `/gallery/${exhibition.id}`

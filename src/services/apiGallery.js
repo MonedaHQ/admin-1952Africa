@@ -1,3 +1,5 @@
+import { addQueryParam } from '../utilities/helpers';
+
 const BASE_URL = import.meta.env.VITE_1952_API;
 
 export async function createExhibition(form, token) {
@@ -40,21 +42,20 @@ export async function getExhibitions({
   rangeStatus,
   searchQuery,
   sortMethod,
+  page,
 }) {
   let url = `${BASE_URL}/exhibition`;
 
-  if (rangeStatus) {
-    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  }
-
-  if (searchQuery) {
-    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  }
+  url = addQueryParam(url, 'page', page);
+  url = addQueryParam(url, rangeStatus?.field, rangeStatus?.value);
+  url = addQueryParam(url, searchQuery?.field, searchQuery?.value);
 
   if (sortMethod) {
-    sortMethod.field === 'sortOrder'
-      ? (url = `${url}?sort=year&${sortMethod.field}=${sortMethod.value}`)
-      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
+    const sortParam =
+      sortMethod.field === 'sortOrder'
+        ? 'sort=year&sortOrder'
+        : sortMethod.field;
+    url = addQueryParam(url, sortParam, sortMethod.value);
   }
 
   try {

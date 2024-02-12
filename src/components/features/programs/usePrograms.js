@@ -28,9 +28,12 @@ export function usePrograms() {
           sortBy === 'name' ? 'title' : sortBy === 'earliest' ? 'ASC' : 'DESC',
       };
 
+  //pagination
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
   const { isLoading, data: programs } = useQuery({
-    queryKey: ['programs', rangeStatus, searchQuery, sortMethod],
-    queryFn: () => getPrograms({  rangeStatus, searchQuery, sortMethod }),
+    queryKey: ['programs', rangeStatus, searchQuery, sortMethod, page],
+    queryFn: () => getPrograms({ rangeStatus, searchQuery, sortMethod, page }),
   });
 
   return { isLoading, programs };

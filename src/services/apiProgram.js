@@ -1,4 +1,5 @@
 import { BASE_URL } from '../utilities/config';
+import { addQueryParam } from '../utilities/helpers';
 
 export async function createProgram(form, token) {
   const url = `${BASE_URL}/program`;
@@ -34,21 +35,24 @@ export async function createProgram(form, token) {
   }
 }
 
-export async function getPrograms({ rangeStatus, searchQuery, sortMethod }) {
+export async function getPrograms({
+  rangeStatus,
+  searchQuery,
+  sortMethod,
+  page,
+}) {
   let url = `${BASE_URL}/program`;
 
-  if (rangeStatus) {
-    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  }
-
-  if (searchQuery) {
-    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  }
+  url = addQueryParam(url, 'page', page);
+  url = addQueryParam(url, rangeStatus?.field, rangeStatus?.value);
+  url = addQueryParam(url, searchQuery?.field, searchQuery?.value);
 
   if (sortMethod) {
-    sortMethod.field === 'sortOrder'
-      ? (url = `${url}?sort=created_at&${sortMethod.field}=${sortMethod.value}`)
-      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
+    const sortParam =
+      sortMethod.field === 'sortOrder'
+        ? 'sort=created_at&sortOrder'
+        : sortMethod.field;
+    url = addQueryParam(url, sortParam, sortMethod.value);
   }
 
   try {

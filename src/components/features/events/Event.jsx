@@ -23,7 +23,7 @@ function Event() {
   };
   return (
     <Section>
-      <BigTitle titleData={titleData} />
+      <BigTitle titleData={titleData} navigateTo={'/events'} />
       <EventDateIndicator event={event} />
     </Section>
   );

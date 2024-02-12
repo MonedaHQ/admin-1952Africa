@@ -1,4 +1,5 @@
 import { BASE_URL } from '../utilities/config';
+import { addQueryParam } from '../utilities/helpers';
 
 export async function createEvent(form, token) {
   const url = `${BASE_URL}/event`;
@@ -42,22 +43,20 @@ export async function getEvents({
   rangeStatus,
   searchQuery,
   sortMethod,
+  page,
 }) {
   let url = `${BASE_URL}/event`;
 
-  if (rangeStatus) {
-    url = `${url}?${rangeStatus.field}=${rangeStatus.value}`;
-  }
-
-  if (searchQuery) {
-    url = `${url}?${searchQuery.field}=${searchQuery.value}`;
-  }
+  url = addQueryParam(url, 'page', page);
+  url = addQueryParam(url, rangeStatus?.field, rangeStatus?.value);
+  url = addQueryParam(url, searchQuery?.field, searchQuery?.value);
 
   if (sortMethod) {
-    sortMethod.field === 'sortOrder'
-      ? (url = `${url}?sort=title&${sortMethod.field}=${sortMethod.value}`)
-      : (url = `${url}?${sortMethod.field}=${sortMethod.value}`);
-    console.log(url);
+    const sortParam =
+      sortMethod.field === 'sortOrder'
+        ? 'sort=title&sortOrder'
+        : sortMethod.field;
+    url = addQueryParam(url, sortParam, sortMethod.value);
   }
 
   try {

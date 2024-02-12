@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { works } from '../../../data/programsData';
+
+import { useWorks } from './useWorks';
+import { useArtistData } from '../artists/useArtistData';
 
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import MainForm from '../../ui/MainForm';
 import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
-import { useWorks } from './useWorks';
-import { useArtistData } from '../artists/useArtistData';
 import EmptyData from '../../ui/EmptyData';
 
 function Works() {
@@ -45,7 +45,7 @@ function Works() {
         type="lg"
       />
       <SearchBar placeholder="Search work" />
-      <OperationsPanel title={`All works (${works?.meta.totalItems})`} />
+      <OperationsPanel title={`All works (${works?.meta.totalItems || 0})`} />
       {!isLoadingWorks && works?.data.length > 0 && (
         <Table
           headers={tableHeaders}
@@ -53,7 +53,7 @@ function Works() {
           paginationCount={works?.meta.totalItems}
         />
       )}
-      {works?.data.length < 1 && <EmptyData />}
+      {(works?.data.length < 1 || !works) && <EmptyData />}
     </MainForm>
   );
 }

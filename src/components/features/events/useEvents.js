@@ -28,9 +28,13 @@ export function useEvents(token) {
           sortBy === 'name' ? 'title' : sortBy === 'earliest' ? 'ASC' : 'DESC',
       };
 
+  //pagination
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
   const { isLoading, data: events } = useQuery({
-    queryKey: ['events', rangeStatus, searchQuery, sortMethod],
-    queryFn: () => getEvents({ token, rangeStatus, searchQuery, sortMethod }),
+    queryKey: ['events', rangeStatus, searchQuery, sortMethod, page],
+    queryFn: () =>
+      getEvents({ token, rangeStatus, searchQuery, sortMethod, page }),
   });
 
   return { isLoading, events };

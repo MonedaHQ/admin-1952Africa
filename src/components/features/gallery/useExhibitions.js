@@ -28,10 +28,13 @@ export function useExhibitions(token) {
           sortBy === 'name' ? 'title' : sortBy === 'earliest' ? 'ASC' : 'DESC',
       };
 
+  //pagination
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
   const { isLoading, data: exhibitions } = useQuery({
-    queryKey: ['exhibitions', rangeStatus, searchQuery, sortMethod],
+    queryKey: ['exhibitions', rangeStatus, searchQuery, sortMethod, page],
     queryFn: () =>
-      getExhibitions({ token, rangeStatus, searchQuery, sortMethod }),
+      getExhibitions({ token, rangeStatus, searchQuery, sortMethod, page }),
   });
 
   return { isLoading, exhibitions };

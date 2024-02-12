@@ -1,11 +1,12 @@
+import { usePrograms } from './usePrograms';
+
 import Section from '../../ui/Section';
+import Loader from '../../ui/Loader';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
 import EmptyData from '../../ui/EmptyData';
-import Loader from '../../ui/Loader';
-import { usePrograms } from './usePrograms';
 
 function Programs() {
   const headers = ['Name', 'Description'];
@@ -29,12 +30,14 @@ function Programs() {
         navigateTo={{ label: 'Add program', path: '/programs/add' }}
       />
       <SearchBar placeholder="Search program" />
-      <OperationsPanel title={`All programs (${programs.data.length || ''})`} />
+      <OperationsPanel
+        title={`All programs (${programs.meta.totalItems || ''})`}
+      />
       {!isLoading && programs.data.length > 0 && (
         <Table
           headers={headers}
           operationData={operationData}
-          paginationCount={programs.meta.itemCount}
+          paginationCount={programs.meta.totalItems}
           gridNo={2}
         />
       )}

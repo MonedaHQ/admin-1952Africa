@@ -1,19 +1,19 @@
 import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useProgramData } from '../programs/useProgramData';
+import { useCreateArtist } from './useCreateArtist';
+import { useUpdateArtist } from './useUpdateArtist';
+import { getActivityData } from '../../../services/apiProgram';
+
 import FormWrapper from '../../ui/FormWrapper';
+import Loader from '../../ui/Loader';
 import FormFields from '../../ui/FormFields';
 import TextInput from '../../ui/formChunks/TextInput';
 import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import Button from '../../ui/Button';
-import { useEffect, useState } from 'react';
 import CoverImageInput from '../../ui/CoverImageInput';
-import { useProgramData } from '../programs/useProgramData';
-import { useCreateArtist } from './useCreateArtist';
-import { useUpdateArtist } from './useUpdateArtist';
-import { useActivityData } from '../activities/useActivityData';
-import { getActivityData } from '../../../services/apiProgram';
-import Loader from '../../ui/Loader';
 
 function ArtistForm({ artist, add = false }) {
   const navigate = useNavigate();

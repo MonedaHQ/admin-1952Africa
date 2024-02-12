@@ -56,7 +56,8 @@
 .primary-reverse:not(:disabled):hover::after,
 .secondary:not(:disabled):hover::after,
 .tertiary:not(:disabled):hover::after,
-.tertiary-reverse:not(:disabled):hover::after {
+.tertiary-reverse:not(:disabled):hover::after,
+.delete:not(:disabled):hover::after {
   opacity: 1;
   transform: scaleX(1) scaleY(1);
 }
@@ -74,11 +75,17 @@
 .tertiary-reverse::after {
   background-color: var(--color-orange);
 }
+
+.delete::after {
+  background-color: var(--color-fail);
+}
+
 .primary::after,
 .primary-reverse::after,
 .secondary::after,
 .tertiary::after,
-.tertiary-reverse::after {
+.tertiary-reverse::after,
+.delete::after {
   position: absolute;
   content: '';
   width: 100%;
@@ -99,7 +106,7 @@
 
 .delete {
   color: var(--color-white);
-  background-color: var(--color-fail);
+  background-color: var(--color-black);
   border: 1px solid var(--color-black);
   box-shadow: 0px 0px 0px var(--color-black);
 }

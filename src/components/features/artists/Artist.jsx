@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { artists } from '../../../data/programsData';
+import { useEffect, useState } from 'react';
 
+import { useArtist } from './useArtist';
+import { useDeleteArtist } from './useDeleteArtist';
+import { useUpdateArtistAvatar } from './useUpdateArtistImage';
+import { useRefreshData } from '../../../hooks/useRefreshData';
+
+import Loader from '../../ui/Loader';
 import Section from '../../ui/Section';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
 import Avatar from '../../ui/Avatar';
 import ArtistForm from './ArtistForm';
-import { useArtist } from './userArtist';
-import { useEffect, useState } from 'react';
-import { useUpdateArtistAvatar } from './useUpdateArtistImage';
-import { useDeleteArtist } from './useDeleteArtist';
-import { useRefreshData } from '../../../hooks/useRefreshData';
-import Loader from '../../ui/Loader';
 
 function Artist() {
   const { id } = useParams();
@@ -24,8 +24,8 @@ function Artist() {
 
   const { artist, isLoading } = useArtist(id);
 
-  const { updateArtistAvatar, isUpdating } = useUpdateArtistAvatar();
-  const { deleteArtist, isDeleting } = useDeleteArtist();
+  const { updateArtistAvatar } = useUpdateArtistAvatar();
+  const { deleteArtist } = useDeleteArtist();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

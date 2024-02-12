@@ -1,7 +1,8 @@
-import toast from 'react-hot-toast';
-import { updateWorkImage as updateWorkImageApi } from '../../../services/apiWorks';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { updateWorkImage as updateWorkImageApi } from '../../../services/apiWorks';
+
+import toast from 'react-hot-toast';
 
 export function useUpdateWorkImage() {
   const navigate = useNavigate();

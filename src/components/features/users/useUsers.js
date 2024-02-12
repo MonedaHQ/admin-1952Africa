@@ -32,9 +32,13 @@ export function useUsers(token) {
             : 'DESC',
       };
 
+  //pagination
+  const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
+
   const { isLoading, data: users } = useQuery({
-    queryKey: ['users', rangeStatus, searchQuery, sortMethod],
-    queryFn: () => getUsers({ token, rangeStatus, searchQuery, sortMethod }),
+    queryKey: ['users', rangeStatus, searchQuery, sortMethod, page],
+    queryFn: () =>
+      getUsers({ token, rangeStatus, searchQuery, sortMethod, page }),
   });
 
   return { isLoading, users };

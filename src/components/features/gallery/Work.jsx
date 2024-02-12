@@ -1,18 +1,20 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+
+import { useWork } from './useWork';
+import { useUpdateWorkImage } from './useUpdateWorkImage';
+import { useDeleteWork } from './useDeleteWork';
+import { handleImageCompression } from '../../../utilities/helpers';
 
 import Section from '../../ui/Section';
 import AddCoverImg from '../../ui/formChunks/AddCoverImg';
 import EditWorkForm from './EditWorkForm';
 import HeaderAndButton from '../../ui/headers/HeaderAndButton';
-import { useWork } from './useWork';
-import { useEffect, useState } from 'react';
-import { useRefreshData } from '../../../hooks/useRefreshData';
-import { useUpdateWorkImage } from './useUpdateWorkImage';
 import Loader from '../../ui/Loader';
-import { handleImageCompression } from '../../../utilities/helpers';
 
 function Work() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
   const { token } = currentUser;
@@ -22,6 +24,7 @@ function Work() {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const { updateWorkImage } = useUpdateWorkImage();
+  const { deleteWork } = useDeleteWork();
 
   if (isLoadingWork) return <Loader />;
 
@@ -37,6 +40,10 @@ function Work() {
     );
   }
 
+  function handleDeleteWork() {
+    deleteWork({ id, token }, { onSuccess: () => navigate(-1) });
+  }
+
   return (
     <Section>
       <HeaderAndButton
@@ -48,6 +55,7 @@ function Work() {
         }}
         as="delete"
         type="lg"
+        onConfirm={handleDeleteWork}
       />
       <AddCoverImg
         imageData={{ data: [work], key: 'image_url' }}

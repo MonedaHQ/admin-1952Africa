@@ -29,7 +29,7 @@ function Users() {
 
   if (isLoading) return <Loader fullScreen={true} />;
 
-  const headers = ['First Name', 'Last Name', 'Role', 'Last log in'];
+  const headers = ['First Name', 'Last Name', 'Role', 'Last updated'];
 
   const navigationIds = users.data.map((currentUser) =>
     currentUser.id === user?.id ? '/profile' : `/users/${currentUser?.id}`

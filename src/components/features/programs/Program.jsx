@@ -5,13 +5,14 @@ import BigTitle from '../../ui/BigTitle';
 import Activities from './Activities';
 
 import { useProgram } from './useProgram';
+import Loader from '../../ui/Loader';
 
 function Program() {
   const { id } = useParams();
 
   const { program, isLoading } = useProgram({ id });
 
-  if (isLoading) return;
+  if (isLoading) return <Loader />;
 
   const titleData = {
     title: program?.title,
@@ -22,7 +23,7 @@ function Program() {
 
   return (
     <Section>
-      <BigTitle titleData={titleData} />
+      <BigTitle titleData={titleData} navigateTo={'/programs'} />
       <Activities programId={id} />
     </Section>
   );

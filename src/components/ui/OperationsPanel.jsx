@@ -70,6 +70,7 @@ function OperationsPanel({ title }) {
           setSelected(e.target.value);
           handleSortSearchParams(e.target.value);
         }}
+        defaultValue={searchParams.get('sortBy')}
       >
         {sortOptions.map((option) => (
           <option key={option} value={option}>
