@@ -68,8 +68,8 @@ function ArtistForm({ artist, add = false }) {
     if (!id) {
       form = {
         ...data,
-        program_id: selectedProgram || null,
-        activity_id: selectedActivity || null,
+        program_id: selectedProgram,
+        activity_id: selectedActivity,
         file,
       };
 

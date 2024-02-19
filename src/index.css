@@ -10,6 +10,11 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Gill Sans';
+  src: url('/public/fonts/Gill\ Sans.otf') format('opentypes');
+}
+
 :root {
   &,
   &.light-mode {
@@ -46,7 +51,7 @@ html {
 }
 
 body {
-  font-family: 'Gill Sans MT', sans-serif;
+  font-family: 'Gill Sans', sans-serif;
   font-weight: 400;
 
   color: var(--color-text);
@@ -71,12 +76,12 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Gill Sans MT', sans-serif;
-  font-weight: 700;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: 600;
 }
 
 h1 {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 6rem;
   line-height: 1.2;
 }
