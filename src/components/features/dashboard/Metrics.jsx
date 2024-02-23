@@ -3,9 +3,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import styles from './styles/metrics.module.css';
+import { useAnalytics } from './useAnalytics';
+import Loader from '../../ui/Loader';
 
 function Metrics() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { isLoading, analytics } = useAnalytics();
+
+  if (isLoading) return <Loader />;
 
   function handleMetrics(value) {
     searchParams.set('metrics', value);
@@ -13,23 +19,29 @@ function Metrics() {
   }
 
   const filterOptions = [
-    'This year',
-    'Last 6 months',
-    'Last quarter',
-    'In 2 years',
     'All time',
+    'One month',
+    'Three months',
+    'Six months',
+    'One year',
+    'Two years',
   ];
 
   const metrics = [
-    { name: 'Artists', totalNumber: 8, path: '/artists' },
-    { name: 'Activities', totalNumber: 50, path: '/programs' },
-    { name: 'Events', totalNumber: 10, path: '/events' },
+    { name: 'Artists', totalNumber: analytics.artist, path: '/artists' },
+    {
+      name: 'Activities',
+      totalNumber: analytics.activity,
+      path: '/programs',
+    },
+    { name: 'Events', totalNumber: analytics.event, path: '/events' },
   ];
   return (
     <div className={styles.section}>
       <select
         className={styles.filter}
         onChange={(e) => handleMetrics(e.target.value)}
+        defaultValue={() => searchParams.get('metrics') || 'All time'}
       >
         {filterOptions.map((option) => (
           <option key={option} value={option}>

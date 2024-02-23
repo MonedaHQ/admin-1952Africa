@@ -123,10 +123,11 @@ function EditWorkForm({ add = false, fullImage = false }) {
         <TextInput
           type="text"
           id="video_url"
-          label="Video Url"
+          label="Video Url (optional)"
           placeholder="www.youtube.com/video_url"
           defaultValue={!add ? work.video_url : ''}
           formActions={formActions}
+          required={false}
         />
         <TextInput
           type="select"

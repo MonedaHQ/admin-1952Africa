@@ -8,7 +8,7 @@ export function useUpdateWork() {
   const { mutate: updateWork, isLoading: isUpdating } = useMutation({
     mutationFn: ({ payload, id, token }) => updateWorkApi(payload, id, token),
     onSuccess: () => {
-      toast.success('Exhbition successfully updated!');
+      toast.success('Work successfully updated!');
       navigate(-1);
     },
     onError: (err) => {
