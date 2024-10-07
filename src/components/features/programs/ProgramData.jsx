@@ -82,6 +82,7 @@ function ProgramData({ add = true }) {
           placeholder="Brief description of the program"
           label="Description"
           formActions={{ register, errors }}
+          setValue={setValue}
         />
       </FormFields>
       <TwoButtonWrapper>

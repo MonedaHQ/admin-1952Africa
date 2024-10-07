@@ -68,6 +68,14 @@ function ExhibitionForm({ exhibition = null, add = false }) {
           defaultValue={exhibition ? exhibition.title : ''}
           formActions={formActions}
         />
+
+        <TextInput
+          type="number"
+          id="year"
+          label="Year"
+          defaultValue={exhibition ? exhibition.year : ''}
+          formActions={formActions}
+        />
         <TextInput
           type="textarea"
           id="description"
@@ -75,13 +83,7 @@ function ExhibitionForm({ exhibition = null, add = false }) {
           placeholder="Brief description of the exhibition"
           defaultValue={exhibition ? exhibition.description : ''}
           formActions={formActions}
-        />
-        <TextInput
-          type="number"
-          id="year"
-          label="Year"
-          defaultValue={exhibition ? exhibition.year : ''}
-          formActions={formActions}
+          setValue={setValue}
         />
       </FormFields>
       <TwoButtonWrapper>

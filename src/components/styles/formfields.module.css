@@ -1,8 +1,13 @@
 .formField {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 
-  gap: 3rem;
+  /* gap: 3rem; */
+  display: grid;
+  grid-auto-rows: max-content;
+  row-gap: 3rem;
+  max-width: 60%;
+  margin: auto;
 }
 
 .notFull {

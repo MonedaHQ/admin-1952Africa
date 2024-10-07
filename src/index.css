@@ -16,26 +16,23 @@
 }
 
 :root {
-  &,
-  &.light-mode {
-    --color-green: #1c988c;
-    --color-green-dark: #13665e;
-    --color-gold: #e8d39d;
-    --color-gold-dark: #e8d39d;
-    --color-white: #fff;
-    --color-grey: #838383e3;
-    --color-black: #020202;
-    --color-fail: #c53b36;
-    --color-wine: #5e0814;
-    --color-orange: #ff7c00;
-    --color-yellow: #ffb500;
-    --color-green-radiant: radial-gradient(
-      50% 50% at 50% 50%,
-      #021e1b 0%,
-      #000000 100%
-    );
-    --color-transparent-black: rgba(3, 18, 16, 0.19);
-  }
+  --color-green: #1c988c;
+  --color-green-dark: #13665e;
+  --color-gold: #e8d39d;
+  --color-gold-dark: #e8d39d;
+  --color-white: #fff;
+  --color-grey: #838383e3;
+  --color-black: #020202;
+  --color-fail: #c53b36;
+  --color-wine: #5e0814;
+  --color-orange: #ff7c00;
+  --color-yellow: #ffb500;
+  --color-green-radiant: radial-gradient(
+    50% 50% at 50% 50%,
+    #021e1b 0%,
+    #000000 100%
+  );
+  --color-transparent-black: rgba(3, 18, 16, 0.19);
 }
 
 *,
@@ -54,8 +51,7 @@ body {
   font-family: 'Gill Sans', sans-serif;
   font-weight: 400;
 
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--color-black);
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.8rem;
@@ -84,4 +80,17 @@ h1 {
   font-weight: 600;
   font-size: 6rem;
   line-height: 1.2;
+}
+
+/*quill styles*/
+.quill {
+  font: inherit;
+  height: 100%;
+}
+.ql-editor p {
+  color: var(--color-black);
+}
+
+.ql-snow {
+  font: inherit;
 }

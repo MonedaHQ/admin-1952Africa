@@ -41,6 +41,7 @@ function EditActivity({ activity, add = false }) {
 
   function onSubmit(data) {
     setIsCreating(true);
+
     if (add) {
       const formattedData = {
         ...data,
@@ -131,6 +132,7 @@ function EditActivity({ activity, add = false }) {
           placeholder="Brief description of the activity"
           defaultValue={activity ? activity.description : ''}
           formActions={{ register, errors }}
+          setValue={setValue}
           required={true}
         />
       </FormFields>

@@ -21,6 +21,7 @@ function LoginForm() {
   const { login } = useLogIn();
 
   async function onSubmit(data) {
+    console.log(data);
     setIsLoading(true);
     login(data, { onSettled: () => setIsLoading(false) });
   }

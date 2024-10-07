@@ -17,7 +17,7 @@
   border: 1px solid var(--color-black);
   outline: 1px solid transparent;
 
-  width: 60rem;
+  width: 100%;
   padding: 1rem 2rem;
   border-radius: 0.8rem;
   transition: all 0.2s;
@@ -31,7 +31,7 @@
 }
 
 .fieldset textarea {
-  height: 20rem;
+  /* height: auto; */
 }
 
 .fieldset p {

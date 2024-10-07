@@ -6,6 +6,7 @@ import { headerVariant } from '../../data/animationVariants';
 import Button from './Button';
 
 import styles from '../styles/bigtitle.module.css';
+import { truncateString } from '../../utilities/helpers';
 
 /**
  * BigTitle Component
@@ -32,7 +33,7 @@ function BigTitle({ titleData, navigateTo = -1 }) {
 
   if (titleData) {
     title = titleData.title;
-    description = titleData.description;
+    description = truncateString(titleData.description, 30);
     image = titleData.image;
     navigation = titleData.navigation;
   }
@@ -43,7 +44,7 @@ function BigTitle({ titleData, navigateTo = -1 }) {
       <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
         {title}
       </motion.h2>
-      <p>{description}</p>
+      <div dangerouslySetInnerHTML={{ __html: description }} />
       <div className={styles.btnWrap}>
         <Button variant="primary" onClick={() => navigate(navigation)}>
           Edit

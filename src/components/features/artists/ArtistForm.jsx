@@ -127,14 +127,7 @@ function ArtistForm({ artist, add = false }) {
           defaultValue={artist ? artist.medium : ''}
           formActions={formActions}
         />
-        <TextInput
-          type="textarea"
-          id="bio"
-          label="Bio"
-          placeholder="Artist bio"
-          defaultValue={artist ? artist.bio : ''}
-          formActions={formActions}
-        />
+
         <TextInput
           type="text"
           id="video_url"
@@ -193,6 +186,16 @@ function ArtistForm({ artist, add = false }) {
             ))}
           </TextInput>
         )}
+
+        <TextInput
+          type="textarea"
+          id="bio"
+          label="Bio"
+          placeholder="Artist bio"
+          defaultValue={artist ? artist.bio : ''}
+          formActions={formActions}
+          setValue={setValue}
+        />
       </FormFields>
       <TwoButtonWrapper>
         <Button variant="primary" type="submit" disabled={isCreating}>

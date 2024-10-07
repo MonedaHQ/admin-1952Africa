@@ -5,6 +5,7 @@ import Pagination from './Pagination';
 
 import styles from '../styles/table.module.css';
 import { useRef } from 'react';
+import { truncateString } from '../../utilities/helpers';
 
 /**
  * Table component for rendering a dynamic table with headers, data, and pagination.
@@ -21,7 +22,6 @@ import { useRef } from 'react';
  */
 
 function Table({ headers, operationData, paginationCount = 10, gridNo = 4 }) {
-  const navigate = useNavigate();
   const ref = useRef();
   const inView = useInView(ref, { once: true });
 
@@ -49,17 +49,14 @@ function Table({ headers, operationData, paginationCount = 10, gridNo = 4 }) {
         </thead>
         <tbody>
           {data.map((rowData, rowIndex) => (
-            <tr
+            <RowPreview
+              rowData={rowData}
+              rowIndex={rowIndex}
               key={rowIndex}
-              className={`${styles.tableRow}  ${styles[`gridCols-${gridNo}`]} ${
-                styles.hovered
-              }`}
-              onClick={() => navigate(navigation[rowIndex])}
-            >
-              {keys.map((key) => (
-                <td key={key}>{rowData[key]}</td>
-              ))}
-            </tr>
+              gridNo={gridNo}
+              keys={keys}
+              navigation={navigation}
+            />
           ))}
         </tbody>
       </table>
@@ -67,6 +64,44 @@ function Table({ headers, operationData, paginationCount = 10, gridNo = 4 }) {
         <Pagination count={paginationCount} />
       </div>
     </motion.div>
+  );
+}
+
+function RowPreview({ rowData, rowIndex, gridNo, keys, navigation }) {
+  const navigate = useNavigate();
+  return (
+    <tr
+      className={`${styles.tableRow}  ${styles[`gridCols-${gridNo}`]} ${
+        styles.hovered
+      }`}
+      onClick={() => navigate(navigation[rowIndex])}
+    >
+      {keys.map((key) => (
+        <PreviewContent keyData={key} rowData={rowData} key={key} />
+      ))}
+    </tr>
+  );
+}
+
+function PreviewContent({ keyData, rowData }) {
+  const content = rowData[keyData];
+
+  let html;
+
+  if (typeof content === 'string') {
+    html = truncateString(content, 5);
+  } else {
+    html = content;
+  }
+
+  return (
+    <td>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: html,
+        }}
+      />
+    </td>
   );
 }
 
