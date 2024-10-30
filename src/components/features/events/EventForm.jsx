@@ -89,14 +89,6 @@ function EventForm({ event = null, add = false }) {
           defaultValue={title}
         />
         <TextInput
-          type="textarea"
-          id="description"
-          label="Description"
-          placeholder="Brief description of the event"
-          formActions={formActions}
-          defaultValue={description}
-        />
-        <TextInput
           type="date"
           id="start_date"
           label="Start Date"
@@ -122,6 +114,15 @@ function EventForm({ event = null, add = false }) {
           <option value={true}>Yes</option>
           <option value={false}>No</option>
         </TextInput>
+        <TextInput
+          type="textarea"
+          id="description"
+          label="Description"
+          placeholder="Brief description of the event"
+          defaultValue={description ? description : ''}
+          formActions={formActions}
+          setValue={setValue}
+        />
       </FormFields>
       <TwoButtonWrapper>
         <Button variant="primary" type="submit" disabled={isCreating}>
