@@ -1,5 +1,6 @@
 import { BASE_URL } from '../utilities/config';
 import { addQueryParam } from '../utilities/helpers';
+import { normalizeCollection, unwrapData } from './apiResponse';
 
 export async function updateProfileImage(imageFile, token) {
   const url = `${BASE_URL}/user/display-image`;
@@ -26,7 +27,7 @@ export async function updateProfileImage(imageFile, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Image upload error:', error.message);
     throw new Error('Image upload failed');
@@ -46,7 +47,7 @@ export async function getCurrentUser(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Could not fetch data');
@@ -85,7 +86,7 @@ export async function getUsers({
     }
 
     const responseData = await response.json();
-    return responseData;
+    return normalizeCollection(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Could not fetch data');
@@ -106,7 +107,7 @@ export async function getUser(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Could not fetch data');
@@ -132,7 +133,7 @@ export async function updateUser(data, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Failed to update');
@@ -157,7 +158,7 @@ export async function createUser(data, token) {
       throw new Error(errorData.message || 'Failed to create user');
     }
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -183,7 +184,7 @@ export async function upgradeUserRole(data, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error('Failed to update');
@@ -207,7 +208,7 @@ export async function deleteUser(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

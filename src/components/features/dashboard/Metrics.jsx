@@ -28,20 +28,20 @@ function Metrics() {
   ];
 
   const metrics = [
-    { name: 'Artists', totalNumber: analytics.artist, path: '/artists' },
+    { name: 'Artists', totalNumber: analytics?.artist ?? 0, path: '/artists' },
     {
       name: 'Activities',
-      totalNumber: analytics.activity,
+      totalNumber: analytics?.activity ?? 0,
       path: '/programs',
     },
-    { name: 'Events', totalNumber: analytics.event, path: '/events' },
+    { name: 'Events', totalNumber: analytics?.event ?? 0, path: '/events' },
   ];
   return (
     <div className={styles.section}>
       <select
         className={styles.filter}
         onChange={(e) => handleMetrics(e.target.value)}
-        defaultValue={() => searchParams.get('metrics') || 'All time'}
+        defaultValue={searchParams.get('metrics') || 'All time'}
       >
         {filterOptions.map((option) => (
           <option key={option} value={option}>

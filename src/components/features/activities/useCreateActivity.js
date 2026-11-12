@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateActivity() {
   const navigate = useNavigate();
-  const { mutate: createActivity, isLoading: isCreating } = useMutation({
+  const { mutate: createActivity, isPending: isCreating } = useMutation({
     mutationFn: ({ form, token }) => createActivityApi(form, token),
     onSuccess: () => {
       toast.success('Activity successfully created!');

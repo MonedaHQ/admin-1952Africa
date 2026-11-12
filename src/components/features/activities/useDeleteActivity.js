@@ -3,7 +3,7 @@ import { deleteActivity as deleteActivityApi } from '../../../services/apiProgra
 import { useMutation } from '@tanstack/react-query';
 
 export function useDeleteActivity() {
-  const { mutate: deleteActivity, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteActivity, isPending: isDeleting } = useMutation({
     mutationFn: ({ id, token }) => deleteActivityApi(id, token),
     onSuccess: () => {
       toast.success('Activity successfully deleted!');

@@ -1,5 +1,6 @@
 import { BASE_URL } from '../utilities/config';
 import { addQueryParam } from '../utilities/helpers';
+import { normalizeCollection, unwrapData } from './apiResponse';
 
 export async function createWork(form, token) {
   const url = `${BASE_URL}/work`;
@@ -35,7 +36,7 @@ export async function createWork(form, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -75,7 +76,7 @@ export async function getWorks({
     }
 
     const responseData = await response.json();
-    return responseData;
+    return normalizeCollection(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -96,7 +97,7 @@ export async function getWork(id) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -122,7 +123,7 @@ export async function updateWork(data, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -150,7 +151,7 @@ export async function updateWorkImage(imageFile, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -174,7 +175,7 @@ export async function deleteWork(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

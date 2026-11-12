@@ -14,13 +14,13 @@ function Home() {
     { label: 'Add Exhibition', path: '/gallery/add' },
   ];
 
-  const user = JSON.parse(localStorage.getItem('1952adminUser'));
+  const user = JSON.parse(localStorage.getItem('1952adminUser') || 'null');
 
   return (
     <Section>
       <BigHeader
-        title={`Hello ${user.first_name},`}
-        userRole={user.role}
+        title={`Welcome back, ${user?.first_name || 'there'}`}
+        userRole={user?.role || 'Team member'}
         variant="xl"
         useRole={true}
       />

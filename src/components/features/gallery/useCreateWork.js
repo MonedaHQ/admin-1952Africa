@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateWork() {
   const navigate = useNavigate();
-  const { mutate: createWork, isLoading: isCreating } = useMutation({
+  const { mutate: createWork, isPending: isCreating } = useMutation({
     mutationFn: ({ form, token }) => createWorkApi(form, token),
     onSuccess: () => {
       toast.success('Work successfully created!');

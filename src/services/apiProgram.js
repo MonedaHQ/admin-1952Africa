@@ -1,5 +1,6 @@
 import { BASE_URL } from '../utilities/config';
 import { addQueryParam } from '../utilities/helpers';
+import { normalizeCollection, unwrapData } from './apiResponse';
 
 export async function createProgram(form, token) {
   const url = `${BASE_URL}/program`;
@@ -28,7 +29,7 @@ export async function createProgram(form, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -65,7 +66,7 @@ export async function getPrograms({
     }
 
     const responseData = await response.json();
-    return responseData;
+    return normalizeCollection(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -86,7 +87,7 @@ export async function getProgram(id) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -112,7 +113,7 @@ export async function updateProgram(data, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -140,7 +141,7 @@ export async function updateProgramImage(imageFile, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -164,7 +165,7 @@ export async function deleteProgram(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -201,7 +202,7 @@ export async function createActivity(form, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, []);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -240,7 +241,7 @@ export async function getActivities({
     }
 
     const responseData = await response.json();
-    return responseData;
+    return normalizeCollection(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -261,7 +262,7 @@ export async function getActivity(id) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -287,7 +288,7 @@ export async function updateActivity(data, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -315,7 +316,7 @@ export async function updateActivityImage(imageFile, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -339,7 +340,7 @@ export async function deleteActivity(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -365,7 +366,7 @@ export async function getProgramData(token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, []);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

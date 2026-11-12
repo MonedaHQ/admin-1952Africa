@@ -1,18 +1,18 @@
 .searchBar {
   position: relative;
-  padding: 4rem 0;
-  padding-top: 0;
+  padding: 0;
 }
 
 .searchBar input {
   font: inherit;
 
-  padding: 1rem 2rem;
-  padding-left: 4rem;
-  border-radius: 0.8rem;
+  width: min(42rem, 100%);
+  padding: 1.2rem 1.6rem 1.2rem 4.2rem;
+  border-radius: 1rem;
 
   outline: 1px solid transparent;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
 
   transition: all 0.3s;
 }
@@ -20,12 +20,14 @@
 .searchBar input:focus {
   outline: 1px solid var(--color-green);
   border: 1px solid var(--color-green);
-  padding: 1rem 4rem;
+  box-shadow: 0 0 0 3px rgba(22,123,111,.08);
 }
 
 .searchBar svg {
   position: absolute;
-  transform: translate(50%, 50%);
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
   fill: rgba(0, 0, 0, 0.3);
 }
 

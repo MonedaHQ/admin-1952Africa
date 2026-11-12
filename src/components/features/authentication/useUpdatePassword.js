@@ -5,10 +5,9 @@ import { toast } from 'react-hot-toast';
 
 export function useUpdatePassword() {
   const navigate = useNavigate();
-  const { mutate: updatePassword, isUpdating } = useMutation({
+  const { mutate: updatePassword, isPending: isUpdating } = useMutation({
     mutationFn: ({ data, token }) => updatePasswordApi(data, token),
     onSuccess: (user) => {
-      console.log(user);
       toast.success('Success!');
 
       localStorage.setItem(

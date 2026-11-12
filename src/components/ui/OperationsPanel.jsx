@@ -1,13 +1,11 @@
 import { useSearchParams } from 'react-router-dom';
 import styles from '../styles/operations.module.css';
-import { useState } from 'react';
 
 const alphabetPanel = ['A - E', 'F - J', 'K - P', 'Q - T', 'U - Z'];
 const sortOptions = ['name', 'latest', 'earliest'];
 
 function OperationsPanel({ title }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selected, setSelected] = useState('');
 
   function handleRangeParams(range) {
     if (searchParams.has('name')) {
@@ -67,7 +65,6 @@ function OperationsPanel({ title }) {
       </div>
       <select
         onChange={(e) => {
-          setSelected(e.target.value);
           handleSortSearchParams(e.target.value);
         }}
         defaultValue={searchParams.get('sortBy')}

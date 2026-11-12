@@ -1,4 +1,5 @@
 import { BASE_URL } from '../utilities/config';
+import { unwrapData } from './apiResponse';
 
 export async function login(email, password) {
   const url = `${BASE_URL}/auth/sign-in`;
@@ -19,7 +20,7 @@ export async function login(email, password) {
       throw new Error(errorData.message || 'Login failed');
     }
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Login error:', error.message);
     throw new Error(error.message);
@@ -44,7 +45,7 @@ export async function resetPassword(email) {
       throw new Error(errorData.message || 'Failed to reset');
     }
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, {});
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -70,7 +71,7 @@ export async function changePassword(data, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, {});
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -79,8 +80,6 @@ export async function changePassword(data, token) {
 
 export async function updatePassword(data, token) {
   const url = `${BASE_URL}/auth/update-password`;
-  console.log(token);
-
   try {
     const response = await fetch(url, {
       method: 'PUT',
@@ -97,7 +96,7 @@ export async function updatePassword(data, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

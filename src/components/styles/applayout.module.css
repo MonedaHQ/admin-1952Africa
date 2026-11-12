@@ -1,13 +1,16 @@
 .main {
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
 
   display: grid;
-  grid-template-columns: 0.25fr 1fr;
+  grid-template-columns: 25rem minmax(0, 1fr);
+  background: var(--color-background);
 }
 
+.content { min-width: 0; }
+
 .outlet {
-  height: 89vh;
+  height: calc(100vh - 8.2rem);
   overflow: auto;
 }
 

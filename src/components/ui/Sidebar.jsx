@@ -17,7 +17,6 @@ import { useMenuToggle } from '../../context/MenuToggleContext';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 
 import styles from '../styles/sidebar.module.css';
-import { usersData } from '../../data/programsData';
 
 function Sidebar() {
   const { isSidebarOpen, closeSidebar } = useMenuToggle();
@@ -26,9 +25,8 @@ function Sidebar() {
   const ref = useOutsideClick(closeSidebar);
   const currentPath = location.pathname;
 
-  const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
-
-  const isAdmin = currentUser.role.toLowerCase() === 'superadmin';
+  const currentUser = JSON.parse(localStorage.getItem('1952adminUser') || 'null');
+  const isAdmin = currentUser?.role?.toLowerCase() === 'superadmin';
 
   const menuLinks = [
     {
@@ -100,6 +98,10 @@ function Sidebar() {
             alt="1952 Logo"
             draggable="false"
           />
+          <div>
+            <strong>1952 Africa</strong>
+            <span>Admin studio</span>
+          </div>
         </div>
         <nav className={styles.menuLinks} ref={ref}>
           {menuList.map((link) => (

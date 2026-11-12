@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Button from '../../ui/Button';
 
-import styles from './styles/loginform.module.css';
 import { useLogIn } from './useLogIn';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,6 @@ function LoginForm() {
   const { login } = useLogIn();
 
   async function onSubmit(data) {
-    console.log(data);
     setIsLoading(true);
     login(data, { onSettled: () => setIsLoading(false) });
   }

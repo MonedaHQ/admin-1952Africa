@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateProgram() {
   const navigate = useNavigate();
-  const { mutate: updateProgram, isLoading: isUpdating } = useMutation({
+  const { mutate: updateProgram, isPending: isUpdating } = useMutation({
     mutationFn: ({ payload, id, token }) =>
       updateProgramApi(payload, id, token),
     onSuccess: () => {

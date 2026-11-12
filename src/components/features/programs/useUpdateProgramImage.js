@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateProgramImage() {
   const navigate = useNavigate();
-  const { mutate: updateProgramImage, isLoading: isUpdating } = useMutation({
+  const { mutate: updateProgramImage, isPending: isUpdating } = useMutation({
     mutationFn: ({ imageFile, id, token }) =>
       updateProgramImageApi(imageFile, id, token),
     onSuccess: () => {

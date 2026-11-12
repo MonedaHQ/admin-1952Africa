@@ -3,7 +3,7 @@ import { deleteArtist as deleteArtistApi } from '../../../services/apiArtists';
 import { useMutation } from '@tanstack/react-query';
 
 export function useDeleteArtist() {
-  const { mutate: deleteArtist, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteArtist, isPending: isDeleting } = useMutation({
     mutationFn: ({ id, token }) => deleteArtistApi(id, token),
     onSuccess: () => {
       toast.success('Artist successfully deleted!');

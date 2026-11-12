@@ -1,21 +1,32 @@
 .coverImgContainer {
-  display: grid;
-  grid-auto-rows: max-content;
-  row-gap: 3rem;
+  display: flex;
+  gap: 2rem;
   align-items: center;
-  justify-content: center;
-  justify-items: center;
+  width: min(100%, 104rem);
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1.4rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .coverImgContainer img {
-  width: 260px;
-  height: 260px;
+  width: 18rem;
+  height: 12rem;
   object-fit: cover;
   object-position: center;
 }
 
 .fullImage {
   text-align: center;
+  width: min(100%, 104rem);
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1.6rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .imageContainer {
@@ -23,13 +34,16 @@
 }
 
 .imageContainer img {
-  width: 50%;
-  height: auto;
+  width: min(100%, 72rem);
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: 1.2rem;
 }
 
 .buttonWrapper {
   display: flex;
   justify-content: center;
+  padding-top: 1.6rem;
 }
 .avatar {
   display: grid;
@@ -44,10 +58,13 @@
   object-fit: cover;
   object-position: center;
   border-radius: 50rem;
+  border: .5rem solid var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-border), var(--shadow-sm);
 }
 
 @media only screen and (max-width: 34.375em) {
   .imageContainer img {
     width: 80%;
   }
+  .coverImgContainer { flex-direction: column; }
 }

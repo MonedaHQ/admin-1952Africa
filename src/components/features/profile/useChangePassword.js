@@ -4,7 +4,7 @@ import { changePassword as changePasswordApi } from '../../../services/apiAuth';
 import { toast } from 'react-hot-toast';
 
 export function useChangePassword() {
-  const { mutate: changePassword, isLoading: isChanging } = useMutation({
+  const { mutate: changePassword, isPending: isChanging } = useMutation({
     mutationFn: ({ data, token }) => changePasswordApi(data, token),
     onSuccess: () => {
       toast.success('Password updated successfully!');

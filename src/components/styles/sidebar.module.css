@@ -1,31 +1,41 @@
 .sidebar {
   height: 100%;
-  background-color: var(--color-black);
+  background: linear-gradient(180deg, #15211f 0%, #0c1413 100%);
   color: var(--color-white);
 
-  padding: 8rem 0rem;
+  padding: 3rem 1.4rem;
   overflow: auto;
 
   display: grid;
   grid-template-rows: max-content 1fr;
 
-  row-gap: 4rem;
+  row-gap: 4.5rem;
+  border-right: 1px solid rgba(255,255,255,.06);
 }
 
 .logo {
   max-width: 100%;
-  text-align: center;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0 1.4rem;
 }
 
 .logo img {
-  width: 25%;
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
 }
+.logo div { display: grid; line-height: 1.15; }
+.logo strong { font-size: 1.7rem; letter-spacing: .03em; }
+.logo span { color: rgba(255,255,255,.5); font-size: 1.2rem; text-transform: uppercase; letter-spacing: .12em; }
 
 .menuLinks {
   display: grid;
   grid-template-rows: repeat(4, max-content);
   grid-auto-rows: max-content;
-  row-gap: 1rem;
+  row-gap: .6rem;
   font-weight: 500;
 }
 
@@ -36,43 +46,56 @@
   color: var(--color-white);
   display: flex;
   align-items: center;
-  gap: 3rem;
+  gap: 1.4rem;
 
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 
   position: relative;
-  padding: 2rem 4rem;
+  padding: 1.35rem 1.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  isolation: isolate;
 
   z-index: 1;
 
-  transition: all 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0.2s;
+  transition: color 0.25s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.links:hover {
-  color: var(--color-black);
+.links:not(.active):hover {
+  color: #17201e;
+  transform: translateX(0.3rem);
+  gap: 1.8rem;
 }
+
 .links:not(.active)::after {
   content: '';
-  background-color: transparent;
   position: absolute;
-  width: 1%;
-  height: 0%;
+  width: 115%;
+  height: 100%;
   top: 0;
-  left: 0;
+  left: -7.5%;
   z-index: -1;
-  transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    width 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0.2s;
+  border-radius: inherit;
+  background: linear-gradient(105deg, #caa458 0%, #f0dda9 52%, #d6b36a 100%);
+  transform: translateX(-105%) skewX(-8deg);
+  transform-origin: left center;
+  transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .links:hover:not(.active)::after {
-  width: 100%;
-  height: 100%;
-  transform-origin: center;
+  transform: translateX(0) skewX(-8deg);
+}
 
-  background-color: var(--color-gold);
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
+.links svg {
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), fill 0.25s ease;
+}
+
+.links:hover:not(.active) svg {
+  fill: #17201e;
+  transform: translateX(0.3rem) rotate(-5deg) scale(1.08);
 }
 
 .active::after {
@@ -83,26 +106,29 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: var(--color-gold);
+  background: linear-gradient(90deg, rgba(214,179,106,.24), rgba(214,179,106,.08));
 
   border-top: 1px solid var(--color-black);
   border-bottom: 1px solid var(--color-black);
 
   color: var(--color-black);
   z-index: -1;
+  border-radius: inherit;
 }
 
-.active {
-  color: var(--color-black);
+.active { color: #f2d999; }
+
+.active:hover {
+  color: #f2d999;
+  transform: none;
+  gap: 1.4rem;
 }
 
 svg {
   width: 2.4rem;
   height: 2.4rem;
 }
-.active svg {
-  fill: var(--color-black);
-}
+.active svg { fill: #f2d999; }
 
 .overlay {
   position: fixed;
@@ -160,5 +186,13 @@ svg {
 @media only screen and (max-width: 28.25em) {
   .links {
     padding: 1rem 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links,
+  .links::after,
+  .links svg {
+    transition-duration: 0.01ms;
   }
 }

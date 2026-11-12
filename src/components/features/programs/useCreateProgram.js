@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateProgram() {
   const navigate = useNavigate();
-  const { mutate: createProgram, isLoading: isCreating } = useMutation({
+  const { mutate: createProgram, isPending: isCreating } = useMutation({
     mutationFn: ({ form, token }) => createProgramApi(form, token),
     onSuccess: () => {
       toast.success('Program successfully created!');

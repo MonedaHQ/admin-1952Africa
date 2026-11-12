@@ -1,5 +1,6 @@
 import { BASE_URL } from '../utilities/config';
 import { addQueryParam } from '../utilities/helpers';
+import { unwrapData } from './apiResponse';
 
 export async function getAnalytics({ dateRange }) {
   let url = `${BASE_URL}/analytics`;
@@ -17,7 +18,7 @@ export async function getAnalytics({ dateRange }) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, { artist: 0, activity: 0, event: 0 });
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

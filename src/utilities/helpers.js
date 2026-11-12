@@ -37,12 +37,16 @@ export function formatDateDistance(endDate) {
 }
 
 export function reformatDateString(dateString) {
+  if (!dateString) return '';
   const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return '';
   return date.toISOString().split('T')[0];
 }
 
 export function formatDateToRelative(dateString) {
+  if (!dateString) return 'Not set';
   const date = parse(dateString, 'yyyy-MM-dd', new Date());
+  if (Number.isNaN(date.getTime())) return 'Not set';
 
   if (isToday(date)) {
     return 'today';
@@ -54,6 +58,8 @@ export function formatDateToRelative(dateString) {
 }
 
 export function capitalizeFirstLetter(str) {
+  if (str === undefined || str === null || str === '') return 'Not set';
+  str = String(str);
   const stringArray = str.split(/-| /);
 
   if (stringArray.length >= 2) {
@@ -88,14 +94,13 @@ export async function handleImageCompression(image, filename) {
   }
 }
 
-/* eslint-disable */
 function extractVideoId(url) {
+  if (!url || typeof url !== 'string') return null;
   const match = url.match(
     /(?:youtu\.be\/|youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/
   );
   return match ? match[1] : null;
 }
-/* eslint-enable */
 
 export function convertToEmbedLink(normalLink) {
   const videoId = extractVideoId(normalLink);
@@ -106,13 +111,13 @@ export function convertToEmbedLink(normalLink) {
 }
 
 export const addQueryParam = (url, paramName, paramValue) => {
-  if (paramValue) {
-    url += url.includes('?')
-      ? `&${paramName}=${paramValue}`
-      : `?${paramName}=${paramValue}`;
+  if (!paramName || paramValue === undefined || paramValue === null || paramValue === '') {
+    return url;
   }
 
-  return url;
+  const parsedUrl = new URL(url);
+  parsedUrl.searchParams.set(paramName, String(paramValue));
+  return parsedUrl.toString();
 };
 
 export function truncateString(str, num = 10) {

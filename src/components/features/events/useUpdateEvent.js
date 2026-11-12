@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateEvent() {
   const navigate = useNavigate();
-  const { mutate: updateEvent, isLoading: isUpdating } = useMutation({
+  const { mutate: updateEvent, isPending: isUpdating } = useMutation({
     mutationFn: ({ payload, id, token }) => updateEventApi(payload, id, token),
     onSuccess: () => {
       toast.success('Event successfully updated!');

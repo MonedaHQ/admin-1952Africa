@@ -1,4 +1,5 @@
 import { addQueryParam } from '../utilities/helpers';
+import { normalizeCollection, unwrapData } from './apiResponse';
 
 const BASE_URL = import.meta.env.VITE_1952_API;
 
@@ -30,7 +31,7 @@ export async function createExhibition(form, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -69,7 +70,7 @@ export async function getExhibitions({
     }
 
     const responseData = await response.json();
-    return responseData;
+    return normalizeCollection(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -95,7 +96,7 @@ export async function updateExhibition(data, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -119,7 +120,7 @@ export async function getExhibition(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -147,7 +148,7 @@ export async function updateExhibitionImage(imageFile, id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -171,7 +172,7 @@ export async function deleteExhibition(id, token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, null);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);
@@ -196,7 +197,7 @@ export async function getExhibitionData(token) {
     }
 
     const responseData = await response.json();
-    return responseData.data;
+    return unwrapData(responseData, []);
   } catch (error) {
     console.error('Error:', error.message);
     throw new Error(error.message);

@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpgradeUserRole() {
   const navigate = useNavigate();
-  const { mutate: upgradeUser, isLoading: isUpgrading } = useMutation({
+  const { mutate: upgradeUser, isPending: isUpgrading } = useMutation({
     mutationFn: ({ payload, id, token }) =>
       upgradeUserRoleApi(payload, id, token),
     onSuccess: () => {

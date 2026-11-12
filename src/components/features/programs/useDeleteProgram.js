@@ -3,7 +3,7 @@ import { deleteProgram as deleteProgramApi } from '../../../services/apiProgram'
 import { useMutation } from '@tanstack/react-query';
 
 export function useDeleteProgram() {
-  const { mutate: deleteProgram, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteProgram, isPending: isDeleting } = useMutation({
     mutationFn: ({ id, token }) => deleteProgramApi(id, token),
     onSuccess: () => {
       toast.success('Program successfully deleted!');

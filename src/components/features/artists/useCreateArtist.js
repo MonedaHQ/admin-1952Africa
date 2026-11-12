@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateArtist() {
   const navigate = useNavigate();
-  const { mutate: createArtist, isLoading: isCreating } = useMutation({
+  const { mutate: createArtist, isPending: isCreating } = useMutation({
     mutationFn: ({ form, token }) => createArtistApi(form, token),
     onSuccess: () => {
       toast.success('Artist successfully created!');

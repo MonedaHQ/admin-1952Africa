@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateArtistAvatar() {
   const navigate = useNavigate();
-  const { mutate: updateArtistAvatar, isLoading: isUpdating } = useMutation({
+  const { mutate: updateArtistAvatar, isPending: isUpdating } = useMutation({
     mutationFn: ({ imageFile, id, token }) =>
       updateArtistAvatarApi(imageFile, id, token),
     onSuccess: () => {

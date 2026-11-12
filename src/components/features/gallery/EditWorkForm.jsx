@@ -29,11 +29,9 @@ function EditWorkForm({ add = false, fullImage = false }) {
   const currentUser = JSON.parse(localStorage.getItem('1952adminUser'));
   const { token } = currentUser;
 
-  let currentExhibition = null;
-
   const { createWork } = useCreateWork();
 
-  const { work, isLoadingWork, refetchWork } = useWork(id);
+  const { work, isLoadingWork } = useWork(id);
   const { updateWork } = useUpdateWork();
 
   const { artistData, isLoading: isLoadingArtists } = useArtistData(token);
@@ -71,11 +69,10 @@ function EditWorkForm({ add = false, fullImage = false }) {
         ...data,
         value: +data.value,
         is_available: data.is_available === 'true' ? true : false,
-        value_currency: 'USD',
       };
 
       updateWork(
-        { payload: data, id, token },
+        { payload: form, id, token },
         { onSettled: () => setIsCreating(false) }
       );
     }

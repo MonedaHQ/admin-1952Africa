@@ -8,31 +8,30 @@ import { useState } from 'react';
 import { useUpdatePassword } from './useUpdatePassword';
 
 function ResetPassword() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const token = searchParams.get('token');
 
   return (
     <ReusableLogInScreen
       message="Enter your new password"
-      element={<ResetForm token={token} status={status} />}
+      element={<ResetForm token={token} />}
     />
   );
 }
 
-function ResetForm({ token, status }) {
+function ResetForm({ token }) {
   const [isLoading, setIsLoading] = useState();
 
   const { updatePassword } = useUpdatePassword();
 
-  const { register, formState, reset, handleSubmit } = useForm();
+  const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
   const formActions = { register };
 
   function onSubmit(data) {
     setIsLoading(true);
-    updatePassword({ data, token });
-    setIsLoading(false);
+    updatePassword({ data, token }, { onSettled: () => setIsLoading(false) });
   }
   return (
     <AuthFormContainer handleSubmit={handleSubmit} onSubmit={onSubmit}>
@@ -53,7 +52,7 @@ function ResetForm({ token, status }) {
         formActions={formActions}
       />
       <Button variant="primary" type="submit" disabled={isLoading}>
-        {isLoading ? 'Logging in..' : ' Log in'}
+        {isLoading ? 'Updating…' : 'Update password'}
       </Button>
     </AuthFormContainer>
   );

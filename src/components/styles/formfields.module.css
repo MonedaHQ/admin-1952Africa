@@ -1,18 +1,13 @@
 .formField {
-  /* display: flex;
-  flex-direction: column; */
-
-  /* gap: 3rem; */
   display: grid;
-  grid-auto-rows: max-content;
-  row-gap: 3rem;
-  max-width: 60%;
-  margin: auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 2.4rem;
+  width: 100%;
 }
 
 .notFull {
-  align-items: center;
-  justify-content: center;
+  align-items: start;
 }
 
 .full {
@@ -22,6 +17,7 @@
 
 @media only screen and (max-width: 47.5625em) {
   .formField {
-    align-items: stretch;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

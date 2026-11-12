@@ -3,8 +3,9 @@ import { getArtist } from '../../../services/apiArtists';
 
 export function useArtist(id) {
   const { isLoading, data: artist } = useQuery({
-    queryKey: ['artist'],
+    queryKey: ['artist', id],
     queryFn: () => getArtist(id),
+    enabled: Boolean(id),
   });
 
   return { isLoading, artist };

@@ -5,7 +5,7 @@
   padding: 1rem 2rem;
   border: none;
   background-color: transparent;
-  border-radius: 5rem;
+  border-radius: .9rem;
   transition: all 0.3s cubic-bezier(0.42, 0, 0.28, 0.98);
   position: relative;
   z-index: 1;
@@ -20,9 +20,9 @@
 }
 
 .primary {
-  background-color: var(--color-black);
+  background-color: var(--color-green-dark);
   color: var(--color-white);
-  border: 1px solid var(--color-black);
+  border: 1px solid var(--color-green-dark);
 }
 
 .primary-reverse {
@@ -33,8 +33,8 @@
 
 .primary:not(:disabled):hover,
 .primary-reverse:not(:disabled):hover {
-  box-shadow: 0px 5px 0px var(--color-black);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13,79,73,.2);
+  transform: translateY(-1px);
 }
 
 .tertiary:not(:disabled):hover {
@@ -92,7 +92,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  border-radius: 5rem;
+  border-radius: .9rem;
   z-index: -1;
   opacity: 0;
   transform: scaleX(0) scaleY(0);
@@ -153,6 +153,9 @@
 .box {
   position: relative;
   cursor: pointer;
+  width: max-content;
+  max-width: 100%;
+  justify-self: center;
 }
 
 .box::after {

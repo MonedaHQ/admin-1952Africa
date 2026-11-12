@@ -3,8 +3,9 @@ import { getProgram } from '../../../services/apiProgram';
 
 export function useProgram({ id }) {
   const { isLoading, data: program } = useQuery({
-    queryKey: ['program'],
+    queryKey: ['program', id],
     queryFn: () => getProgram(id),
+    enabled: Boolean(id),
   });
 
   return { isLoading, program };

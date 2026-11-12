@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import useScrollToTopOnRouteChange from '../../hooks/useScrollToTopOnRouteChange';
@@ -18,10 +18,20 @@ function AppLayout() {
       <main className={styles.content}>
         <Header />
         <div className={styles.outlet} ref={ref}>
-          <Outlet />
+          <Suspense fallback={<OutletLoader />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
     </section>
+  );
+}
+
+function OutletLoader() {
+  return (
+    <div className="route-loader route-loader--content" role="status" aria-label="Loading page">
+      <span />
+    </div>
   );
 }
 

@@ -1,13 +1,21 @@
 .section {
-  padding: 4rem 6rem;
+  width: min(122rem, 100%);
+  margin: 0 auto;
+  padding: 4rem clamp(2rem, 4vw, 5rem) 7rem;
   display: grid;
   grid-auto-rows: max-content;
-  row-gap: 3rem;
+  row-gap: 2.8rem;
+}
+
+.section .section {
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 @media only screen and (max-width: 57.5em) {
   .section {
-    padding: 0rem 4rem;
+    padding: 3rem 4rem 6rem;
   }
 }
 

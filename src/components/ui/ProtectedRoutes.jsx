@@ -1,15 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 
 function ProtectedRoutes({ children }) {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
-  let user = null;
-
-  user =
-    JSON.parse(localStorage.getItem('1952adminUser')) ||
-    queryClient.getQueriesData('user').length;
+  const user = JSON.parse(localStorage.getItem('1952adminUser') || 'null');
 
   useEffect(() => {
     if (!user) {
@@ -17,7 +11,7 @@ function ProtectedRoutes({ children }) {
     }
   }, [user, navigate]);
 
-  if (user) return children;
+  return user ? children : null;
 }
 
 export default ProtectedRoutes;

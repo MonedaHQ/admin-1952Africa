@@ -1,14 +1,16 @@
 .avatar {
   display: grid;
   grid-template-rows: max-content;
-  row-gap: 1rem;
+  row-gap: 1.4rem;
   justify-items: center;
 }
 
 .avatar img {
-  width: 160px;
-  height: 160px;
+  width: 14rem;
+  height: 14rem;
   object-fit: cover;
   object-position: center;
   border-radius: 50rem;
+  border: .5rem solid var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-border), var(--shadow-sm);
 }

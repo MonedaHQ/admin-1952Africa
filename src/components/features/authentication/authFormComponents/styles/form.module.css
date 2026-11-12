@@ -19,13 +19,13 @@
 }
 
 .form {
-  max-width: 80%;
+  width: min(34rem, 80%);
   margin: auto;
 
   display: grid;
   grid-template-rows: repeat(3, max-content);
   row-gap: 3rem;
-  justify-items: center;
+  justify-items: stretch;
 }
 
 .fieldset {
@@ -35,18 +35,19 @@
 }
 
 .fieldset label {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
 .fieldset input {
   font: inherit;
   outline: 1px solid transparent;
-  border: 1px solid var(--color-black);
-  min-width: 30rem;
+  border: 1px solid var(--color-border);
+  width: 100%;
 
-  padding: 1rem 2rem;
-  border-radius: 0.8rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: #fafbf9;
 
   transition: all 0.3s;
 }

@@ -9,7 +9,7 @@ export function useRefreshData(time = 1000) {
     }, time);
 
     return () => clearTimeout(timeoutId);
-  }, [setIsReloading]);
+  }, [time]);
 
   return isReloading;
 }

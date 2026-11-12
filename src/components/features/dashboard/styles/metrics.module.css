@@ -1,20 +1,21 @@
 .section {
-  text-align: center;
+  text-align: left;
 
   display: grid;
   grid-template-rows: max-content 1fr;
-  row-gap: 8rem;
+  row-gap: 2rem;
 }
 
 .filter {
   font: inherit;
   padding: 1rem 2rem;
-  border-radius: 5rem;
+  border-radius: .9rem;
   outline: 1px solid transparent;
   border: 1px solid var(--color-black);
   background-color: var(--color-white);
 
-  justify-self: center;
+  justify-self: end;
+  border-color: var(--color-border);
 }
 
 .filter:focus {
@@ -26,37 +27,38 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 3rem;
-  justify-items: center;
+  align-items: stretch;
 }
 
 .metric {
-  padding: 8rem 4rem;
-  border-radius: 0.8rem;
+  padding: 3.2rem;
+  border-radius: 1.4rem;
   width: 100%;
 
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border: 1px solid transparent;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
-    rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+  background: var(--color-surface);
+  color: var(--color-black);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .metric:hover {
-  border: 1px solid var(--color-black);
-  background-color: var(--color-green);
-  box-shadow: none;
+  border-color: rgba(22,123,111,.45);
+  background: #f2f8f5;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .metric h3 {
-  font-size: 5rem;
+  font-family: 'Teachers', 'Gill Sans', sans-serif;
+  font-size: 5.6rem;
+  color: var(--color-green-dark);
 }
 
 .metric p {
-  font-weight: 400;
+  color: var(--color-grey);
 }
 
 @media only screen and (max-width: 51.875em) {

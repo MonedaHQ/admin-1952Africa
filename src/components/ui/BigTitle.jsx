@@ -33,25 +33,33 @@ function BigTitle({ titleData, navigateTo = -1 }) {
 
   if (titleData) {
     title = titleData.title;
-    description = truncateString(titleData.description, 30);
+    description = truncateString(
+      String(titleData.description || '').replace(/<[^>]*>/g, ''),
+      45
+    );
     image = titleData.image;
     navigation = titleData.navigation;
   }
 
   return (
     <div className={styles.titleContainer}>
-      <img src={image} alt={title} draggable="false" />
-      <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
-        {title}
-      </motion.h2>
-      <div dangerouslySetInnerHTML={{ __html: description }} />
-      <div className={styles.btnWrap}>
-        <Button variant="primary" onClick={() => navigate(navigation)}>
-          Edit
-        </Button>
-        <Button variant="link-warn" onClick={() => navigate(navigateTo)}>
-          Go back
-        </Button>
+      <div className={styles.imageWrap}>
+        <img src={image || '/images/empty-img.jpg'} alt={title} draggable="false" />
+      </div>
+      <div className={styles.content}>
+        <span className={styles.eyebrow}>Overview</span>
+        <motion.h2 variants={headerVariant} initial="hidden" animate="visible">
+          {title}
+        </motion.h2>
+        <p>{description || 'No description has been added yet.'}</p>
+        <div className={styles.btnWrap}>
+          <Button variant="primary" onClick={() => navigate(navigation)}>
+            Edit details
+          </Button>
+          <Button variant="link-dark" onClick={() => navigate(navigateTo)}>
+            Back to list
+          </Button>
+        </div>
       </div>
     </div>
   );

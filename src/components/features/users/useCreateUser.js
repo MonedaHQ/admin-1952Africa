@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateUser() {
   const navigate = useNavigate();
-  const { mutate: createUser, isLoading: isCreating } = useMutation({
+  const { mutate: createUser, isPending: isCreating } = useMutation({
     mutationFn: ({ update, token }) => createUserApi(update, token),
     onSuccess: () => {
       toast.success('User successfully created!');

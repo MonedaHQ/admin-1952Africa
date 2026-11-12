@@ -31,10 +31,11 @@ export function useWorks(exhibition_id) {
   //pagination
   const page = !searchParams.get('page') ? 1 : +searchParams.get('page');
 
-  const { isLoadingWorks, data: works } = useQuery({
-    queryKey: ['works', rangeStatus, searchQuery, sortMethod, page],
+  const { isLoading: isLoadingWorks, data: works } = useQuery({
+    queryKey: ['works', exhibition_id, rangeStatus, searchQuery, sortMethod, page],
     queryFn: () =>
       getWorks({ exhibition_id, rangeStatus, searchQuery, sortMethod, page }),
+    enabled: Boolean(exhibition_id),
   });
 
   return { isLoadingWorks, works };

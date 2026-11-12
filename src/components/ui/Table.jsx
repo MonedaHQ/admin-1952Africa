@@ -85,24 +85,10 @@ function RowPreview({ rowData, rowIndex, gridNo, keys, navigation }) {
 
 function PreviewContent({ keyData, rowData }) {
   const content = rowData[keyData];
+  const value = content === undefined || content === null || content === '' ? '—' : content;
+  const displayValue = typeof value === 'string' ? truncateString(value.replace(/<[^>]*>/g, ''), 8) : value;
 
-  let html;
-
-  if (typeof content === 'string') {
-    html = truncateString(content, 5);
-  } else {
-    html = content;
-  }
-
-  return (
-    <td>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: html,
-        }}
-      />
-    </td>
-  );
+  return <td><div>{displayValue}</div></td>;
 }
 
 export default Table;

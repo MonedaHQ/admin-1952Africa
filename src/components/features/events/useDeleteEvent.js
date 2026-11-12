@@ -3,7 +3,7 @@ import { deleteEvent as deleteEventApi } from '../../../services/apiEvents';
 import { useMutation } from '@tanstack/react-query';
 
 export function useDeleteEvent() {
-  const { mutate: deleteEvent, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteEvent, isPending: isDeleting } = useMutation({
     mutationFn: ({ id, token }) => deleteEventApi(id, token),
     onSuccess: () => {
       toast.success('Event successfully deleted!');

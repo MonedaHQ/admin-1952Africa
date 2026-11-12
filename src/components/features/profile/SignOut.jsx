@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import { usersData } from '../../../data/programsData';
-
 import Modal from '../../ui/Modal';
 import Button from '../../ui/Button';
 import ConfirmDelete from '../../ui/ConfirmDelete';
-import TwoButtonWrapper from '../../ui/TwoButtonWrapper';
 import { useDeleteUser } from '../users/useDeleteUser';
+import styles from './styles/profile.module.css';
 
 function SignOut() {
   const navigate = useNavigate();
@@ -18,7 +16,7 @@ function SignOut() {
     currentUser.role.toLowerCase() === 'admin' ||
     currentUser.role.toLowerCase() === 'superadmin';
 
-  const { deleteUser, isDeleting } = useDeleteUser();
+  const { deleteUser } = useDeleteUser();
 
   function handleSignout() {
     localStorage.removeItem('1952adminUser');
@@ -38,16 +36,22 @@ function SignOut() {
   }
 
   return (
-    <TwoButtonWrapper>
+    <div className={styles.accountActions}>
+      <div>
+        <h3>Account actions</h3>
+        <p>Sign out of this session or permanently remove your account.</p>
+      </div>
       <Modal>
-        <Modal.Open opens="signout">
-          <Button variant="delete">Sign out</Button>
-        </Modal.Open>
-        {isAdmin && (
-          <Modal.Open opens="deleteAccount">
-            <Button variant="link-warn">Delete account</Button>
+        <div className={styles.accountButtons}>
+          <Modal.Open opens="signout">
+            <Button variant="primary-reverse">Sign out</Button>
           </Modal.Open>
-        )}
+          {isAdmin && (
+            <Modal.Open opens="deleteAccount">
+              <Button variant="link-warn">Delete account</Button>
+            </Modal.Open>
+          )}
+        </div>
         <Modal.Window name="signout">
           <ConfirmDelete action="signout" onConfirm={handleSignout} />
         </Modal.Window>
@@ -59,7 +63,7 @@ function SignOut() {
           />
         </Modal.Window>
       </Modal>
-    </TwoButtonWrapper>
+    </div>
   );
 }
 

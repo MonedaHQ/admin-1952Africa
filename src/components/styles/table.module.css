@@ -1,18 +1,22 @@
 .tableContainer {
-  max-width: 80rem;
-
-  margin: auto;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1.4rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .table {
-  border-radius: 1.5rem;
-  overflow: hidden;
+  width: 100%;
 }
 
 .tableHead {
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: #f7f9f7;
+  color: var(--color-grey);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 1.2rem;
 }
 
 .tableRow {
@@ -22,7 +26,8 @@
   align-items: start;
   justify-items: start;
 
-  padding: 1rem 4rem;
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .gridCols-4 {
@@ -43,12 +48,12 @@
 }
 
 .hovered:hover {
-  background-color: rgba(100, 100, 111, 0.2);
+  background-color: #f2f7f4;
 }
 
 .paginationContainer {
   padding: 2rem 4rem;
-  background-color: rgba(100, 100, 111, 0.08);
+  background-color: #f7f9f7;
   border-top: rgba(100, 100, 111, 0.9);
 }
 

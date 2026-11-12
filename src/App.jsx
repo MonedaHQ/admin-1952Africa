@@ -1,44 +1,55 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MenuToggleProvider } from './context/MenuToggleContext';
 
-import Login from './components/features/authentication/Login';
 import ProtectedRoutes from './components/ui/ProtectedRoutes';
 import AppLayout from './components/ui/AppLayout';
-import Home from './components/features/dashboard/Home';
-import Programs from './components/features/programs/Programs';
-import Artists from './components/features/artists/Artists';
-import Events from './components/features/events/Events';
-import Gallery from './components/features/gallery/Gallery';
-import Profile from './components/features/profile/Profile';
-
-import Program from './components/features/programs/Program';
-import AddPrograms from './components/features/programs/AddPrograms';
-import EditProgram from './components/features/programs/EditProgram';
-
-import Activity from './components/features/activities/Activity';
-import AddActivity from './components/features/activities/AddActivity';
-
-import Artist from './components/features/artists/Artist';
-import AddArtist from './components/features/artists/AddArtist';
-
-import AddEvents from './components/features/events/AddEvents';
-import Event from './components/features/events/Event';
-import EditEvent from './components/features/events/EditEvent';
-
-import Exhibition from './components/features/gallery/Exhibition';
-import Work from './components/features/gallery/Work';
-import AddExhibition from './components/features/gallery/AddExhibition';
-import EditExhibition from './components/features/gallery/EditExhibition';
-import AddWork from './components/features/gallery/AddWork';
-
-import Users from './components/features/users/Users';
-import User from './components/features/users/User';
-import AddUser from './components/features/users/AddUser';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import ForgotPassword from './components/features/authentication/ForgotPassword';
-import ResetPassword from './components/features/authentication/ResetPassword';
+
+const Login = lazy(() => import('./components/features/authentication/Login'));
+const ForgotPassword = lazy(() =>
+  import('./components/features/authentication/ForgotPassword')
+);
+const ResetPassword = lazy(() =>
+  import('./components/features/authentication/ResetPassword')
+);
+const Home = lazy(() => import('./components/features/dashboard/Home'));
+const Programs = lazy(() => import('./components/features/programs/Programs'));
+const Program = lazy(() => import('./components/features/programs/Program'));
+const AddPrograms = lazy(() =>
+  import('./components/features/programs/AddPrograms')
+);
+const EditProgram = lazy(() =>
+  import('./components/features/programs/EditProgram')
+);
+const Activity = lazy(() => import('./components/features/activities/Activity'));
+const AddActivity = lazy(() =>
+  import('./components/features/activities/AddActivity')
+);
+const Artists = lazy(() => import('./components/features/artists/Artists'));
+const Artist = lazy(() => import('./components/features/artists/Artist'));
+const AddArtist = lazy(() => import('./components/features/artists/AddArtist'));
+const Events = lazy(() => import('./components/features/events/Events'));
+const AddEvents = lazy(() => import('./components/features/events/AddEvents'));
+const Event = lazy(() => import('./components/features/events/Event'));
+const EditEvent = lazy(() => import('./components/features/events/EditEvent'));
+const Gallery = lazy(() => import('./components/features/gallery/Gallery'));
+const Exhibition = lazy(() =>
+  import('./components/features/gallery/Exhibition')
+);
+const AddExhibition = lazy(() =>
+  import('./components/features/gallery/AddExhibition')
+);
+const EditExhibition = lazy(() =>
+  import('./components/features/gallery/EditExhibition')
+);
+const Work = lazy(() => import('./components/features/gallery/Work'));
+const AddWork = lazy(() => import('./components/features/gallery/AddWork'));
+const Profile = lazy(() => import('./components/features/profile/Profile'));
+const Users = lazy(() => import('./components/features/users/Users'));
+const User = lazy(() => import('./components/features/users/User'));
+const AddUser = lazy(() => import('./components/features/users/AddUser'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,9 +67,15 @@ function App() {
 
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/reset-password" element={<ForgotPassword />} />
-            <Route path="/auth/reset-password" element={<ResetPassword />} />
+            <Route path="/" element={<PublicRoute component={<Login />} />} />
+            <Route
+              path="/reset-password"
+              element={<PublicRoute component={<ForgotPassword />} />}
+            />
+            <Route
+              path="/auth/reset-password"
+              element={<PublicRoute component={<ResetPassword />} />}
+            />
             <Route
               element={
                 <ProtectedRoutes>
@@ -113,6 +130,18 @@ function App() {
         />
       </QueryClientProvider>
     </MenuToggleProvider>
+  );
+}
+
+function PublicRoute({ component }) {
+  return <Suspense fallback={<RouteLoader />}>{component}</Suspense>;
+}
+
+function RouteLoader() {
+  return (
+    <div className="route-loader" role="status" aria-label="Loading page">
+      <span />
+    </div>
   );
 }
 

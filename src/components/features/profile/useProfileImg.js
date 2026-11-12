@@ -4,7 +4,7 @@ import { updateProfileImage } from '../../../services/apiUser';
 import { toast } from 'react-hot-toast';
 
 export function useProfileImg() {
-  const { mutate: updateProfileImg, isLoading } = useMutation({
+  const { mutate: updateProfileImg, isPending: isLoading } = useMutation({
     mutationFn: ({ image, token }) => updateProfileImage(image, token),
     onSuccess: () => {
       toast.success('Profile picture updated!');

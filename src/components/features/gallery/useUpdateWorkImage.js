@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 export function useUpdateWorkImage() {
   const navigate = useNavigate();
-  const { mutate: updateWorkImage, isLoading: isUpdating } = useMutation({
+  const { mutate: updateWorkImage, isPending: isUpdating } = useMutation({
     mutationFn: ({ imageFile, id, token }) =>
       updateWorkImageApi(imageFile, id, token),
     onSuccess: () => {

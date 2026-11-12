@@ -19,7 +19,7 @@ function TextInput({
 
   if (type === 'textarea') {
     return (
-      <fieldset className={styles.fieldset}>
+      <fieldset className={`${styles.fieldset} ${styles.fullWidth}`}>
         <label htmlFor={id}>{label}</label>
         <ReactQuill
           id={id}

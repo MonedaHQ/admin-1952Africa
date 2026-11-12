@@ -5,12 +5,13 @@ export function useWork(id) {
   const queryClient = useQueryClient();
 
   const { isLoading: isLoadingWork, data: work } = useQuery({
-    queryKey: ['work'],
+    queryKey: ['work', id],
     queryFn: () => getWork(id),
+    enabled: Boolean(id),
   });
 
   function refetchWork() {
-    queryClient.invalidateQueries('work');
+    queryClient.invalidateQueries({ queryKey: ['work', id] });
   }
 
   return { isLoadingWork, work, refetchWork };

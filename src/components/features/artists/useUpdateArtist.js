@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateArtist() {
   const navigate = useNavigate();
-  const { mutate: updateArtist, isLoading: isUpdating } = useMutation({
+  const { mutate: updateArtist, isPending: isUpdating } = useMutation({
     mutationFn: ({ payload, id, token }) => updateArtistApi(payload, id, token),
     onSuccess: () => {
       toast.success('Artist successfully updated!');

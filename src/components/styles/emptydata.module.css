@@ -1,10 +1,18 @@
 .container {
   display: grid;
-  padding: 4rem;
+  min-height: 30rem;
+  padding: 6rem 4rem;
+  place-content: center;
   justify-items: center;
   row-gap: 1.8rem;
+  color: var(--color-grey);
+  background: var(--color-surface);
+  border: 1px dashed #c8d0cc;
+  border-radius: 1.4rem;
 }
 
 .container svg {
-  color: var(--color-fail);
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-green);
 }

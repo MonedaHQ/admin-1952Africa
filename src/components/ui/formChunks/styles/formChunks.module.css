@@ -5,8 +5,12 @@
   gap: 1rem;
 }
 
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
 .fieldset label {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -14,12 +18,14 @@
 .fieldset textarea,
 .fieldset select {
   font: inherit;
-  border: 1px solid var(--color-black);
+  border: 1px solid var(--color-border);
   outline: 1px solid transparent;
 
   width: 100%;
-  padding: 1rem 2rem;
-  border-radius: 0.8rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: var(--color-surface);
+  min-height: 5rem;
   transition: all 0.2s;
 }
 
@@ -31,7 +37,25 @@
 }
 
 .fieldset textarea {
-  /* height: auto; */
+  min-height: 14rem;
+}
+
+.fieldset input:disabled,
+.fieldset select:disabled {
+  color: var(--color-grey);
+  background: var(--color-muted);
+  cursor: not-allowed;
+}
+
+.fieldset :global(.ql-container) {
+  min-height: 16rem;
+  border-color: var(--color-border);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.fieldset :global(.ql-toolbar) {
+  border-color: var(--color-border);
+  border-radius: 1rem 1rem 0 0;
 }
 
 .fieldset p {

@@ -5,7 +5,7 @@ import styles from './styles/forgotpassword.module.css';
 import Button from '../../ui/Button';
 
 function ForgotPassword() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
 
   if (status) {

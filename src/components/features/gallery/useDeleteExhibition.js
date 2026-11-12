@@ -3,7 +3,7 @@ import { deleteExhibition as deleteExhibitionApi } from '../../../services/apiGa
 import { useMutation } from '@tanstack/react-query';
 
 export function useDeleteExhibition() {
-  const { mutate: deleteExhibition, isLoading: isDeleting } = useMutation({
+  const { mutate: deleteExhibition, isPending: isDeleting } = useMutation({
     mutationFn: ({ id, token }) => deleteExhibitionApi(id, token),
     onSuccess: () => {
       toast.success('Exhibition successfully deleted!');

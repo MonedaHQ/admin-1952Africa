@@ -10,6 +10,7 @@ import { useProfileImg } from './useProfileImg';
 import { getCurrentUser } from '../../../services/apiUser';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './styles/profile.module.css';
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('1952adminUser'));
@@ -44,12 +45,16 @@ function Profile() {
   }
   return (
     <Section>
-      <BigHeader
-        title="Account Preferences"
-        variant="md"
-        userRole={userRole}
-        useRole={true}
-      />
+      <div className={styles.heading}>
+        <span>Profile & security</span>
+        <BigHeader
+          title="Account preferences"
+          variant="md"
+          userRole={userRole}
+          useRole={true}
+        />
+        <p>Manage your personal details, profile image, and account security.</p>
+      </div>
       <MainForm>
         <Avatar
           imageData={imageData}

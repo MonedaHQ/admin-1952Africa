@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export function useCreateEvent() {
   const navigate = useNavigate();
-  const { mutate: createEvent, isLoading: isCreating } = useMutation({
+  const { mutate: createEvent, isPending: isCreating } = useMutation({
     mutationFn: ({ form, token }) => createEventApi(form, token),
     onSuccess: () => {
       toast.success('Event successfully created!');
