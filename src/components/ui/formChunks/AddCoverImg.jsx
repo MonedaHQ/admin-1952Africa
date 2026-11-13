@@ -67,7 +67,7 @@ function AddCoverImg({
     return (
       <div className={styles.fullImage}>
         <div className={styles.imageContainer}>
-          <img src={imagePreview} alt="Cover Image" draggable="false" />
+          <img src={imagePreview} alt="Full artwork preview" draggable="false" />
         </div>
         <div className={styles.buttonWrapper}>
           <ImageInput onChange={handleImageChange} disabled={isUpdating}>

@@ -9,6 +9,7 @@ import SearchBar from '../../ui/SearchBar';
 import OperationsPanel from '../../ui/OperationsPanel';
 import Table from '../../ui/Table';
 import EmptyData from '../../ui/EmptyData';
+import Loader from '../../ui/Loader';
 
 function Works() {
   const { id } = useParams();
@@ -20,7 +21,9 @@ function Works() {
 
   const tableHeaders = ['Title', 'Medium', 'Artist', 'Availability'];
 
-  if (isLoadingWorks && isLoadingArtistData) return;
+  if (isLoadingWorks || isLoadingArtistData) {
+    return <Loader fullScreen={false} label="Loading works" />;
+  }
 
   const newWorksData = works?.data.map((work) => {
     const artist = artistData?.find((artist) => artist.id === work.artist_id);
@@ -45,15 +48,15 @@ function Works() {
         type="lg"
       />
       <SearchBar placeholder="Search work" />
-      <OperationsPanel title={`All works (${works?.meta.totalItems || 0})`} />
-      {!isLoadingWorks && works?.data.length > 0 && (
+      <OperationsPanel title={`All works (${works.meta.totalItems})`} />
+      {works.data.length > 0 && (
         <Table
           headers={tableHeaders}
           operationData={tableData}
           paginationCount={works?.meta.totalItems}
         />
       )}
-      {(works?.data.length < 1 || !works) && <EmptyData />}
+      {works.data.length < 1 && <EmptyData />}
     </MainForm>
   );
 }

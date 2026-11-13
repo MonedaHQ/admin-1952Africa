@@ -59,7 +59,7 @@ function EditProgram() {
         type="lg"
         onConfirm={handleDeleteProgram}
       />
-      <MainForm>
+      <MainForm layout="split">
         <AddCoverImg
           imageData={imageData}
           replacementFunction={imageReplacement}

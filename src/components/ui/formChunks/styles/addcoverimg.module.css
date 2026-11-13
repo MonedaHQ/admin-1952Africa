@@ -30,14 +30,24 @@
 }
 
 .imageContainer {
-  align-items: center;
+  display: grid;
+  place-items: center;
+  min-height: 24rem;
+  padding: 1.6rem;
+  overflow: hidden;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 1.2rem;
 }
 
 .imageContainer img {
-  width: min(100%, 72rem);
-  aspect-ratio: 16 / 7;
-  object-fit: cover;
-  border-radius: 1.2rem;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 68rem;
+  object-fit: contain;
+  border-radius: .8rem;
 }
 
 .buttonWrapper {
@@ -64,7 +74,7 @@
 
 @media only screen and (max-width: 34.375em) {
   .imageContainer img {
-    width: 80%;
+    max-width: 100%;
   }
   .coverImgContainer { flex-direction: column; }
 }

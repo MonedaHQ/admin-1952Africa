@@ -55,7 +55,7 @@ function Profile() {
         />
         <p>Manage your personal details, profile image, and account security.</p>
       </div>
-      <MainForm>
+      <MainForm layout="split">
         <Avatar
           imageData={imageData}
           replacementFunction={handleImageReplacement}
