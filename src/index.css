@@ -34,9 +34,15 @@
   --color-grey: #68716f;
   --color-black: #17201e;
   --color-fail: #b43a35;
-  --color-wine: #5e0814;
-  --color-orange: #ff7c00;
-  --color-yellow: #ffb500;
+  --color-role-superadmin-bg: #ead9aa;
+  --color-role-superadmin-text: #59451b;
+  --color-role-superadmin-border: #d2b86e;
+  --color-role-editor-bg: #dcece8;
+  --color-role-editor-text: #145e55;
+  --color-role-editor-border: #b7d7cf;
+  --color-role-user-bg: #e9eeeb;
+  --color-role-user-text: #4d5b56;
+  --color-role-user-border: #d3ddd8;
   --color-green-radiant: radial-gradient(
     50% 50% at 50% 50%,
     #021e1b 0%,
@@ -123,24 +129,29 @@ textarea:focus-visible {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 1.6rem;
   background: var(--color-background);
 }
 
-.route-loader span {
-  width: 4rem;
-  height: 4rem;
-  border: 3px solid var(--color-border);
-  border-top-color: var(--color-green);
-  border-radius: 50%;
-  animation: route-loader-spin .75s linear infinite;
+.route-loader__mark {
+  --loader-height: 2rem;
+  width: calc(var(--loader-height) * 8.1293);
+  height: var(--loader-height);
+  background: linear-gradient(90deg, var(--color-green-dark) 0 50%, rgba(13, 79, 73, .14) 50% 100%) 100% 0 / 200% 100%;
+  -webkit-mask: url('/images/1952-band.png') center / 100% 100% no-repeat;
+  mask: url('/images/1952-band.png') center / 100% 100% no-repeat;
+  animation: route-loader-fill 1.5s cubic-bezier(.65, 0, .35, 1) infinite alternate;
 }
+
+.route-loader small { color: var(--color-grey); font-size: 1.1rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
 
 .route-loader--content {
   min-height: 100%;
 }
 
-@keyframes route-loader-spin {
-  to { transform: rotate(360deg); }
+@keyframes route-loader-fill {
+  to { background-position: 0 0; }
 }
 
 /*quill styles*/

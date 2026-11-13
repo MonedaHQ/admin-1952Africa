@@ -1,5 +1,16 @@
+.header { width: 100%; }
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+
+.titleRow h1 { margin: 0; }
+
 .xl {
-  padding: 2rem 0;
+  padding: 1rem 0;
   font-size: 5.2rem;
 }
 
@@ -9,31 +20,41 @@
 
 .md {
   font-size: 2.8rem;
-  padding-bottom: 2rem;
+  padding: .6rem 0;
   font-family: 'Teachers', 'Gill Sans', sans-serif;
 }
 
 .role {
-  font-size: 1.4rem;
-  padding: 1rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: .8rem 1.3rem;
+  border: 1px solid transparent;
   border-radius: 25rem;
 }
 
 .editor {
-  background-color: var(--color-wine);
-  color: var(--color-white);
+  background-color: var(--color-role-editor-bg);
+  color: var(--color-role-editor-text);
+  border-color: var(--color-role-editor-border);
 }
 .superadmin {
-  background-color: var(--color-orange);
-  color: var(--color-white);
+  background-color: var(--color-role-superadmin-bg);
+  color: var(--color-role-superadmin-text);
+  border-color: var(--color-role-superadmin-border);
 }
 .user {
-  background-color: var(--color-yellow);
+  background-color: var(--color-role-user-bg);
+  color: var(--color-role-user-text);
+  border-color: var(--color-role-user-border);
 }
 
 @media only screen and (max-width: 75em) {
   .xl {
-    padding: 2rem 0;
+    padding: 1rem 0;
     font-size: 4rem;
   }
 }
@@ -41,7 +62,7 @@
 @media only screen and (max-width: 35em) {
   .xl {
     font-size: 2.8rem;
-    padding: 1rem 0;
+    padding: .6rem 0;
   }
 
   .lg {

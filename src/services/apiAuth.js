@@ -1,8 +1,8 @@
-import { BASE_URL } from '../utilities/config';
-import { unwrapData } from './apiResponse';
+import { getApiUrl } from '../utilities/config';
+import { parseApiResponse, unwrapData } from './apiResponse';
 
 export async function login(email, password) {
-  const url = `${BASE_URL}/auth/sign-in`;
+  const url = getApiUrl('/auth/sign-in');
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -16,10 +16,10 @@ export async function login(email, password) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await parseApiResponse(response);
       throw new Error(errorData.message || 'Login failed');
     }
-    const responseData = await response.json();
+    const responseData = await parseApiResponse(response);
     return unwrapData(responseData);
   } catch (error) {
     console.error('Login error:', error.message);
@@ -28,7 +28,7 @@ export async function login(email, password) {
 }
 
 export async function resetPassword(email) {
-  const url = `${BASE_URL}/auth/reset-password`;
+  const url = getApiUrl('/auth/reset-password');
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -41,10 +41,10 @@ export async function resetPassword(email) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await parseApiResponse(response);
       throw new Error(errorData.message || 'Failed to reset');
     }
-    const responseData = await response.json();
+    const responseData = await parseApiResponse(response);
     return unwrapData(responseData, {});
   } catch (error) {
     console.error('Error:', error.message);
@@ -53,7 +53,7 @@ export async function resetPassword(email) {
 }
 
 export async function changePassword(data, token) {
-  const url = `${BASE_URL}/auth/change-password`;
+  const url = getApiUrl('/auth/change-password');
 
   try {
     const response = await fetch(url, {
@@ -66,11 +66,11 @@ export async function changePassword(data, token) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await parseApiResponse(response);
       throw new Error(errorData.message || 'Failed to update');
     }
 
-    const responseData = await response.json();
+    const responseData = await parseApiResponse(response);
     return unwrapData(responseData, {});
   } catch (error) {
     console.error('Error:', error.message);
@@ -79,7 +79,7 @@ export async function changePassword(data, token) {
 }
 
 export async function updatePassword(data, token) {
-  const url = `${BASE_URL}/auth/update-password`;
+  const url = getApiUrl('/auth/update-password');
   try {
     const response = await fetch(url, {
       method: 'PUT',
@@ -91,11 +91,11 @@ export async function updatePassword(data, token) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await parseApiResponse(response);
       throw new Error(errorData.message || 'Failed to update');
     }
 
-    const responseData = await response.json();
+    const responseData = await parseApiResponse(response);
     return unwrapData(responseData);
   } catch (error) {
     console.error('Error:', error.message);

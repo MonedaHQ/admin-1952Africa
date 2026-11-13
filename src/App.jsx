@@ -140,7 +140,8 @@ function PublicRoute({ component }) {
 function RouteLoader() {
   return (
     <div className="route-loader" role="status" aria-label="Loading page">
-      <span />
+      <span className="route-loader__mark" />
+      <small>Loading page</small>
     </div>
   );
 }

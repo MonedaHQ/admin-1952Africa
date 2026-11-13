@@ -30,7 +30,8 @@ function AppLayout() {
 function OutletLoader() {
   return (
     <div className="route-loader route-loader--content" role="status" aria-label="Loading page">
-      <span />
+      <span className="route-loader__mark" />
+      <small>Loading page</small>
     </div>
   );
 }
